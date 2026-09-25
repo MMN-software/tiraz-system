@@ -1,0 +1,628 @@
+import type { Product } from "@/lib/types";
+
+export const products: Product[] = [
+  {
+    id: 1,
+    slug: "ventilator-tz-vn-200",
+    name: "دستگاه ونتیلاتور پیشرفته",
+    category: "medical",
+    code: "TZ-VN-200",
+    brand: "MEDIQ",
+    shortDesc:
+      "ونتیلاتور ICU با حالت‌های تهویه پیشرفته و نمایشگر لمسی ۱۵ اینچ.",
+    description:
+      "دستگاه ونتیلاتور TZ-VN-200 برای استفاده در بخش‌های مراقبت‌های ویژه طراحی شده و از همه حالت‌های تهویه تهاجمی و غیرتهاجمی پشتیبانی می‌کند.",
+    features: [
+      "نمایشگر لمسی ۱۵ اینچ",
+      "پشتیبانی از ۱۲ حالت تهویه",
+      "باتری پشتیبان ۴ ساعته",
+      "سیستم هشدار هوشمند",
+    ],
+    specs: [
+      { label: "ولتاژ", value: "۲۲۰ ولت / ۵۰ هرتز" },
+      { label: "وزن", value: "۲۸ کیلوگرم" },
+      { label: "نمایشگر", value: "LCD لمسی ۱۵ اینچ" },
+    ],
+    applications: ["ICU", "CCU", "اتاق عمل"],
+    badge: "new",
+    featured: true,
+  },
+  {
+    id: 2,
+    slug: "microscope-tz-mc-110",
+    name: "میکروسکوپ بیولوژیک دوچشمی",
+    category: "lab",
+    code: "TZ-MC-110",
+    brand: "LabTech",
+    shortDesc:
+      "میکروسکوپ بیولوژیک با بزرگنمایی ۴۰ تا ۱۰۰۰ برابر و عدسی‌های پلان.",
+    description:
+      "میکروسکوپ بیولوژیک TZ-MC-110 با طراحی ارگونومیک و اپتیک باکیفیت، انتخاب مناسب آزمایشگاه‌های تشخیصی و آموزشی است.",
+    features: [
+      "بزرگنمایی ۴۰X تا ۱۰۰۰X",
+      "عدسی‌های پلان با پوشش ضد انعکاس",
+      "نور LED قابل تنظیم",
+      "صفحه مکانیکی دو محوره",
+    ],
+    specs: [
+      { label: "بزرگنمایی", value: "۴۰X - ۱۰۰۰X" },
+      { label: "نوع نور", value: "LED" },
+      { label: "سر", value: "دوچشمی ۳۰ درجه" },
+    ],
+    applications: ["آزمایشگاه تشخیصی", "آموزش", "پاتولوژی"],
+    badge: "bestseller",
+    featured: true,
+  },
+  {
+    id: 3,
+    slug: "monitor-tz-mn-350",
+    name: "دستگاه مانیتور علائم حیاتی",
+    category: "medical",
+    code: "TZ-MN-350",
+    brand: "MediCare",
+    shortDesc:
+      "مانیتور چندپارامتری با نمایش ECG، SpO2، NIBP، دما و تنفس.",
+    description:
+      "مانیتور علائم حیاتی TZ-MN-350 با نمایشگر ۱۲ اینچ و قابلیت اتصال به سیستم مرکزی، گزینه‌ای کامل برای بخش‌های بستری است.",
+    features: [
+      "نمایش ۵ پارامتر همزمان",
+      "نمایشگر لمسی ۱۲ اینچ",
+      "آژیر هوشمند سه‌سطحی",
+      "ذخیره‌سازی ۷۲ ساعته",
+    ],
+    specs: [
+      { label: "نمایشگر", value: "۱۲ اینچ لمسی" },
+      { label: "پارامترها", value: "ECG، SpO2، NIBP، دما، تنفس" },
+      { label: "باتری", value: "۴ ساعته" },
+    ],
+    applications: ["بخش بستری", "ICU", "اتاق عمل"],
+    badge: null,
+    featured: true,
+  },
+  {
+    id: 4,
+    slug: "industrial-valve-tz-vl-045",
+    name: "شیر برقی صنعتی استیل",
+    category: "parts",
+    code: "TZ-VL-045",
+    brand: "InduTech",
+    shortDesc:
+      "شیر برقی استیل ۳۱۶ با بدنه مقاوم و کویل ۲۴ ولت.",
+    description:
+      "شیر برقی صنعتی TZ-VL-045 از استیل ۳۱۶ ساخته شده و برای محیط‌های خورنده و سیستم‌های تحت فشار مناسب است.",
+    features: [
+      "بدنه استیل ۳۱۶",
+      "کویل ۲۴ ولت",
+      "فشار کاری تا ۱۶ بار",
+      "دما تا ۱۸۰ درجه",
+    ],
+    specs: [
+      { label: "جنس بدنه", value: "استیل ۳۱۶" },
+      { label: "قطر", value: "۱ اینچ" },
+      { label: "ولتاژ", value: "۲۴V DC" },
+    ],
+    applications: ["صنایع شیمیایی", "تصفیه آب", "نفت و گاز"],
+    badge: "discount",
+    featured: true,
+  },
+  {
+    id: 5,
+    slug: "centrifuge-tz-cf-210",
+    name: "دستگاه سانتریفیوژ آزمایشگاهی",
+    category: "lab",
+    code: "TZ-CF-210",
+    brand: "LabTech",
+    shortDesc:
+      "سانتریفیوژ رومیزی با سرعت ۶۰۰۰ دور در دقیقه و ظرفیت ۱۲ لوله.",
+    description:
+      "سانتریفیوژ رومیزی TZ-CF-210 با کنترل دیجیتال و تایمر قابل تنظیم، برای جداسازی نمونه‌های خون و مایعات بیولوژیک کاربرد دارد.",
+    features: [
+      "سرعت تا ۶۰۰۰ RPM",
+      "ظرفیت ۱۲ لوله ۱۰ میلی‌لیتری",
+      "تایمر دیجیتال",
+      "قفل ایمنی درپوش",
+    ],
+    specs: [
+      { label: "سرعت", value: "۶۰۰۰ RPM" },
+      { label: "ظرفیت", value: "۱۲ لوله" },
+      { label: "وزن", value: "۱۲ کیلوگرم" },
+    ],
+    applications: ["آزمایشگاه تشخیصی", "بانک خون"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 6,
+    slug: "ecg-tz-ec-100",
+    name: "الکتروکاردیوگراف ۱۲ کاناله",
+    category: "medical",
+    code: "TZ-EC-100",
+    brand: "MEDIQ",
+    shortDesc: "ECG ۱۲ کاناله با چاپگر حرارتی و نمایشگر رنگی.",
+    description:
+      "الکتروکاردیوگراف TZ-EC-100 با قابلیت ذخیره‌سازی ۲۰۰ نوار، نمایشگر رنگی ۷ اینچ و باتری داخلی، مناسب مطب و بیمارستان است.",
+    features: [
+      "۱۲ کاناله همزمان",
+      "نمایشگر رنگی ۷ اینچ",
+      "چاپگر حرارتی داخلی",
+      "ذخیره ۲۰۰ نوار",
+    ],
+    specs: [
+      { label: "کانال", value: "۱۲" },
+      { label: "نمایشگر", value: "۷ اینچ رنگی" },
+      { label: "باتری", value: "۳ ساعته" },
+    ],
+    applications: ["مطب", "بیمارستان", "کلینیک"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 7,
+    slug: "autoclave-tz-au-050",
+    name: "اتوکلاو استریل رومیزی",
+    category: "medical",
+    code: "TZ-AU-050",
+    brand: "MediCare",
+    shortDesc: "اتوکلاو ۵۰ لیتری با کنترل اتوماتیک دما و فشار.",
+    description:
+      "اتوکلاو رومیزی TZ-AU-050 با ظرفیت ۵۰ لیتر و چرخه‌های استریل متنوع، برای استریل ابزار جراحی و تجهیزات حساس مناسب است.",
+    features: [
+      "ظرفیت ۵۰ لیتر",
+      "کنترل اتوماتیک دما/فشار",
+      "۴ چرخه استریل",
+      "چاپگر داخلی",
+    ],
+    specs: [
+      { label: "ظرفیت", value: "۵۰ لیتر" },
+      { label: "دما", value: "تا ۱۳۴ درجه" },
+      { label: "فشار", value: "۲.۱ بار" },
+    ],
+    applications: ["اتاق عمل", "دندانپزشکی", "کلینیک"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 8,
+    slug: "spectrophotometer-tz-sp-300",
+    name: "اسپکتروفتومتر UV-Vis",
+    category: "lab",
+    code: "TZ-SP-300",
+    brand: "PharmaPlus",
+    shortDesc:
+      "اسپکتروفتومتر با محدوده ۱۹۰ تا ۱۱۰۰ نانومتر و دقت بالا.",
+    description:
+      "اسپکتروفتومتر TZ-SP-300 با تک‌پرتویی و نرم‌افزار تخصصی، برای آنالیز کیفی و کمی نمونه‌های شیمیایی و بیولوژیک کاربرد دارد.",
+    features: [
+      "محدوده ۱۹۰ تا ۱۱۰۰ نانومتر",
+      "دقت ±۰.۵ نانومتر",
+      "نمایشگر رنگی ۷ اینچ",
+      "اتصال USB",
+    ],
+    specs: [
+      { label: "محدوده", value: "۱۹۰-۱۱۰۰ nm" },
+      { label: "دقت طول موج", value: "±۰.۵ nm" },
+      { label: "منبع نور", value: "لامپ تنگستن/دوتریوم" },
+    ],
+    applications: ["شیمی", "داروسازی", "محیط زیست"],
+    badge: "new",
+    featured: false,
+  },
+  {
+    id: 9,
+    slug: "ph-meter-tz-ph-150",
+    name: "پی‌اچ‌متر دیجیتال آزمایشگاهی",
+    category: "lab",
+    code: "TZ-PH-150",
+    brand: "BioLine",
+    shortDesc: "پی‌اچ‌متر رومیزی با دقت ±۰.۰۱ و کالیبراسیون خودکار.",
+    description:
+      "پی‌اچ‌متر دیجیتال TZ-PH-150 با الکترود شیشه‌ای باکیفیت و جبران‌کننده دما، ابزاری دقیق برای اندازه‌گیری pH محلول‌هاست.",
+    features: [
+      "دقت ±۰.۰۱ pH",
+      "جبران‌کننده دما",
+      "کالیبراسیون خودکار",
+      "الکترود قابل تعویض",
+    ],
+    specs: [
+      { label: "محدوده", value: "۰ تا ۱۴ pH" },
+      { label: "دقت", value: "±۰.۰۱" },
+      { label: "نمایشگر", value: "LCD" },
+    ],
+    applications: ["آزمایشگاه", "صنایع غذایی", "کشاورزی"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 10,
+    slug: "infusion-pump-tz-ip-050",
+    name: "پمپ انفوزیون سرنگ",
+    category: "medical",
+    code: "TZ-IP-050",
+    brand: "MediCare",
+    shortDesc: "پمپ انفوزیون با دقت بالا و آژیر چندسطحی.",
+    description:
+      "پمپ انفوزیون TZ-IP-050 با دقت ۰.۱ میلی‌لیتر بر ساعت و باتری پشتیبان، برای تزریق دقیق دارو در بخش‌های ویژه کاربرد دارد.",
+    features: [
+      "دقت ۰.۱ ml/h",
+      "باتری ۸ ساعته",
+      "آژیر چندسطحی",
+      "نمایشگر رنگی",
+    ],
+    specs: [
+      { label: "دقت", value: "۰.۱ ml/h" },
+      { label: "سرعت", value: "۰.۱-۱۵۰۰ ml/h" },
+      { label: "باتری", value: "۸ ساعته" },
+    ],
+    applications: ["ICU", "NICU", "اتاق عمل"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 11,
+    slug: "industrial-compressor-tz-cp-500",
+    name: "کمپرسور صنعتی اسکرو",
+    category: "industrial",
+    code: "TZ-CP-500",
+    brand: "InduTech",
+    shortDesc: "کمپرسور اسکرو ۵۰۰ لیتری با کنترلر هوشمند.",
+    description:
+      "کمپرسور اسکرو صنعتی TZ-CP-500 با کارکرد کم‌صدا و کنترلر هوشمند، گزینه‌ای مناسب برای خطوط تولید صنعتی است.",
+    features: [
+      "مخزن ۵۰۰ لیتر",
+      "کنترلر هوشمند",
+      "کارکرد کم‌صدا",
+      "فیلتر دوگانه",
+    ],
+    specs: [
+      { label: "حجم مخزن", value: "۵۰۰ لیتر" },
+      { label: "فشار", value: "۱۰ بار" },
+      { label: "توان", value: "۷.۵ کیلووات" },
+    ],
+    applications: ["خطوط تولید", "صنایع غذایی", "خودروسازی"],
+    badge: "bestseller",
+    featured: false,
+  },
+  {
+    id: 12,
+    slug: "pressure-sensor-tz-ps-025",
+    name: "سنسور فشار صنعتی دیجیتال",
+    category: "industrial",
+    code: "TZ-PS-025",
+    brand: "PrecisionX",
+    shortDesc: "سنسور فشار با دقت ۰.۲۵٪ و خروجی ۴-۲۰ میلی‌آمپر.",
+    description:
+      "سنسور فشار صنعتی TZ-PS-025 با بدنه استیل و خروجی استاندارد ۴-۲۰ میلی‌آمپر، برای مانیتورینگ دقیق فشار در سیستم‌های صنعتی طراحی شده است.",
+    features: [
+      "دقت ۰.۲۵٪",
+      "خروجی ۴-۲۰ mA",
+      "بدنه استیل ضدزنگ",
+      "ضد آب IP67",
+    ],
+    specs: [
+      { label: "محدوده", value: "۰-۱۰ بار" },
+      { label: "خروجی", value: "۴-۲۰ mA" },
+      { label: "دقت", value: "۰.۲۵٪" },
+    ],
+    applications: ["مانیتورینگ صنعتی", "پتروشیمی", "آب و فاضلاب"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 13,
+    slug: "steel-bolt-tz-sb-100",
+    name: "پیچ و مهره استیل صنعتی",
+    category: "parts",
+    code: "TZ-SB-100",
+    brand: "InduTech",
+    shortDesc: "پیچ و مهره استیل ۳۰۴ با استاندارد DIN.",
+    description:
+      "پیچ و مهره استیل ۳۰۴ مطابق استاندارد DIN، برای کاربردهای صنعتی و در محیط‌های مرطوب مناسب است.",
+    features: [
+      "استیل ۳۰۴",
+      "استاندارد DIN",
+      "مقاوم به خوردگی",
+      "اندازه‌های متنوع",
+    ],
+    specs: [
+      { label: "جنس", value: "استیل ۳۰۴" },
+      { label: "استاندارد", value: "DIN 933" },
+      { label: "رزوه", value: "متریک" },
+    ],
+    applications: ["سازه‌های فلزی", "صنایع دریایی"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 14,
+    slug: "silicone-washer-tz-sw-020",
+    name: "واشر سیلیکونی صنعتی",
+    category: "parts",
+    code: "TZ-SW-020",
+    brand: "QualityPro",
+    shortDesc: "واشر سیلیکونی مقاوم به حرارت تا ۲۵۰ درجه.",
+    description:
+      "واشر سیلیکونی TZ-SW-020 با مقاومت حرارتی بالا و انعطاف‌پذیری مناسب، برای آب‌بندی در سیستم‌های صنعتی کاربرد دارد.",
+    features: [
+      "مقاوم تا ۲۵۰ درجه",
+      "انعطاف‌پذیری بالا",
+      "ضد آب و روغن",
+      "سایزهای متنوع",
+    ],
+    specs: [
+      { label: "جنس", value: "سیلیکون" },
+      { label: "دما", value: "تا ۲۵۰ درجه" },
+      { label: "ضخامت", value: "۲-۱۰ میلی‌متر" },
+    ],
+    applications: ["آب‌بندی صنعتی", "صنایع غذایی"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 15,
+    slug: "microscope-slide-tz-ms-100",
+    name: "لام و لامل میکروسکوپ",
+    category: "consumables",
+    code: "TZ-MS-100",
+    brand: "LabTech",
+    shortDesc: "بسته ۱۰۰ عددی لام شیشه‌ای با کیفیت آزمایشگاهی.",
+    description:
+      "لام و لامل میکروسکوپ با شیشه باکیفیت و لبه‌های صاف، مناسب برای نمونه‌های میکروسکوپی است.",
+    features: [
+      "بسته ۱۰۰ عددی",
+      "شیشه باکیفیت",
+      "لبه‌های صاف",
+      "ضد خش",
+    ],
+    specs: [
+      { label: "ابعاد لام", value: "۲۵×۷۵ میلی‌متر" },
+      { label: "تعداد", value: "۱۰۰ عدد" },
+      { label: "جنس", value: "شیشه" },
+    ],
+    applications: ["آزمایشگاه", "پاتولوژی"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 16,
+    slug: "nitrile-gloves-tz-ng-200",
+    name: "دستکش نیتریل آزمایشگاهی",
+    category: "consumables",
+    code: "TZ-NG-200",
+    brand: "MediCare",
+    shortDesc: "دستکش نیتریل بدون پودر، بسته ۱۰۰ عددی.",
+    description:
+      "دستکش نیتریل بدون پودر با ضخامت مناسب و مقاومت شیمیایی، برای کاربردهای پزشکی و آزمایشگاهی طراحی شده است.",
+    features: [
+      "بدون پودر",
+      "مقاوم به مواد شیمیایی",
+      "بسته ۱۰۰ عددی",
+      "سایزهای S تا XL",
+    ],
+    specs: [
+      { label: "جنس", value: "نیتریل" },
+      { label: "تعداد", value: "۱۰۰ عدد" },
+      { label: "ضخامت", value: "۰.۱۲ میلی‌متر" },
+    ],
+    applications: ["پزشکی", "آزمایشگاه", "صنایع غذایی"],
+    badge: "bestseller",
+    featured: false,
+  },
+  {
+    id: 17,
+    slug: "iv-catheter-tz-ic-050",
+    name: "کاتتر وریدی ایمن",
+    category: "consumables",
+    code: "TZ-IC-050",
+    brand: "MediCare",
+    shortDesc: "کاتتر وریدی ایمن با سایزهای متنوع و بسته‌بندی استریل.",
+    description:
+      "کاتتر وریدی ایمن TZ-IC-050 با سیستم ایمنی خودکار و بسته‌بندی استریل، برای تزریقات وریدی طراحی شده است.",
+    features: [
+      "سیستم ایمنی خودکار",
+      "بسته‌بندی استریل",
+      "سایز ۱۴G تا ۲۴G",
+      "تک‌مصرف",
+    ],
+    specs: [
+      { label: "سایز", value: "۱۴G-۲۴G" },
+      { label: "جنس", value: "PTFE" },
+      { label: "استریل", value: "بله" },
+    ],
+    applications: ["بیمارستان", "درمانگاه"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 18,
+    slug: "micropipette-tz-mp-100",
+    name: "میکروپیپت قابل تنظیم",
+    category: "lab",
+    code: "TZ-MP-100",
+    brand: "BioLine",
+    shortDesc: "میکروپیپت با محدوده ۱۰۰-۱۰۰۰ میکرولیتر.",
+    description:
+      "میکروپیپت قابل تنظیم TZ-MP-100 با دقت بالا و ارگونومی مناسب، برای انتقال دقیق مایعات در آزمایشگاه کاربرد دارد.",
+    features: [
+      "محدوده ۱۰۰-۱۰۰۰ µl",
+      "دقت بالا",
+      "قابل اتوکلاو",
+      "ارگونومیک",
+    ],
+    specs: [
+      { label: "محدوده", value: "۱۰۰-۱۰۰۰ µl" },
+      { label: "دقت", value: "±۰.۶٪" },
+      { label: "جنس", value: "پلی‌پروپیلن" },
+    ],
+    applications: ["آزمایشگاه", "بیوتکنولوژی"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 19,
+    slug: "water-bath-tz-wb-020",
+    name: "بن ماری آزمایشگاهی",
+    category: "lab",
+    code: "TZ-WB-020",
+    brand: "LabTech",
+    shortDesc: "بن ماری ۲۰ لیتری با کنترل دیجیتال دما.",
+    description:
+      "بن ماری TZ-WB-020 با ظرفیت ۲۰ لیتر و کنترل دیجیتال دما تا ۱۰۰ درجه، برای گرم کردن نمونه‌ها در آزمایشگاه استفاده می‌شود.",
+    features: [
+      "ظرفیت ۲۰ لیتر",
+      "کنترل دیجیتال",
+      "دما تا ۱۰۰ درجه",
+      "بدنه استیل",
+    ],
+    specs: [
+      { label: "ظرفیت", value: "۲۰ لیتر" },
+      { label: "دما", value: "تا ۱۰۰ درجه" },
+      { label: "بدنه", value: "استیل ۳۰۴" },
+    ],
+    applications: ["آزمایشگاه", "صنایع غذایی"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 20,
+    slug: "anesthesia-machine-tz-an-300",
+    name: "دستگاه بیهوشی پیشرفته",
+    category: "medical",
+    code: "TZ-AN-300",
+    brand: "MEDIQ",
+    shortDesc: "دستگاه بیهوشی با ونتیلاتور یکپارچه و مانیتور علائم.",
+    description:
+      "دستگاه بیهوشی TZ-AN-300 با ونتیلاتور یکپارچه و امکان اتصال به مانیتور علائم حیاتی، گزینه‌ای کامل برای اتاق عمل است.",
+    features: [
+      "ونتیلاتور یکپارچه",
+      "۲ vaporizer",
+      "مانیتور علائم",
+      "چرخ‌های قفل‌شو",
+    ],
+    specs: [
+      { label: "حالت‌های تهویه", value: "VCV، PCV، SIMV" },
+      { label: "Vaporizer", value: "۲ عدد" },
+      { label: "نمایشگر", value: "۱۵ اینچ لمسی" },
+    ],
+    applications: ["اتاق عمل", "ICU"],
+    badge: "new",
+    featured: false,
+  },
+  {
+    id: 21,
+    slug: "hospital-bed-tz-hb-200",
+    name: "تخت بیمارستانی سه‌شکن",
+    category: "imported",
+    code: "TZ-HB-200",
+    brand: "MEDIQ",
+    shortDesc: "تخت سه‌شکن برقی با کنترل از راه دور و تشک طبی.",
+    description:
+      "تخت بیمارستانی سه‌شکن TZ-HB-200 با کنترل برقی، حفاظ‌های جانبی و تشک طبی، برای بخش‌های بستری و ICU طراحی شده است.",
+    features: [
+      "کنترل برقی از راه دور",
+      "تشک طبی ضد زخم بستر",
+      "حفاظ‌های جانبی",
+      "چرخ‌های ترمزدار",
+    ],
+    specs: [
+      { label: "نوع", value: "سه‌شکن برقی" },
+      { label: "ظرفیت", value: "تا ۱۸۰ کیلوگرم" },
+      { label: "ابعاد", value: "۹۰×۲۰۰ سانتی‌متر" },
+    ],
+    applications: ["بخش بستری", "ICU"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 22,
+    slug: "plc-siemens-tz-pl-1200",
+    name: "PLC زیمنس S7-1200",
+    category: "imported",
+    code: "TZ-PL-1200",
+    brand: "PrecisionX",
+    shortDesc: "کنترلر منطقی برنامه‌پذیر S7-1200 با قابلیت اتصال به شبکه.",
+    description:
+      "PLC زیمنس S7-1200 برای کنترل اتوماتیک خطوط تولید و سیستم‌های صنعتی، با قابلیت اتصال به شبکه PROFINET.",
+    features: [
+      "قابلیت اتصال PROFINET",
+      "۱۴ ورودی دیجیتال",
+      "۱۰ خروجی دیجیتال",
+      "نرم‌افزار TIA Portal",
+    ],
+    specs: [
+      { label: "مدل", value: "S7-1200" },
+      { label: "ورودی", value: "۱۴ DI" },
+      { label: "خروجی", value: "۱۰ DO" },
+    ],
+    applications: ["خطوط تولید", "اتوماسیون صنعتی"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 23,
+    slug: "industrial-display-tz-id-070",
+    name: "نمایشگر صنعتی لمسی",
+    category: "imported",
+    code: "TZ-ID-070",
+    brand: "PrecisionX",
+    shortDesc: "نمایشگر ۷ اینچ لمسی مقاوم به ضربه و گرد و غبار.",
+    description:
+      "نمایشگر صنعتی TZ-ID-070 با استاندارد IP65 و بدنه مقاوم، برای HMI و کنترل خطوط تولید مناسب است.",
+    features: [
+      "نمایشگر ۷ اینچ لمسی",
+      "استاندارد IP65",
+      "بدنه مقاوم به ضربه",
+      "پورت Ethernet",
+    ],
+    specs: [
+      { label: "ابعاد", value: "۷ اینچ" },
+      { label: "رزولوشن", value: "۸۰۰×۴۸۰" },
+      { label: "استاندارد", value: "IP65" },
+    ],
+    applications: ["اتوماسیون صنعتی", "HMI"],
+    badge: null,
+    featured: false,
+  },
+  {
+    id: 24,
+    slug: "chemical-pump-tz-ch-030",
+    name: "پمپ دوزینگ شیمیایی",
+    category: "industrial",
+    code: "TZ-CH-030",
+    brand: "InduTech",
+    shortDesc: "پمپ دوزینگ با دبی قابل تنظیم و بدنه PVC.",
+    description:
+      "پمپ دوزینگ شیمیایی TZ-CH-030 با دبی قابل تنظیم و بدنه PVC، برای تزریق دقیق مواد شیمیایی در تصفیه آب کاربرد دارد.",
+    features: [
+      "دبی قابل تنظیم",
+      "بدنه PVC",
+      "مقاوم به مواد شیمیایی",
+      "کنترل دیجیتال",
+    ],
+    specs: [
+      { label: "دبی", value: "۰-۳۰ لیتر/ساعت" },
+      { label: "فشار", value: "تا ۱۰ بار" },
+      { label: "بدنه", value: "PVC" },
+    ],
+    applications: ["تصفیه آب", "صنایع شیمیایی"],
+    badge: null,
+    featured: false,
+  },
+];
+
+export function getProductBySlug(slug: string): Product | undefined {
+  return products.find((p) => p.slug === slug);
+}
+
+export function getFeaturedProducts(): Product[] {
+  return products.filter((p) => p.featured);
+}
+
+export function getProductsByCategory(category: string): Product[] {
+  return products.filter((p) => p.category === category);
+}
+
+export function getRelatedProducts(product: Product, limit = 4): Product[] {
+  return products
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, limit);
+}
