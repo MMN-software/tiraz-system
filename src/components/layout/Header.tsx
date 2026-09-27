@@ -5,13 +5,15 @@ import Link from "next/link";
 import {
   Menu,
   X,
-  Search,
   Phone,
   Mail,
   User,
   ChevronLeft,
+  Heart,
 } from "lucide-react";
 import { Logo } from "./Logo";
+import { useWishlist } from "@/components/common/Wishlist";
+import { SearchBox } from "@/components/common/SearchBox";
 
 const navItems = [
   { label: "صفحه اصلی", href: "/" },
@@ -23,10 +25,11 @@ const navItems = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { count, ready } = useWishlist();
+  const showCount = ready && count > 0;
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-ink-200">
-      {/* نوار بالایی */}
       <div className="hidden md:block bg-brand-700 text-white text-xs">
         <div className="container mx-auto px-4 h-9 flex items-center justify-between">
           <div className="flex items-center gap-5">
@@ -39,12 +42,12 @@ export function Header() {
               <span className="num">۰۲۱-۱۲۳۴۵۶۷۸</span>
             </a>
             <a
-              href="mailto:info@tiraz-system.ir"
+              href="mailto:mohamadmehdi.neemati@gmail.com"
               className="flex items-center gap-1.5 hover:text-accent-400 transition-colors"
               aria-label="ایمیل"
             >
               <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>info@tiraz-system.ir</span>
+              <span>mohamadmehdi.neemati@gmail.com</span>
             </a>
           </div>
           <div className="flex items-center gap-4">
@@ -59,12 +62,10 @@ export function Header() {
         </div>
       </div>
 
-      {/* نوار اصلی */}
       <div className="container mx-auto px-4">
-        <div className="h-16 md:h-20 flex items-center justify-between gap-4">
+        <div className="h-16 md:h-20 flex items-center gap-3 lg:gap-6">
           <Logo size="md" />
 
-          {/* منوی دسکتاپ */}
           <nav
             className="hidden lg:flex items-center gap-1"
             aria-label="منوی اصلی"
@@ -73,27 +74,36 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-4 py-2 text-sm font-medium text-ink-700 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
+                className="px-3 py-2 text-sm font-medium text-ink-700 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
-          {/* اکشن‌ها */}
-          <div className="flex items-center gap-2">
+          {/* Search Box — روی دسکتاپ و تبلت */}
+          <div className="hidden md:block flex-1 max-w-sm ml-auto">
+            <SearchBox />
+          </div>
+
+          <div className="flex items-center gap-2 ml-auto md:ml-0">
+            {/* لیست علاقه‌مندی */}
             <Link
-              href="/products"
-              aria-label="جست‌وجو در محصولات"
-              className="hidden sm:flex items-center gap-2 px-3 h-10 bg-ink-100 hover:bg-ink-200 text-ink-600 rounded-lg text-sm transition-colors"
+              href="/wishlist"
+              aria-label={`علاقه‌مندی‌ها${showCount ? ` (${count} مورد)` : ""}`}
+              className="relative w-10 h-10 flex items-center justify-center rounded-lg text-ink-600 hover:bg-ink-100 hover:text-red-500 transition-colors"
             >
-              <Search className="w-4 h-4" aria-hidden="true" />
-              <span className="hidden md:inline">جست‌وجو...</span>
+              <Heart className="w-5 h-5" aria-hidden="true" />
+              {showCount && (
+                <span className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center num">
+                  {count.toLocaleString("fa-IR")}
+                </span>
+              )}
             </Link>
 
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center gap-2 h-10 px-4 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white text-sm font-medium rounded-lg transition-colors"
+              className="hidden xl:inline-flex items-center gap-2 h-10 px-4 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white text-sm font-medium rounded-lg transition-colors"
             >
               درخواست مشاوره
             </Link>
@@ -113,18 +123,20 @@ export function Header() {
             </button>
           </div>
         </div>
+
+        {/* Search Box روی موبایل — زیر هدر */}
+        <div className="md:hidden pb-3">
+          <SearchBox />
+        </div>
       </div>
 
-      {/* منوی موبایل (drawer) */}
       {open && (
         <>
-          {/* پس‌زمینه تیره */}
           <div
             className="lg:hidden fixed inset-0 top-16 bg-ink-900/40 z-30"
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />
-          {/* پنل منو */}
           <div className="lg:hidden fixed top-16 right-0 left-0 bg-white border-b border-ink-200 shadow-lg z-40 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <nav
               className="container mx-auto px-4 py-3 flex flex-col"
@@ -145,6 +157,26 @@ export function Header() {
                 </Link>
               ))}
 
+              <Link
+                href="/wishlist"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-between py-3 px-2 text-ink-800 hover:text-red-500 border-b border-ink-100"
+              >
+                <span className="font-medium flex items-center gap-2">
+                  <Heart className="w-4 h-4" aria-hidden="true" />
+                  علاقه‌مندی‌ها
+                  {showCount && (
+                    <span className="inline-flex min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold items-center justify-center num">
+                      {count.toLocaleString("fa-IR")}
+                    </span>
+                  )}
+                </span>
+                <ChevronLeft
+                  className="w-4 h-4 text-ink-400"
+                  aria-hidden="true"
+                />
+              </Link>
+
               <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-ink-200">
                 <a
                   href="tel:+982112345678"
@@ -154,11 +186,11 @@ export function Header() {
                   <span className="num">۰۲۱-۱۲۳۴۵۶۷۸</span>
                 </a>
                 <a
-                  href="mailto:info@tiraz-system.ir"
+                  href="mailto:mohamadmehdi.neemati@gmail.com"
                   className="flex items-center gap-2 text-sm text-ink-700 py-2"
                 >
                   <Mail className="w-4 h-4 text-brand-600" aria-hidden="true" />
-                  <span>info@tiraz-system.ir</span>
+                  <span>mohamadmehdi.neemati@gmail.com</span>
                 </a>
                 <div className="grid grid-cols-2 gap-2 mt-2">
                   <Link

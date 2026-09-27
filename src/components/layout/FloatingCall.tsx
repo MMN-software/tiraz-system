@@ -1,31 +1,39 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { Phone, MessageCircle } from "lucide-react";
 
 export function FloatingCall() {
+  const pathname = usePathname();
+  // در صفحه جزئیات محصول، نوار پایین مخفی می‌شه چون StickyProductActions جایگزینش می‌شه
+  const isProductDetail =
+    pathname.startsWith("/products/") && pathname !== "/products";
+
   return (
     <>
       {/* فقط موبایل: نوار پایین با دو دکمه */}
-      <div className="sm:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t border-ink-200 p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
-        <div className="grid grid-cols-2 gap-2">
-          <a
-            href="tel:+982112345678"
-            className="flex items-center justify-center gap-2 h-11 rounded-lg bg-brand-600 text-white text-sm font-medium active:bg-brand-700 transition-colors"
-            aria-label="تماس تلفنی"
-          >
-            <Phone className="w-4 h-4" aria-hidden="true" />
-            تماس فوری
-          </a>
-          <a
-            href="/contact"
-            className="flex items-center justify-center gap-2 h-11 rounded-lg bg-accent-500 text-white text-sm font-medium active:bg-accent-600 transition-colors"
-            aria-label="درخواست مشاوره"
-          >
-            <MessageCircle className="w-4 h-4" aria-hidden="true" />
-            مشاوره
-          </a>
+      {!isProductDetail && (
+        <div className="sm:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t border-ink-200 p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+          <div className="grid grid-cols-2 gap-2">
+            <a
+              href="tel:+982112345678"
+              className="flex items-center justify-center gap-2 h-11 rounded-lg bg-brand-600 text-white text-sm font-medium active:bg-brand-700 transition-colors"
+              aria-label="تماس تلفنی"
+            >
+              <Phone className="w-4 h-4" aria-hidden="true" />
+              تماس فوری
+            </a>
+            <a
+              href="/contact"
+              className="flex items-center justify-center gap-2 h-11 rounded-lg bg-accent-500 text-white text-sm font-medium active:bg-accent-600 transition-colors"
+              aria-label="درخواست مشاوره"
+            >
+              <MessageCircle className="w-4 h-4" aria-hidden="true" />
+              مشاوره
+            </a>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* فقط دسکتاپ: دکمه گرد شناور */}
       <a

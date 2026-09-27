@@ -3,7 +3,7 @@ import { products } from "@/lib/data/products";
 import { articles } from "@/lib/data/articles";
 import { categories } from "@/lib/data/categories";
 
-const BASE_URL = "https://tiraz-system.ir";
+const BASE_URL = "https://tirazsystem.ir";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

@@ -6,8 +6,13 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingCall } from "@/components/layout/FloatingCall";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { NavigationProgress } from "@/components/common/NavigationProgress";
+import { ScrollProgressBar } from "@/components/common/ScrollProgressBar";
 import { BackToTop } from "@/components/common/BackToTop";
 import { SkipToContent } from "@/components/common/SkipToContent";
+import { ToastProvider } from "@/components/common/Toast";
+import { WishlistProvider } from "@/components/common/Wishlist";
+import { CompareProvider } from "@/components/common/Compare";
+import { CompareBar } from "@/components/common/CompareBar";
 import "./globals.css";
 
 const vazirmatn = Vazirmatn({
@@ -16,7 +21,7 @@ const vazirmatn = Vazirmatn({
   display: "swap",
 });
 
-const BASE_URL = "https://tiraz-system.ir";
+const BASE_URL = "https://tirazsystem.ir";
 
 export const metadata: Metadata = {
   title: {
@@ -37,9 +42,7 @@ export const metadata: Metadata = {
   publisher: "تیرازیستر ایرانیان",
   applicationName: "تیرازیستر ایرانیان",
   metadataBase: new URL(BASE_URL),
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "fa_IR",
@@ -64,10 +67,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  verification: {
-    // در آینده با کد واقعی جایگزین شود
-    // google: "your-google-verification-code",
   },
 };
 
@@ -125,18 +124,26 @@ export default function RootLayout({
         id="top"
         className="min-h-screen flex flex-col antialiased bg-ink-50"
       >
-        <SkipToContent />
-        <Suspense fallback={null}>
-          <NavigationProgress />
-        </Suspense>
-        <ScrollToTop />
-        <Header />
-        <main id="main-content" className="flex-1 pb-16 sm:pb-0">
-          {children}
-        </main>
-        <Footer />
-        <FloatingCall />
-        <BackToTop />
+        <ToastProvider>
+          <WishlistProvider>
+            <CompareProvider>
+              <SkipToContent />
+              <Suspense fallback={null}>
+                <NavigationProgress />
+              </Suspense>
+              <ScrollProgressBar />
+              <ScrollToTop />
+              <Header />
+              <main id="main-content" className="flex-1 pb-16 sm:pb-0">
+                {children}
+              </main>
+              <Footer />
+              <FloatingCall />
+              <BackToTop />
+              <CompareBar />
+            </CompareProvider>
+          </WishlistProvider>
+        </ToastProvider>
       </body>
     </html>
   );

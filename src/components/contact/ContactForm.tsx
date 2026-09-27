@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
+import { useToast } from "@/components/common/Toast";
 
 interface FormState {
   name: string;
@@ -20,6 +21,7 @@ const subjects = [
 ];
 
 export function ContactForm() {
+  const { toast } = useToast();
   const [form, setForm] = useState<FormState>({
     name: "",
     phone: "",
@@ -46,9 +48,13 @@ export function ContactForm() {
 
   async function onSubmit(ev: FormEvent) {
     ev.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      toast("لطفاً خطاهای فرم را بررسی کنید.", "error");
+      return;
+    }
     setStatus("loading");
     await new Promise((r) => setTimeout(r, 900));
+    toast("پیام شما با موفقیت ارسال شد.", "success");
     setStatus("success");
     setForm({ ...form, name: "", phone: "", email: "", message: "" });
   }

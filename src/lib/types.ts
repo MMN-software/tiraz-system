@@ -21,6 +21,11 @@ export interface ProductSpec {
   value: string;
 }
 
+export interface FAQItem {
+  q: string;
+  a: string;
+}
+
 export interface Product {
   id: number;
   slug: string;
@@ -33,11 +38,11 @@ export interface Product {
   features: string[];
   specs: ProductSpec[];
   applications: string[];
+  faq?: FAQItem[];
   badge: ProductBadge;
   featured: boolean;
 }
 
-// ===== مقالات =====
 export type ArticleCategory = "medical" | "lab" | "industrial" | "guide";
 
 export interface Article {
@@ -45,10 +50,10 @@ export interface Article {
   slug: string;
   title: string;
   excerpt: string;
-  content: string; // متن با پاراگراف‌ها جدا شده با \n\n
+  content: string;
   category: ArticleCategory;
   author: string;
   date: string;
-  readTime: number; // دقیقه
+  readTime: number;
   featured: boolean;
 }

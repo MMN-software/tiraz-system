@@ -1,7 +1,7 @@
-import type { LucideIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { LucideIcon } from "lucide-react";
 import {
   Package,
   Tag,
@@ -17,6 +17,12 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ProductGallery } from "@/components/products/ProductGallery";
 import { ProductInquiryForm } from "@/components/products/ProductInquiryForm";
 import { RelatedProducts } from "@/components/products/RelatedProducts";
+import { ProductNavigation } from "@/components/products/ProductNavigation";
+import { StickyProductActions } from "@/components/products/StickyProductActions";
+import { ProductFAQ } from "@/components/products/ProductFAQ";
+import { CopyButton } from "@/components/common/CopyButton";
+import { WishlistButton } from "@/components/common/WishlistButton";
+import { CompareButton } from "@/components/common/CompareButton";
 import { products, getProductBySlug } from "@/lib/data/products";
 import { getCategoryBySlug } from "@/lib/data/categories";
 
@@ -52,8 +58,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
   if (!product) notFound();
 
   const category = getCategoryBySlug(product.category);
+  const faq = product.faq ?? [];
 
-  const jsonLd = {
+  const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
@@ -65,16 +72,38 @@ export default async function ProductDetailPage({ params }: PageProps) {
       "@type": "Offer",
       availability: "https://schema.org/InStock",
       priceCurrency: "IRR",
-      url: `https://tiraz-system.ir/products/${product.slug}`,
+      url: `https://tirazsystem.ir/products/${product.slug}`,
     },
   };
+
+  const faqSchema =
+    faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.a,
+            },
+          })),
+        }
+      : null;
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       <Breadcrumb
         items={[
@@ -89,14 +118,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
         ].filter((b) => b.label)}
       />
 
-      {/* بخش بالا: گالری + اطلاعات */}
       <section className="bg-white border-b border-ink-200">
         <div className="container mx-auto px-4 py-8 sm:py-10">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* گالری */}
             <ProductGallery productName={product.name} />
 
-            {/* اطلاعات */}
             <div>
               {category && (
                 <Link
@@ -115,14 +141,29 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 {product.shortDesc}
               </p>
 
-              {/* اطلاعات کلیدی */}
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <InfoChip
-                  icon={Tag}
-                  label="کد محصول"
-                  value={product.code}
-                  ltr
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <div className="flex items-center gap-2.5 bg-ink-50 border border-ink-100 rounded-xl px-3 py-2.5">
+                  <span className="inline-flex w-9 h-9 shrink-0 rounded-lg bg-white text-brand-600 items-center justify-center border border-ink-100">
+                    <Tag className="w-4 h-4" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] text-ink-400">کد محصول</div>
+                    <div
+                      className="text-sm font-bold text-brand-700 truncate num"
+                      dir="ltr"
+                      style={{ textAlign: "right" }}
+                    >
+                      {product.code}
+                    </div>
+                  </div>
+                  <CopyButton
+                    text={product.code}
+                    label="کد محصول"
+                    toastMessage="کد محصول کپی شد"
+                    ariaLabel="کپی کد محصول"
+                  />
+                </div>
+
                 <InfoChip icon={Award} label="برند" value={product.brand} />
                 {category && (
                   <InfoChip
@@ -138,26 +179,37 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 />
               </div>
 
-              {/* دکمه‌های اکشن */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-2 mb-4">
                 <a
                   href="tel:+982112345678"
-                  className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-accent-500 hover:bg-accent-600 text-white font-medium rounded-xl transition-colors"
+                  className="flex-1 inline-flex items-center justify-center gap-2 h-12 px-5 bg-accent-500 hover:bg-accent-600 text-white font-medium rounded-xl transition-colors"
                 >
                   <Phone className="w-4 h-4" aria-hidden="true" />
-                  تماس فوری برای مشاوره
+                  تماس فوری
                 </a>
                 <Link
                   href="#inquiry"
-                  className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-white hover:bg-ink-50 text-brand-700 font-medium rounded-xl border border-ink-200 transition-colors"
+                  className="flex-1 inline-flex items-center justify-center gap-2 h-12 px-5 bg-white hover:bg-ink-50 text-brand-700 font-medium rounded-xl border border-ink-200 transition-colors"
                 >
                   <FileText className="w-4 h-4" aria-hidden="true" />
                   درخواست اطلاعات
                 </Link>
               </div>
 
-              {/* متن کوتاه اعتمادساز */}
-              <p className="text-xs text-ink-500 mt-5 leading-relaxed">
+              <div className="grid grid-cols-2 gap-2">
+                <WishlistButton
+                  productId={product.id}
+                  productName={product.name}
+                  position="detail"
+                />
+                <CompareButton
+                  productId={product.id}
+                  productName={product.name}
+                  variant="text"
+                />
+              </div>
+
+              <p className="text-xs text-ink-500 mt-4 leading-relaxed">
                 ✓ ضمانت اصالت کالا &nbsp;·&nbsp; ✓ ارسال به سراسر کشور
                 &nbsp;·&nbsp; ✓ خدمات پس از فروش
               </p>
@@ -166,13 +218,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* بدنه: جزئیات + فرم */}
       <section className="py-10 sm:py-14">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-[1fr_360px] gap-8 lg:gap-10">
-            {/* جزئیات */}
             <div className="space-y-8">
-              {/* توضیحات */}
               <div className="bg-white rounded-2xl border border-ink-200 p-5 sm:p-6">
                 <h2 className="text-lg font-bold text-brand-700 mb-3">
                   توضیحات محصول
@@ -182,7 +231,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </p>
               </div>
 
-              {/* ویژگی‌ها */}
               <div className="bg-white rounded-2xl border border-ink-200 p-5 sm:p-6">
                 <h2 className="text-lg font-bold text-brand-700 mb-3">
                   ویژگی‌های کلیدی
@@ -203,7 +251,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </ul>
               </div>
 
-              {/* مشخصات فنی */}
               <div className="bg-white rounded-2xl border border-ink-200 overflow-hidden">
                 <div className="p-5 sm:p-6 border-b border-ink-100">
                   <h2 className="text-lg font-bold text-brand-700">
@@ -215,9 +262,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     {product.specs.map((s, i) => (
                       <tr
                         key={i}
-                        className={
-                          i % 2 === 0 ? "bg-ink-50/60" : "bg-white"
-                        }
+                        className={i % 2 === 0 ? "bg-ink-50/60" : "bg-white"}
                       >
                         <th
                           scope="row"
@@ -234,7 +279,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </table>
               </div>
 
-              {/* کاربردها */}
               <div className="bg-white rounded-2xl border border-ink-200 p-5 sm:p-6">
                 <h2 className="text-lg font-bold text-brand-700 mb-3 flex items-center gap-2">
                   <Target
@@ -254,16 +298,16 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   ))}
                 </div>
               </div>
+
+              <ProductFAQ items={faq} />
             </div>
 
-            {/* سایدبار: فرم استعلام */}
             <aside id="inquiry" className="lg:sticky lg:top-24 lg:self-start">
               <ProductInquiryForm
                 productName={product.name}
                 productCode={product.code}
               />
 
-              {/* راه‌های تماس سریع */}
               <div className="bg-brand-700 text-white rounded-2xl p-5 mt-4">
                 <h3 className="font-bold mb-2 flex items-center gap-2">
                   <Phone className="w-4 h-4" aria-hidden="true" />
@@ -280,7 +324,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </a>
               </div>
 
-              {/* اطلاعات اعتماد */}
               <div className="bg-white rounded-2xl border border-ink-200 p-5 mt-4 text-xs text-ink-600 space-y-2.5">
                 <div className="flex items-start gap-2">
                   <Package
@@ -309,8 +352,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* محصولات مرتبط */}
+      <ProductNavigation product={product} />
+
       <RelatedProducts product={product} />
+
+      <StickyProductActions
+        productName={product.name}
+        productCode={product.code}
+      />
     </>
   );
 }

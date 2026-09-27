@@ -51,11 +51,11 @@ export function FinalCTA() {
                 <span className="num">۰۲۱-۱۲۳۴۵۶۷۸</span>
               </a>
               <a
-                href="mailto:info@tiraz-system.ir"
+                href="mailto:mohamadmehdi.neemati@gmail.com"
                 className="inline-flex items-center gap-2 justify-center hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4" aria-hidden="true" />
-                info@tiraz-system.ir
+                mohamadmehdi.neemati@gmail.com
               </a>
             </div>
           </div>

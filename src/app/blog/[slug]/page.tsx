@@ -173,7 +173,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 </a>
                 <a
                   href={`https://t.me/share/url?url=${encodeURIComponent(
-                    `https://tiraz-system.ir/blog/${article.slug}`
+                    `https://tirazsystem.ir/blog/${article.slug}`
                   )}&text=${encodeURIComponent(article.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"

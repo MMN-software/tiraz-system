@@ -28,8 +28,8 @@ const contactItems = [
   {
     icon: Mail,
     title: "ایمیل",
-    value: "info@tiraz-system.ir",
-    href: "mailto:info@tiraz-system.ir",
+    value: "mohamadmehdi.neemati@gmail.com",
+    href: "mailto:mohamadmehdi.neemati@gmail.com",
     desc: "پاسخ حداکثر تا ۲۴ ساعت",
     ltr: true,
   },
@@ -152,11 +152,11 @@ export default function ContactPage() {
                   ۰۲۱-۱۲۳۴۵۶۷۸
                 </a>
                 <a
-                  href="mailto:info@tiraz-system.ir"
+                  href="mailto:mohamadmehdi.neemati@gmail.com"
                   className="block text-center h-11 leading-[2.75rem] bg-white/10 hover:bg-white/20 text-white font-medium rounded-lg transition-colors text-xs sm:text-sm"
                   dir="ltr"
                 >
-                  info@tiraz-system.ir
+                  mohamadmehdi.neemati@gmail.com
                 </a>
               </div>
 
