@@ -15,29 +15,12 @@ import { CompareProvider } from "@/components/common/Compare";
 import { CompareBar } from "@/components/common/CompareBar";
 import "./globals.css";
 
-// فونت محلی — سریع‌تر از Google Fonts
 const vazirmatn = localFont({
   src: [
-    {
-      path: "../../public/fonts/Vazirmatn-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Vazirmatn-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Vazirmatn-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Vazirmatn-ExtraBold.woff2",
-      weight: "800",
-      style: "normal",
-    },
+    { path: "../../public/fonts/Vazirmatn-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/Vazirmatn-Medium.woff2", weight: "500", style: "normal" },
+    { path: "../../public/fonts/Vazirmatn-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../../public/fonts/Vazirmatn-ExtraBold.woff2", weight: "800", style: "normal" },
   ],
   variable: "--font-vazirmatn",
   display: "swap",
@@ -45,7 +28,7 @@ const vazirmatn = localFont({
   fallback: ["system-ui", "sans-serif"],
 });
 
-const BASE_URL = "https://tirazsystem.ir";
+const BASE_URL = "https://tiraz-system-eu.apps.frk1.abrhapaas.com";
 
 export const metadata: Metadata = {
   title: {
@@ -54,43 +37,22 @@ export const metadata: Metadata = {
   },
   description:
     "تیرازیستر ایرانیان، تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با کیفیت بالا، کاتالوگ کامل و خدمات پس از فروش در سراسر کشور.",
-  keywords: [
-    "تجهیزات پزشکی",
-    "تجهیزات آزمایشگاهی",
-    "تجهیزات صنعتی",
-    "قطعات تولیدی",
-    "تیرازیستر ایرانیان",
-  ],
   authors: [{ name: "تیرازیستر ایرانیان" }],
   creator: "تیرازیستر ایرانیان",
   publisher: "تیرازیستر ایرانیان",
   applicationName: "تیرازیستر ایرانیان",
   metadataBase: new URL(BASE_URL),
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "fa_IR",
     siteName: "تیرازیستر ایرانیان",
-    title: "تیرازیستر ایرانیان | تجهیزات پزشکی، آزمایشگاهی و صنعتی",
-    description:
-      "تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با کیفیت بالا.",
     url: BASE_URL,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "تیرازیستر ایرانیان",
-    description:
-      "تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با کیفیت بالا.",
-  },
+  twitter: { card: "summary_large_image" },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
 };
 
@@ -108,8 +70,7 @@ const organizationSchema = {
   name: "تیرازیستر ایرانیان",
   alternateName: "Tiraz System Iranian",
   url: BASE_URL,
-  description:
-    "تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با کیفیت بالا و خدمات پس از فروش.",
+  description: "تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با کیفیت بالا و خدمات پس از فروش.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "خیابان نمونه، پلاک ۱۲، طبقه ۳",
@@ -130,24 +91,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="fa"
-      dir="rtl"
-      data-scroll-behavior="smooth"
-      className={vazirmatn.variable}
-    >
+    <html lang="fa" dir="rtl" data-scroll-behavior="smooth" className={vazirmatn.variable}>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body
-        id="top"
-        className="min-h-screen flex flex-col antialiased bg-ink-50"
-      >
+      <body id="top" className="min-h-screen flex flex-col antialiased bg-ink-50">
         <ToastProvider>
           <WishlistProvider>
             <CompareProvider>
