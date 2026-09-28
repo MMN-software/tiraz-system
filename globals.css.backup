@@ -119,8 +119,3 @@ html, body { overflow-x: hidden; }
     transform: translateY(0) scale(1);
   }
 }
-
-/* کلاس کمکی برای ارتفاع ۵۲ پیکسل */
-.h-13 {
-  height: 3.25rem;
-}

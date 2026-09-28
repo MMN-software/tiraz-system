@@ -1,120 +1,262 @@
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck, Award, Truck } from "lucide-react";
+import {
+  ArrowLeft,
+  ShieldCheck,
+  Award,
+  Truck,
+  Phone,
+  Sparkles,
+  Star,
+} from "lucide-react";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-bl from-brand-50 via-white to-accent-50">
-      {/* گرافیک پس‌زمینه */}
+      {/* الگوی پس‌زمینه نقطه‌ای */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.05]"
         aria-hidden="true"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, #0f3d5c 1px, transparent 0)",
+            "radial-gradient(circle at 1px 1px, #0891b2 1px, transparent 0)",
           backgroundSize: "24px 24px",
         }}
       />
 
-      <div className="container relative mx-auto px-4 py-14 sm:py-20 lg:py-28">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* متن */}
-          <div className="text-center lg:text-right">
-            <span className="inline-flex items-center gap-2 bg-white text-brand-700 text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full border border-brand-100 shadow-sm mb-5">
-              <ShieldCheck
-                className="w-4 h-4 text-accent-500"
-                aria-hidden="true"
-              />
-              تأمین‌کننده معتبر تجهیزات تخصصی
-            </span>
+      {/* گرافیک blur بالا چپ */}
+      <div
+        className="absolute -top-20 -left-20 w-96 h-96 bg-brand-200/40 rounded-full blur-3xl"
+        aria-hidden="true"
+      />
+      {/* گرافیک blur پایین راست */}
+      <div
+        className="absolute -bottom-20 -right-20 w-96 h-96 bg-accent-200/40 rounded-full blur-3xl"
+        aria-hidden="true"
+      />
+      {/* حلقه تزئینی */}
+      <div
+        className="absolute top-20 right-10 w-40 h-40 border-2 border-coral-300/30 rounded-full hidden lg:block"
+        aria-hidden="true"
+      />
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-700 leading-[1.3] mb-5">
+      <div className="container relative mx-auto px-4 py-12 sm:py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* ===== ستون متن ===== */}
+          <div className="text-center lg:text-right">
+            {/* Badge بالا */}
+            <div className="inline-flex items-center gap-2 bg-white text-brand-700 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-full border border-brand-200 shadow-sm mb-5">
+              <span className="relative flex w-2 h-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
+              </span>
+              <Sparkles className="w-3.5 h-3.5 text-coral-500" aria-hidden="true" />
+              تأمین‌کننده معتبر تجهیزات تخصصی
+            </div>
+
+            {/* عنوان اصلی */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-brand-800 leading-[1.25] mb-5">
               تجهیزات پزشکی، آزمایشگاهی
               <br />
               و صنعتی با
-              <span className="text-accent-500"> کیفیت تضمین‌شده</span>
+              <span className="relative inline-block mx-2">
+                <span className="relative z-10 text-coral-500">
+                  کیفیت تضمین‌شده
+                </span>
+                <span
+                  className="absolute inset-x-0 bottom-1 h-3 bg-coral-200/60 -z-0 -rotate-1"
+                  aria-hidden="true"
+                />
+              </span>
             </h1>
 
+            {/* توضیح */}
             <p className="text-base sm:text-lg text-ink-600 leading-loose mb-8 max-w-xl mx-auto lg:mx-0">
-              تیرازیستر ایرانیان با سال‌ها تجربه در تأمین، تولید و پشتیبانی
-              تجهیزات تخصصی، همراه مطمئن مراکز درمانی، آزمایشگاهی و صنعتی در
-              سراسر کشور است.
+              تیرازیستر ایرانیان با بیش از <strong className="text-brand-700">۱۵ سال تجربه</strong> در
+              تأمین، تولید و پشتیبانی تجهیزات تخصصی، همراه مطمئن مراکز درمانی،
+              آزمایشگاهی و صنعتی در سراسر کشور است.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+            {/* دکمه‌ها */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
               <Link
                 href="/products"
-                className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-medium rounded-xl transition-colors shadow-sm"
+                className="group inline-flex items-center justify-center gap-2 h-13 px-7 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 py-3.5"
               >
                 مشاهده محصولات
-                <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                <ArrowLeft
+                  className="w-4 h-4 group-hover:-translate-x-1 transition-transform"
+                  aria-hidden="true"
+                />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-white hover:bg-ink-50 text-brand-700 font-medium rounded-xl border border-ink-200 transition-colors"
+                className="inline-flex items-center justify-center gap-2 h-13 px-7 bg-white hover:bg-ink-50 text-brand-700 font-bold rounded-xl border-2 border-brand-200 hover:border-brand-400 transition-all py-3.5"
               >
-                درخواست مشاوره رایگان
+                <Phone className="w-4 h-4 text-accent-500" aria-hidden="true" />
+                مشاوره رایگان
               </Link>
             </div>
 
-            {/* اعتمادسازها */}
-            <div className="mt-10 grid grid-cols-3 gap-3 sm:gap-5 max-w-md mx-auto lg:mx-0">
+            {/* نشان‌های اعتماد */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 pt-6 border-t border-ink-200">
               {[
-                { icon: ShieldCheck, label: "ضمانت اصالت" },
-                { icon: Award, label: "گواهی کیفیت" },
-                { icon: Truck, label: "ارسال سریع" },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col items-center text-center gap-2"
-                >
-                  <span className="w-10 h-10 rounded-full bg-white border border-ink-200 flex items-center justify-center text-brand-600">
-                    <item.icon className="w-5 h-5" aria-hidden="true" />
-                  </span>
-                  <span className="text-xs sm:text-sm text-ink-700 font-medium">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
+                { icon: ShieldCheck, label: "ضمانت اصالت", sub: "۱۰۰٪ تضمینی", color: "text-accent-500 bg-accent-50" },
+                { icon: Award, label: "گواهی کیفیت", sub: "ISO + CE", color: "text-brand-600 bg-brand-50" },
+                { icon: Truck, label: "ارسال سریع", sub: "سراسر کشور", color: "text-coral-500 bg-coral-50" },
+              ].map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <span
+                      className={`inline-flex w-10 h-10 rounded-xl ${item.color} items-center justify-center shrink-0`}
+                    >
+                      <Icon className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    <div className="text-right">
+                      <div className="text-xs sm:text-sm font-bold text-ink-800">
+                        {item.label}
+                      </div>
+                      <div className="text-[10px] text-ink-500">{item.sub}</div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* گرافیک سمت چپ */}
+          {/* ===== ستون گرافیک (دسکتاپ) ===== */}
           <div className="relative hidden lg:block">
             <div className="relative aspect-square max-w-lg mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-tr from-brand-600 to-accent-500 rounded-3xl rotate-3 opacity-10" />
-              <div className="absolute inset-0 bg-white rounded-3xl border border-ink-200 shadow-xl flex items-center justify-center overflow-hidden">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-accent-100 rounded-full blur-3xl opacity-60" />
-                <div className="absolute bottom-0 left-0 w-56 h-56 bg-brand-100 rounded-full blur-3xl opacity-60" />
-                <div className="relative text-center px-8">
-                  <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-brand-600 flex items-center justify-center text-white shadow-lg">
-                    <svg
-                      viewBox="0 0 32 32"
-                      fill="none"
-                      className="w-12 h-12"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M6 8h20M16 8v16M11 24h10"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <circle
-                        cx="26"
-                        cy="6"
-                        r="2.5"
-                        fill="currentColor"
-                        opacity="0.7"
-                      />
-                    </svg>
+              {/* کارت پشت (Rotated) */}
+              <div
+                className="absolute inset-0 bg-gradient-to-tr from-brand-500 to-accent-500 rounded-3xl rotate-6 opacity-20"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-tr from-coral-400 to-coral-500 rounded-3xl -rotate-3 opacity-15"
+                aria-hidden="true"
+              />
+
+              {/* کارت اصلی */}
+              <div className="absolute inset-0 bg-white rounded-3xl border border-ink-200 shadow-2xl overflow-hidden">
+                {/* هدر کارت */}
+                <div className="bg-gradient-to-l from-brand-700 to-brand-600 px-6 py-4 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-coral-400" />
+                    <span className="w-3 h-3 rounded-full bg-accent-400" />
+                    <span className="w-3 h-3 rounded-full bg-white/40" />
                   </div>
-                  <h2 className="text-2xl font-extrabold text-brand-700 mb-2">
-                    تیرازیستر ایرانیان
-                  </h2>
-                  <p className="text-sm text-ink-500 leading-relaxed">
-                    انتخاب حرفه‌ای‌ها در تجهیزات تخصصی
-                  </p>
+                  <span className="text-[10px] text-white/70 font-mono">
+                    tirazsystem.ir
+                  </span>
+                </div>
+
+                {/* محتوای کارت */}
+                <div className="p-6">
+                  {/* لوگو مرکزی */}
+                  <div className="text-center mb-6">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-600 to-accent-500 flex items-center justify-center text-white shadow-lg">
+                      <svg
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        className="w-11 h-11"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M6 8h20M16 8v16M11 24h10"
+                          stroke="currentColor"
+                          strokeWidth="2.4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <circle
+                          cx="26"
+                          cy="6"
+                          r="2.5"
+                          fill="currentColor"
+                          opacity="0.7"
+                        />
+                      </svg>
+                    </div>
+                    <h2 className="text-2xl font-extrabold text-brand-800 mb-1">
+                      تیرازیستر ایرانیان
+                    </h2>
+                    <p className="text-xs text-ink-500">
+                      انتخاب حرفه‌ای‌ها در تجهیزات تخصصی
+                    </p>
+                  </div>
+
+                  {/* آمار کوچک */}
+                  <div className="grid grid-cols-3 gap-2 mb-5">
+                    {[
+                      { v: "۸۵۰+", l: "مشتری" },
+                      { v: "۱۲۰۰+", l: "محصول" },
+                      { v: "۱۵+", l: "سال" },
+                    ].map((s, i) => (
+                      <div
+                        key={i}
+                        className="bg-ink-50 rounded-xl p-2.5 text-center"
+                      >
+                        <div className="text-sm font-extrabold text-brand-700 num">
+                          {s.v}
+                        </div>
+                        <div className="text-[9px] text-ink-500 mt-0.5">
+                          {s.l}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* نظر مشتری */}
+                  <div className="bg-gradient-to-l from-brand-50 to-accent-50 border border-brand-100 rounded-xl p-3.5">
+                    <div className="flex items-center gap-1 mb-2">
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <Star
+                          key={i}
+                          className="w-3 h-3 text-coral-500"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        />
+                      ))}
+                    </div>
+                    <p className="text-[11px] text-ink-600 leading-relaxed mb-2">
+                      «کیفیت تجهیزات و پشتیبانی فنی عالی. انتخاب اول ما برای
+                      پروژه‌های بیمارستانی.»
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-[10px] font-bold flex items-center justify-center">
+                        د
+                      </span>
+                      <span className="text-[10px] font-bold text-brand-700">
+                        دکتر احمدی
+                      </span>
+                      <span className="text-[9px] text-ink-400">
+                        مدیر بیمارستان
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Badge شناور گوشه */}
+              <div className="absolute -bottom-3 -right-3 bg-white rounded-2xl shadow-xl border border-ink-200 px-4 py-3 flex items-center gap-2 z-10">
+                <span className="inline-flex w-9 h-9 rounded-xl bg-accent-50 text-accent-600 items-center justify-center">
+                  <ShieldCheck className="w-5 h-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <div className="text-[10px] text-ink-500">گارانتی</div>
+                  <div className="text-xs font-bold text-brand-700 num">
+                    ۱۸ ماه
+                  </div>
+                </div>
+              </div>
+
+              {/* Badge شناور بالا چپ */}
+              <div className="absolute -top-3 -left-3 bg-coral-500 text-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2 z-10">
+                <Sparkles className="w-5 h-5" aria-hidden="true" />
+                <div>
+                  <div className="text-[10px] text-coral-100">جدید</div>
+                  <div className="text-xs font-bold">محصولات ۱۴۰۴</div>
                 </div>
               </div>
             </div>

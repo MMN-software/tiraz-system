@@ -1,4 +1,5 @@
 "use client";
+import type { LucideIcon } from "lucide-react";
 
 import Link from "next/link";
 import { useEffect } from "react";
@@ -15,6 +16,7 @@ import {
 import type { Product } from "@/lib/types";
 import { getCategoryBySlug } from "@/lib/data/categories";
 import { WishlistButton } from "@/components/common/WishlistButton";
+import { ProductImage } from "./ProductImage";
 
 interface Props {
   product: Product | null;
@@ -227,7 +229,7 @@ function Chip({
   value,
   ltr,
 }: {
-  icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+  icon: LucideIcon;
   label: string;
   value: string;
   ltr?: boolean;

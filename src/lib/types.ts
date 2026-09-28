@@ -39,6 +39,7 @@ export interface Product {
   specs: ProductSpec[];
   applications: string[];
   faq?: FAQItem[];
+  image?: string;
   badge: ProductBadge;
   featured: boolean;
 }
