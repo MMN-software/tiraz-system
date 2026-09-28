@@ -49,7 +49,7 @@ export function QuickView({ product, onClose }: Props) {
       <div
         className="fixed inset-0 bg-ink-900/60 z-[80] animate-[fadeIn_0.2s_ease-out]"
         onClick={onClose}
-        aria-hidden="true"
+        aria-hidden={true}
       />
 
       {/* پنل مودال */}
@@ -71,7 +71,7 @@ export function QuickView({ product, onClose }: Props) {
               aria-label="بستن"
               className="w-9 h-9 rounded-full hover:bg-ink-100 flex items-center justify-center text-ink-500 hover:text-ink-700 transition-colors"
             >
-              <X className="w-5 h-5" aria-hidden="true" />
+              <X className="w-5 h-5" aria-hidden={true} />
             </button>
           </div>
 
@@ -83,7 +83,7 @@ export function QuickView({ product, onClose }: Props) {
                 viewBox="0 0 64 64"
                 className="w-24 h-24 text-brand-300"
                 fill="none"
-                aria-hidden="true"
+                aria-hidden={true}
               >
                 <rect
                   x="8"
@@ -167,7 +167,7 @@ export function QuickView({ product, onClose }: Props) {
                       >
                         <CheckCircle2
                           className="w-3.5 h-3.5 mt-0.5 shrink-0 text-accent-500"
-                          aria-hidden="true"
+                          aria-hidden={true}
                         />
                         <span className="leading-relaxed">{f}</span>
                       </li>
@@ -183,13 +183,13 @@ export function QuickView({ product, onClose }: Props) {
                   className="inline-flex items-center justify-center gap-2 h-11 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-xl transition-colors"
                 >
                   مشاهده جزئیات کامل
-                  <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                  <ArrowLeft className="w-4 h-4" aria-hidden={true} />
                 </Link>
                 <a
                   href="tel:+982112345678"
                   className="inline-flex items-center justify-center gap-2 h-11 bg-accent-50 hover:bg-accent-100 text-accent-600 text-sm font-medium rounded-xl transition-colors"
                 >
-                  <Phone className="w-4 h-4" aria-hidden="true" />
+                  <Phone className="w-4 h-4" aria-hidden={true} />
                   تماس فوری برای مشاوره
                 </a>
               </div>
@@ -236,7 +236,7 @@ function Chip({
 }) {
   return (
     <div className="flex items-center gap-2 bg-ink-50 border border-ink-100 rounded-lg px-2 py-1.5 min-w-0">
-      <Icon className="w-3.5 h-3.5 shrink-0 text-brand-600" aria-hidden="true" />
+      <Icon className="w-3.5 h-3.5 shrink-0 text-brand-600" aria-hidden={true} />
       <div className="min-w-0">
         <div className="text-[9px] text-ink-400 leading-none">{label}</div>
         <div
