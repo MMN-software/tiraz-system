@@ -10,6 +10,7 @@ import {
   Layers,
 } from "lucide-react";
 import { categories } from "@/lib/data/categories";
+import { products } from "@/lib/data/products";
 import type { CategorySlug } from "@/lib/types";
 
 const iconMap: Record<CategorySlug, React.ComponentType<{ className?: string }>> = {
@@ -69,11 +70,17 @@ const styleMap: Record<
 };
 
 export function Categories() {
-  const totalCount = categories.reduce((sum, c) => sum + c.count, 0);
+  const categoryCounts: Record<CategorySlug, number> = {
+    medical: products.filter((p) => p.category === "medical").length,
+    lab: products.filter((p) => p.category === "lab").length,
+    industrial: products.filter((p) => p.category === "industrial").length,
+    parts: products.filter((p) => p.category === "parts").length,
+    imported: products.filter((p) => p.category === "imported").length,
+    consumables: products.filter((p) => p.category === "consumables").length,
+  };
 
   return (
     <section className="py-16 sm:py-24 bg-gradient-to-b from-ink-50 via-white to-ink-50 relative overflow-hidden">
-      {/* الگوی نقطه‌ای */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         aria-hidden="true"
@@ -85,7 +92,6 @@ export function Categories() {
       />
 
       <div className="container relative mx-auto px-4">
-        {/* هدر بخش */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-bold px-3 py-1.5 rounded-full border border-brand-100 mb-4">
             <Layers className="w-3.5 h-3.5" aria-hidden="true" />
@@ -97,48 +103,43 @@ export function Categories() {
             پیدا کنید
           </h2>
           <p className="text-base text-ink-500 leading-loose">
-            بیش از <strong className="text-brand-700 num">{totalCount.toLocaleString("fa-IR")}</strong> محصول متنوع
-            در <strong className="text-brand-700">۶ دسته‌بندی</strong> تخصصی، آماده انتخاب و خرید.
+            محصولات متنوع در <strong className="text-brand-700">۶ دسته‌بندی</strong> تخصصی،
+            آماده انتخاب و خرید.
           </p>
         </div>
 
-        {/* گرید دسته‌بندی */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {categories.map((c) => {
             const Icon = iconMap[c.slug];
             const styles = styleMap[c.slug];
+            const count = categoryCounts[c.slug];
             return (
               <Link
                 key={c.slug}
                 href={`/products?category=${c.slug}`}
                 className={`group relative bg-white rounded-2xl p-5 border border-ink-200 ${styles.hoverBorder} hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 text-center overflow-hidden flex flex-col`}
               >
-                {/* نوار رنگی بالای کارت (روی hover) */}
                 <div
                   className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${styles.accentBar} opacity-0 group-hover:opacity-100 transition-opacity`}
                   aria-hidden="true"
                 />
 
-                {/* آیکون */}
                 <span
                   className={`relative inline-flex w-14 h-14 mb-3.5 rounded-2xl ${styles.iconBg} items-center justify-center transition-all duration-300 mx-auto shadow-sm`}
                 >
                   <Icon className="w-7 h-7" aria-hidden="true" />
                 </span>
 
-                {/* عنوان */}
                 <h3 className="relative text-sm font-extrabold text-brand-800 mb-1.5 leading-tight group-hover:text-brand-600 transition-colors">
                   {c.name}
                 </h3>
 
-                {/* شمارنده محصولات */}
                 <span
                   className={`relative inline-flex items-center justify-center text-[11px] font-bold ${styles.countBg} px-2.5 py-1 rounded-full mb-3 num mx-auto transition-colors`}
                 >
-                  {c.count.toLocaleString("fa-IR")} محصول
+                  {count.toLocaleString("fa-IR")} محصول
                 </span>
 
-                {/* دکمه مشاهده */}
                 <span className="relative inline-flex items-center justify-center gap-1 text-[11px] font-bold text-brand-600 group-hover:text-coral-500 transition-colors mt-auto">
                   مشاهده
                   <ArrowLeft
@@ -151,7 +152,6 @@ export function Categories() {
           })}
         </div>
 
-        {/* CTA پایین */}
         <div className="mt-12 text-center">
           <Link
             href="/products"

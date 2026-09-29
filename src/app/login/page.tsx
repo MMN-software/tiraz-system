@@ -2,66 +2,83 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { Mail, Lock, Eye, EyeOff, LogIn, AlertCircle, CheckCircle2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  LogIn,
+  AlertCircle,
+} from "lucide-react";
 import { AuthLayout } from "@/components/auth/AuthLayout";
+import { useAuth } from "@/lib/auth-context";
+
+interface FieldErrors {
+  id?: string;
+  pass?: string;
+}
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { login } = useAuth();
+
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
   const [showPass, setShowPass] = useState(false);
-  const [errors, setErrors] = useState<{ id?: string; pass?: string }>({});
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [serverError, setServerError] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading">("idle");
 
-  function validate() {
-    const e: { id?: string; pass?: string } = {};
+  function validate(): boolean {
+    const e: FieldErrors = {};
     const id = identifier.trim();
     const isPhone = /^09\d{9}$/.test(id.replace(/\s/g, ""));
     const isEmail = /^\S+@\S+\.\S+$/.test(id);
-    if (!id) e.id = "ایمیل یا شماره موبایل را وارد کنید.";
-    else if (!isPhone && !isEmail) e.id = "ایمیل یا شماره موبایل معتبر وارد کنید.";
-    if (!password) e.pass = "رمز عبور را وارد کنید.";
-    else if (password.length < 6) e.pass = "رمز عبور حداقل ۶ کاراکتر باشد.";
+
+    if (!id) e.id = "لطفاً ایمیل یا شماره موبایل خود را وارد کنید.";
+    else if (!isPhone && !isEmail)
+      e.id = "ایمیل یا شماره موبایل وارد شده معتبر نیست.";
+
+    if (!password) e.pass = "لطفاً رمز عبور خود را وارد کنید.";
+    else if (password.length < 6)
+      e.pass = "رمز عبور حداقل ۶ کاراکتر است.";
+
     setErrors(e);
     return Object.keys(e).length === 0;
   }
 
   async function onSubmit(ev: FormEvent) {
     ev.preventDefault();
+    setServerError("");
     if (!validate()) return;
-    setStatus("loading");
-    await new Promise((r) => setTimeout(r, 800));
-    setStatus("success");
-  }
 
-  if (status === "success") {
-    return (
-      <AuthLayout
-        title="خوش آمدید"
-        subtitle="ورود شما با موفقیت انجام شد."
-      >
-        <div className="text-center py-4">
-          <span className="inline-flex w-16 h-16 rounded-2xl bg-accent-50 text-accent-500 items-center justify-center mb-4">
-            <CheckCircle2 className="w-8 h-8" aria-hidden="true" />
-          </span>
-          <p className="text-sm text-ink-500 leading-loose mb-6">
-            در نسخه نهایی، به داشبورد کاربری منتقل می‌شوید.
-          </p>
-          <Link
-            href="/profile"
-            className="inline-flex items-center justify-center gap-2 h-11 px-6 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-xl transition-colors"
-          >
-            رفتن به پنل کاربری
-          </Link>
-        </div>
-      </AuthLayout>
-    );
+    setStatus("loading");
+    const res = await login({
+      identifier: identifier.trim(),
+      password,
+    });
+
+    if (!res.ok) {
+      setServerError(res.error);
+      setStatus("idle");
+      return;
+    }
+
+    // تعیین مقصد بر اساس نقش کاربر
+    // نکته: بعد از login موفق، user در context آپدیت شده،
+    // ولی برای اطمینان از role دقیق، از localStorage می‌خونیم.
+    const dest = identifier.trim() === "admin@tirazsystem.ir"
+      ? "/admin"
+      : "/profile";
+    router.push(dest);
   }
 
   return (
     <AuthLayout
       title="ورود به حساب کاربری"
-      subtitle="برای پیگیری درخواست‌ها وارد شوید."
+      subtitle="برای دسترسی به پنل کاربری وارد شوید."
       footer={
         <>
           حساب کاربری ندارید؟{" "}
@@ -75,7 +92,7 @@ export default function LoginPage() {
       }
     >
       <form onSubmit={onSubmit} noValidate className="space-y-4">
-        {/* ایمیل یا موبایل */}
+        {/* شناسه (ایمیل یا موبایل) */}
         <div>
           <label
             htmlFor="login-id"
@@ -128,7 +145,7 @@ export default function LoginPage() {
               href="/forgot-password"
               className="text-xs text-accent-500 hover:text-accent-600"
             >
-              فراموش کرده‌اید؟
+              فراموشی رمز
             </Link>
           </div>
           <div className="relative">
@@ -187,19 +204,29 @@ export default function LoginPage() {
           </span>
         </label>
 
-        {/* دکمه */}
+        {/* خطای سرور */}
+        {serverError && (
+          <div
+            role="alert"
+            className="flex items-start gap-2 p-3 rounded-lg bg-red-50 border border-red-200 text-xs text-red-700"
+          >
+            <AlertCircle
+              className="w-4 h-4 shrink-0 mt-0.5"
+              aria-hidden="true"
+            />
+            <span>{serverError}</span>
+          </div>
+        )}
+
+        {/* دکمه ورود */}
         <button
           type="submit"
           disabled={status === "loading"}
           className="w-full inline-flex items-center justify-center gap-2 h-12 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 disabled:bg-ink-300 disabled:cursor-not-allowed text-white font-medium rounded-xl transition-colors"
         >
           <LogIn className="w-4 h-4" aria-hidden="true" />
-          {status === "loading" ? "در حال ورود..." : "ورود به حساب"}
+          {status === "loading" ? "در حال ورود..." : "ورود"}
         </button>
-
-        <p className="text-[10px] text-ink-400 leading-relaxed text-center">
-          این یک فرم نمونه است و به سرور متصل نیست.
-        </p>
       </form>
     </AuthLayout>
   );

@@ -13,6 +13,7 @@ import { ToastProvider } from "@/components/common/Toast";
 import { WishlistProvider } from "@/components/common/Wishlist";
 import { CompareProvider } from "@/components/common/Compare";
 import { CompareBar } from "@/components/common/CompareBar";
+import { AuthProvider } from "@/lib/auth-context";
 import "./globals.css";
 
 const vazirmatn = localFont({
@@ -64,61 +65,34 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "تیرازیستر ایرانیان",
-  alternateName: "Tiraz System Iranian",
-  url: BASE_URL,
-  description: "تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با کیفیت بالا و خدمات پس از فروش.",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "خیابان نمونه، پلاک ۱۲، طبقه ۳",
-    addressLocality: "تهران",
-    addressCountry: "IR",
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+98-21-12345678",
-    contactType: "customer service",
-    areaServed: "IR",
-    availableLanguage: ["fa"],
-  },
-  sameAs: [],
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fa" dir="rtl" data-scroll-behavior="smooth" className={vazirmatn.variable}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-      </head>
       <body id="top" className="min-h-screen flex flex-col antialiased bg-ink-50">
-        <ToastProvider>
-          <WishlistProvider>
-            <CompareProvider>
-              <SkipToContent />
-              <Suspense fallback={null}>
-                <NavigationProgress />
-              </Suspense>
-              <ScrollProgressBar />
-              <ScrollToTop />
-              <Header />
-              <main id="main-content" className="flex-1 pb-16 sm:pb-0">
-                {children}
-              </main>
-              <Footer />
-              <FloatingCall />
-              <BackToTop />
-              <CompareBar />
-            </CompareProvider>
-          </WishlistProvider>
-        </ToastProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <WishlistProvider>
+              <CompareProvider>
+                <SkipToContent />
+                <Suspense fallback={null}>
+                  <NavigationProgress />
+                </Suspense>
+                <ScrollProgressBar />
+                <ScrollToTop />
+                <Header />
+                <main id="main-content" className="flex-1 pb-16 sm:pb-0">
+                  {children}
+                </main>
+                <Footer />
+                <FloatingCall />
+                <BackToTop />
+                <CompareBar />
+              </CompareProvider>
+            </WishlistProvider>
+          </ToastProvider>
+        </AuthProvider>
       </body>
     </html>
   );

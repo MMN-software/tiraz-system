@@ -6,13 +6,13 @@ import {
   Truck,
   Phone,
   Sparkles,
-  Star,
+  CheckCircle2,
+  Clock,
 } from "lucide-react";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-bl from-brand-50 via-white to-accent-50">
-      {/* الگوی پس‌زمینه نقطه‌ای */}
       <div
         className="absolute inset-0 opacity-[0.05]"
         aria-hidden="true"
@@ -22,18 +22,14 @@ export function Hero() {
           backgroundSize: "24px 24px",
         }}
       />
-
-      {/* گرافیک blur بالا چپ */}
       <div
         className="absolute -top-20 -left-20 w-96 h-96 bg-brand-200/40 rounded-full blur-3xl"
         aria-hidden="true"
       />
-      {/* گرافیک blur پایین راست */}
       <div
         className="absolute -bottom-20 -right-20 w-96 h-96 bg-accent-200/40 rounded-full blur-3xl"
         aria-hidden="true"
       />
-      {/* حلقه تزئینی */}
       <div
         className="absolute top-20 right-10 w-40 h-40 border-2 border-coral-300/30 rounded-full hidden lg:block"
         aria-hidden="true"
@@ -41,9 +37,8 @@ export function Hero() {
 
       <div className="container relative mx-auto px-4 py-12 sm:py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* ===== ستون متن ===== */}
+          {/* ستون متن */}
           <div className="text-center lg:text-right">
-            {/* Badge بالا */}
             <div className="inline-flex items-center gap-2 bg-white text-brand-700 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-full border border-brand-200 shadow-sm mb-5">
               <span className="relative flex w-2 h-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
@@ -53,7 +48,6 @@ export function Hero() {
               تأمین‌کننده معتبر تجهیزات تخصصی
             </div>
 
-            {/* عنوان اصلی */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-brand-800 leading-[1.25] mb-5">
               تجهیزات پزشکی، آزمایشگاهی
               <br />
@@ -69,14 +63,11 @@ export function Hero() {
               </span>
             </h1>
 
-            {/* توضیح */}
             <p className="text-base sm:text-lg text-ink-600 leading-loose mb-8 max-w-xl mx-auto lg:mx-0">
-              تیرازیستر ایرانیان با بیش از <strong className="text-brand-700">۱۵ سال تجربه</strong> در
-              تأمین، تولید و پشتیبانی تجهیزات تخصصی، همراه مطمئن مراکز درمانی،
-              آزمایشگاهی و صنعتی در سراسر کشور است.
+              تیرازیستر ایرانیان با تیم فنی متخصص و شبکه تأمین گسترده،
+              همراه مطمئن مراکز درمانی، آزمایشگاهی و صنعتی در سراسر کشور است.
             </p>
 
-            {/* دکمه‌ها */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
               <Link
                 href="/products"
@@ -97,11 +88,10 @@ export function Hero() {
               </Link>
             </div>
 
-            {/* نشان‌های اعتماد */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 pt-6 border-t border-ink-200">
               {[
-                { icon: ShieldCheck, label: "ضمانت اصالت", sub: "۱۰۰٪ تضمینی", color: "text-accent-500 bg-accent-50" },
-                { icon: Award, label: "گواهی کیفیت", sub: "ISO + CE", color: "text-brand-600 bg-brand-50" },
+                { icon: ShieldCheck, label: "ضمانت اصالت", sub: "شناسنامه معتبر", color: "text-accent-500 bg-accent-50" },
+                { icon: Award, label: "کیفیت استاندارد", sub: "تأییدشده", color: "text-brand-600 bg-brand-50" },
                 { icon: Truck, label: "ارسال سریع", sub: "سراسر کشور", color: "text-coral-500 bg-coral-50" },
               ].map((item, i) => {
                 const Icon = item.icon;
@@ -124,10 +114,9 @@ export function Hero() {
             </div>
           </div>
 
-          {/* ===== ستون گرافیک (دسکتاپ) ===== */}
+          {/* ستون گرافیک */}
           <div className="relative hidden lg:block">
             <div className="relative aspect-square max-w-lg mx-auto">
-              {/* کارت پشت (Rotated) */}
               <div
                 className="absolute inset-0 bg-gradient-to-tr from-brand-500 to-accent-500 rounded-3xl rotate-6 opacity-20"
                 aria-hidden="true"
@@ -137,9 +126,7 @@ export function Hero() {
                 aria-hidden="true"
               />
 
-              {/* کارت اصلی */}
               <div className="absolute inset-0 bg-white rounded-3xl border border-ink-200 shadow-2xl overflow-hidden">
-                {/* هدر کارت */}
                 <div className="bg-gradient-to-l from-brand-700 to-brand-600 px-6 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-coral-400" />
@@ -147,13 +134,11 @@ export function Hero() {
                     <span className="w-3 h-3 rounded-full bg-white/40" />
                   </div>
                   <span className="text-[10px] text-white/70 font-mono">
-                    tirazsystem.ir
+                    tiraz-system.ir
                   </span>
                 </div>
 
-                {/* محتوای کارت */}
                 <div className="p-6">
-                  {/* لوگو مرکزی */}
                   <div className="text-center mb-6">
                     <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-600 to-accent-500 flex items-center justify-center text-white shadow-lg">
                       <svg
@@ -186,12 +171,11 @@ export function Hero() {
                     </p>
                   </div>
 
-                  {/* آمار کوچک */}
                   <div className="grid grid-cols-3 gap-2 mb-5">
                     {[
-                      { v: "۸۵۰+", l: "مشتری" },
-                      { v: "۱۲۰۰+", l: "محصول" },
-                      { v: "۱۵+", l: "سال" },
+                      { v: "۶", l: "دسته محصول" },
+                      { v: "۲۴", l: "محصول" },
+                      { v: "۱۵+", l: "سال سابقه" },
                     ].map((s, i) => (
                       <div
                         key={i}
@@ -207,38 +191,35 @@ export function Hero() {
                     ))}
                   </div>
 
-                  {/* نظر مشتری */}
-                  <div className="bg-gradient-to-l from-brand-50 to-accent-50 border border-brand-100 rounded-xl p-3.5">
-                    <div className="flex items-center gap-1 mb-2">
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <Star
+                  <div className="bg-gradient-to-l from-brand-50 to-accent-50 border border-brand-100 rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <ShieldCheck className="w-4 h-4 text-accent-500" aria-hidden="true" />
+                      <span className="text-[11px] font-bold text-brand-700">
+                        تعهد ما به شما
+                      </span>
+                    </div>
+                    <ul className="space-y-2">
+                      {[
+                        "ضمانت اصالت کالا",
+                        "پشتیبانی فنی رایگان",
+                        "ارسال به سراسر کشور",
+                      ].map((item, i) => (
+                        <li
                           key={i}
-                          className="w-3 h-3 text-coral-500"
-                          fill="currentColor"
-                          aria-hidden="true"
-                        />
+                          className="flex items-center gap-2 text-[11px] text-ink-600"
+                        >
+                          <CheckCircle2
+                            className="w-3.5 h-3.5 text-accent-500 shrink-0"
+                            aria-hidden="true"
+                          />
+                          {item}
+                        </li>
                       ))}
-                    </div>
-                    <p className="text-[11px] text-ink-600 leading-relaxed mb-2">
-                      «کیفیت تجهیزات و پشتیبانی فنی عالی. انتخاب اول ما برای
-                      پروژه‌های بیمارستانی.»
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-brand-600 text-white text-[10px] font-bold flex items-center justify-center">
-                        د
-                      </span>
-                      <span className="text-[10px] font-bold text-brand-700">
-                        دکتر احمدی
-                      </span>
-                      <span className="text-[9px] text-ink-400">
-                        مدیر بیمارستان
-                      </span>
-                    </div>
+                    </ul>
                   </div>
                 </div>
               </div>
 
-              {/* Badge شناور گوشه */}
               <div className="absolute -bottom-3 -right-3 bg-white rounded-2xl shadow-xl border border-ink-200 px-4 py-3 flex items-center gap-2 z-10">
                 <span className="inline-flex w-9 h-9 rounded-xl bg-accent-50 text-accent-600 items-center justify-center">
                   <ShieldCheck className="w-5 h-5" aria-hidden="true" />
@@ -251,12 +232,11 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Badge شناور بالا چپ */}
               <div className="absolute -top-3 -left-3 bg-coral-500 text-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2 z-10">
-                <Sparkles className="w-5 h-5" aria-hidden="true" />
+                <Clock className="w-5 h-5" aria-hidden="true" />
                 <div>
-                  <div className="text-[10px] text-coral-100">جدید</div>
-                  <div className="text-xs font-bold">محصولات ۱۴۰۴</div>
+                  <div className="text-[10px] text-coral-100">پاسخ</div>
+                  <div className="text-xs font-bold">زیر ۲ ساعت</div>
                 </div>
               </div>
             </div>

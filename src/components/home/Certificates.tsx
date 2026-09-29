@@ -1,53 +1,44 @@
 import {
-  Award,
-  FileCheck,
   ShieldCheck,
-  BadgeCheck,
-  Sparkles,
   CheckCircle2,
+  FileText,
+  Award,
+  Handshake,
+  Sparkles,
 } from "lucide-react";
 
-const certificates = [
-  {
-    icon: BadgeCheck,
-    title: "ISO 9001",
-    sub: "2015",
-    desc: "سیستم مدیریت کیفیت",
-    color: "from-brand-500/20 to-brand-600/10 text-brand-200",
-  },
-  {
-    icon: FileCheck,
-    title: "ISO 13485",
-    sub: "2016",
-    desc: "تجهیزات پزشکی",
-    color: "from-accent-500/20 to-accent-600/10 text-accent-200",
-  },
+const commitments = [
   {
     icon: ShieldCheck,
-    title: "CE Marking",
-    sub: "اتحادیه اروپا",
-    desc: "استاندارد ایمنی",
-    color: "from-coral-500/20 to-coral-600/10 text-coral-200",
+    title: "تضمین اصالت",
+    desc: "شناسنامه معتبر برای هر محصول",
   },
   {
-    icon: Award,
-    title: "پروانه وزارت",
-    sub: "بهداشت",
-    desc: "توزیع تجهیزات پزشکی",
-    color: "from-brand-400/20 to-brand-500/10 text-brand-100",
+    icon: CheckCircle2,
+    title: "کنترل کیفیت",
+    desc: "بازرسی قبل از ارسال",
+  },
+  {
+    icon: FileText,
+    title: "مستندات فنی",
+    desc: "کاتالوگ و راهنمای استفاده",
+  },
+  {
+    icon: Handshake,
+    title: "خدمات پس از فروش",
+    desc: "پشتیبانی و قطعات یدکی",
   },
 ];
 
 const trustItems = [
-  "منطبق با استانداردهای بین‌المللی",
-  "دارای گواهی اصالت کالا",
-  "تحت نظارت سازمان غذا و دارو",
+  "بازرسی دقیق قبل از ارسال",
+  "شناسنامه معتبر برای هر محصول",
+  "پشتیبانی فنی واقعی",
 ];
 
 export function Certificates() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-l from-brand-800 via-brand-700 to-accent-700 text-white">
-      {/* الگوی نقطه‌ای */}
       <div
         className="absolute inset-0 opacity-[0.06]"
         aria-hidden="true"
@@ -58,7 +49,6 @@ export function Certificates() {
         }}
       />
 
-      {/* گرافیک blur */}
       <div
         className="absolute -top-32 -right-32 w-96 h-96 bg-accent-400/20 rounded-full blur-3xl"
         aria-hidden="true"
@@ -69,56 +59,42 @@ export function Certificates() {
       />
 
       <div className="container relative mx-auto px-4 py-16 sm:py-24">
-        {/* هدر */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-accent-200 text-xs font-bold px-3 py-1.5 rounded-full border border-white/15 mb-4">
             <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-            گواهی‌ها و مجوزها
+            تعهد ما
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-4 leading-tight">
-            کیفیت، تضمین‌شده با
-            <span className="text-accent-300"> مدارک معتبر</span>
+            تعهد ما به
+            <span className="text-accent-300"> کیفیت و اصالت</span>
           </h2>
           <p className="text-base text-white/75 leading-loose">
-            تمام فعالیت‌های ما زیر نظر استانداردهای بین‌المللی و ارگان‌های
-            نظارتی انجام می‌شود.
+            در تیرازیستر ایرانیان، کیفیت و اعتماد مشتری، پایه هر تصمیم ماست.
           </p>
         </div>
 
-        {/* گرید گواهی‌ها */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {certificates.map((c, i) => {
+          {commitments.map((c, i) => {
             const Icon = c.icon;
             return (
               <div
                 key={i}
                 className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 text-center hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
-                {/* خط نور بالا */}
                 <div
                   className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-white/30 to-transparent"
                   aria-hidden="true"
                 />
 
-                {/* آیکون */}
-                <span
-                  className={`inline-flex w-14 h-14 mb-4 rounded-2xl bg-gradient-to-br ${c.color} border border-white/10 items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <Icon className="w-7 h-7" aria-hidden="true" />
+                <span className="inline-flex w-14 h-14 mb-4 rounded-2xl bg-white/10 border border-white/15 items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="w-7 h-7 text-accent-300" aria-hidden="true" />
                 </span>
 
-                {/* عنوان */}
-                <h3 className="text-sm sm:text-base font-extrabold text-white mb-0.5">
+                <h3 className="text-sm sm:text-base font-extrabold text-white mb-2">
                   {c.title}
                 </h3>
 
-                {/* زیرعنوان */}
-                <div className="text-[10px] text-accent-300 font-bold mb-2">
-                  {c.sub}
-                </div>
-
-                {/* توضیح */}
-                <p className="text-[11px] text-white/60 leading-relaxed">
+                <p className="text-[11px] text-white/70 leading-relaxed">
                   {c.desc}
                 </p>
               </div>
@@ -126,7 +102,6 @@ export function Certificates() {
           })}
         </div>
 
-        {/* نشان‌های اعتماد */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8">
           {trustItems.map((item, i) => (
             <div
