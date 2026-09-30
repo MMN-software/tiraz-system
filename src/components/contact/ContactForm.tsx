@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Send, CheckCircle2, AlertCircle } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, LogIn } from "lucide-react";
+import Link from "next/link";
 import { useToast } from "@/components/common/Toast";
+import { useAuth } from "@/lib/auth-context";
+import { createInquiry } from "@/lib/api/inquiry-repository";
+import type { InquiryType } from "@/lib/types/inquiry";
 
 interface FormState {
   name: string;
@@ -20,17 +24,28 @@ const subjects = [
   "سایر موارد",
 ];
 
+// نقشه تبدیل موضوع پیام به نوع درخواست
+const subjectToType: Record<string, InquiryType> = {
+  "درخواست مشاوره خرید": "consultation",
+  "پشتیبانی فنی": "support",
+  "همکاری تجاری": "other",
+  "شکایت یا پیشنهاد": "other",
+  "سایر موارد": "other",
+};
+
 export function ContactForm() {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [form, setForm] = useState<FormState>({
-    name: "",
-    phone: "",
-    email: "",
+    name: user?.name ?? "",
+    phone: user?.phone ?? "",
+    email: user?.email ?? "",
     subject: subjects[0],
     message: "",
   });
   const [errors, setErrors] = useState<Partial<FormState>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [savedAsGuest, setSavedAsGuest] = useState(false);
 
   function validate(): boolean {
     const e: Partial<FormState> = {};
@@ -52,11 +67,30 @@ export function ContactForm() {
       toast("لطفاً خطاهای فرم را بررسی کنید.", "error");
       return;
     }
+
     setStatus("loading");
-    await new Promise((r) => setTimeout(r, 900));
-    toast("پیام شما با موفقیت ارسال شد.", "success");
-    setStatus("success");
-    setForm({ ...form, name: "", phone: "", email: "", message: "" });
+    try {
+      const isGuest = !user;
+      await createInquiry(isGuest ? "guest" : user.id, {
+        type: subjectToType[form.subject] ?? "other",
+        subject: form.subject,
+        message: form.message,
+      });
+
+      setSavedAsGuest(isGuest);
+      toast("پیام شما با موفقیت ارسال شد.", "success");
+      setStatus("success");
+      setForm({
+        name: user?.name ?? "",
+        phone: user?.phone ?? "",
+        email: user?.email ?? "",
+        subject: subjects[0],
+        message: "",
+      });
+    } catch {
+      toast("خطا در ارسال پیام. لطفاً دوباره تلاش کنید.", "error");
+      setStatus("idle");
+    }
   }
 
   if (status === "success") {
@@ -72,6 +106,44 @@ export function ContactForm() {
           کارشناسان ما در اسرع وقت (معمولاً حداکثر ۲۴ ساعت کاری) با شما تماس
           خواهند گرفت.
         </p>
+
+        {savedAsGuest ? (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-700 leading-relaxed mb-6 max-w-md mx-auto">
+            <p className="flex items-start gap-2 text-right">
+              <LogIn
+                className="w-4 h-4 shrink-0 mt-0.5"
+                aria-hidden="true"
+              />
+              <span>
+                برای پیگیری درخواست‌های خود از پنل کاربری،
+                <Link
+                  href="/login"
+                  className="underline font-medium mr-1"
+                >
+                  وارد حساب خود شوید
+                </Link>
+                یا
+                <Link
+                  href="/register"
+                  className="underline font-medium mx-1"
+                >
+                  ثبت‌نام کنید
+                </Link>
+                .
+              </span>
+            </p>
+          </div>
+        ) : (
+          <div className="mb-6">
+            <Link
+              href="/profile/requests"
+              className="inline-flex items-center gap-2 text-sm font-medium text-brand-600 hover:text-brand-700"
+            >
+              مشاهده درخواست در پنل کاربری
+            </Link>
+          </div>
+        )}
+
         <button
           type="button"
           onClick={() => setStatus("idle")}
@@ -95,6 +167,16 @@ export function ContactForm() {
       <p className="text-xs sm:text-sm text-ink-500 mb-6">
         فرم زیر را پر کنید، کارشناسان ما با شما تماس می‌گیرند.
       </p>
+
+      {user && (
+        <div className="mb-4 bg-brand-50 border border-brand-100 rounded-lg px-3 py-2 text-xs text-brand-700 flex items-center gap-2">
+          <CheckCircle2 className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+          <span>
+            شما با حساب <strong>{user.name}</strong> وارد شده‌اید و درخواست
+            در پنل کاربری شما ذخیره می‌شود.
+          </span>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Field label="نام و نام خانوادگی" id="c-name" required error={errors.name}>

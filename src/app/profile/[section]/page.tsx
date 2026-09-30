@@ -13,6 +13,8 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { useAuth } from "@/lib/auth-context";
+import { ProfileRequests } from "@/components/profile/ProfileRequests";
 
 interface SectionInfo {
   icon: React.ComponentType<{ className?: string }>;
@@ -61,6 +63,11 @@ export default function ProfileSectionPage() {
   const params = useParams();
   const section = params.section as string;
   const info = sectionInfo[section];
+  const { user } = useAuth();
+
+  const initial = user?.name?.trim()?.charAt(0) ?? "ک";
+  const displayName = user?.name ?? "کاربر";
+  const displayPhone = user?.phone ?? "";
 
   if (!info) {
     return (
@@ -90,6 +97,7 @@ export default function ProfileSectionPage() {
   }
 
   const Icon = info.icon;
+  const isRequests = section === "requests";
 
   return (
     <>
@@ -106,15 +114,15 @@ export default function ProfileSectionPage() {
             {/* سایدبار */}
             <aside className="bg-white rounded-2xl border border-ink-200 overflow-hidden">
               <div className="p-5 border-b border-ink-100 flex items-center gap-3">
-                <span className="inline-flex w-12 h-12 rounded-2xl bg-brand-600 text-white items-center justify-center text-lg font-bold">
-                  ع
+                <span className="inline-flex w-12 h-12 rounded-2xl bg-brand-600 text-white items-center justify-center text-lg font-bold shrink-0">
+                  {initial}
                 </span>
                 <div className="min-w-0">
                   <p className="font-bold text-brand-700 truncate">
-                    علی محمدی
+                    {displayName}
                   </p>
                   <p className="text-xs text-ink-500 truncate num" dir="ltr">
-                    09123456789
+                    {displayPhone}
                   </p>
                 </div>
               </div>
@@ -135,10 +143,7 @@ export default function ProfileSectionPage() {
                       }`}
                     >
                       {isBack && (
-                        <ArrowLeft
-                          className="w-4 h-4"
-                          aria-hidden="true"
-                        />
+                        <ArrowLeft className="w-4 h-4" aria-hidden="true" />
                       )}
                       <span className="flex-1">{item.label}</span>
                       {!isBack && (
@@ -157,27 +162,33 @@ export default function ProfileSectionPage() {
 
             {/* محتوا */}
             <div className="space-y-5">
-              <div className="bg-white rounded-2xl border border-ink-200 p-6 sm:p-10 text-center">
-                <span className="inline-flex w-16 h-16 rounded-2xl bg-brand-50 text-brand-600 items-center justify-center mb-5">
-                  <Icon className="w-8 h-8" />
-                </span>
-                <h1 className="text-xl sm:text-2xl font-extrabold text-brand-700 mb-3">
-                  {info.title}
-                </h1>
-                <p className="text-sm text-ink-500 leading-loose max-w-xl mx-auto mb-6">
-                  {info.desc}
-                </p>
+              {isRequests ? (
+                <ProfileRequests />
+              ) : (
+                <>
+                  <div className="bg-white rounded-2xl border border-ink-200 p-6 sm:p-10 text-center">
+                    <span className="inline-flex w-16 h-16 rounded-2xl bg-brand-50 text-brand-600 items-center justify-center mb-5">
+                      <Icon className="w-8 h-8" />
+                    </span>
+                    <h1 className="text-xl sm:text-2xl font-extrabold text-brand-700 mb-3">
+                      {info.title}
+                    </h1>
+                    <p className="text-sm text-ink-500 leading-loose max-w-xl mx-auto mb-6">
+                      {info.desc}
+                    </p>
 
-                <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-medium px-3 py-2 rounded-full">
-                  <Construction className="w-3.5 h-3.5" aria-hidden="true" />
-                  این بخش در نسخه بعدی تکمیل می‌شود
-                </div>
-              </div>
+                    <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-medium px-3 py-2 rounded-full">
+                      <Construction className="w-3.5 h-3.5" aria-hidden="true" />
+                      این بخش در نسخه بعدی تکمیل می‌شود
+                    </div>
+                  </div>
 
-              <div className="bg-ink-100/70 rounded-2xl border border-ink-200 p-5 text-xs text-ink-500 leading-relaxed">
-                در نسخه نهایی، این بخش به دیتابیس متصل می‌شود و امکان
-                مشاهده، ویرایش و مدیریت اطلاعات فراهم خواهد بود.
-              </div>
+                  <div className="bg-ink-100/70 rounded-2xl border border-ink-200 p-5 text-xs text-ink-500 leading-relaxed">
+                    در نسخه نهایی، این بخش به دیتابیس متصل می‌شود و امکان
+                    مشاهده، ویرایش و مدیریت اطلاعات فراهم خواهد بود.
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
