@@ -1,26 +1,16 @@
-/**
- * لایه دسترسی به داده برای احراز هویت
- * -------------------------------------
- * فعلاً از localStorage استفاده می‌کنه.
- * برای اتصال به دیتابیس واقعی، فقط توابع این فایل بازنویسی می‌شن.
- *
- * مثال اتصال به Prisma:
- *   export async function getUserByEmail(email: string) {
- *     return prisma.user.findUnique({ where: { email } });
- *   }
- */
+// src/lib/api/auth-repository.ts
+// لایه دسترسی به Auth — از API Routes + Neon DB استفاده می‌کند
+// توکن سشن در localStorage ذخیره می‌شود، ولی داده‌ها در دیتابیس واقعی هستند.
 
 import type {
   User,
-  AuthSession,
+  LoginInput,
   RegisterInput,
   CustomerType,
   UserStatus,
 } from "@/lib/types/auth";
 
-const USERS_KEY = "tiraz_users";
-const SESSION_KEY = "tiraz_auth_session";
-const SESSION_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 روز
+const TOKEN_KEY = "tiraz_auth_token";
 
 // ===== توابع کمکی =====
 
@@ -28,209 +18,274 @@ function isBrowser(): boolean {
   return typeof window !== "undefined";
 }
 
-function readUsers(): (User & { password: string })[] {
-  if (!isBrowser()) return [];
-  try {
-    const raw = localStorage.getItem(USERS_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-function writeUsers(users: (User & { password: string })[]): void {
-  if (!isBrowser()) return;
-  try {
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
-  } catch {
-    // ignore
-  }
-}
-
-/**
- * هش ساده برای رمز عبور (فقط برای دمو)
- * ⚠️ در production حتماً از bcrypt یا argon2 در backend استفاده کن
- */
-function hashPassword(password: string): string {
-  let hash = 0;
-  const salt = "tiraz_salt_v1";
-  const input = salt + password;
-  for (let i = 0; i < input.length; i++) {
-    const char = input.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash;
-  }
-  return "h_" + Math.abs(hash).toString(36);
-}
-
-function generateId(): string {
-  return "u_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-}
-
-function generateToken(): string {
-  return "t_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
-}
-
-// ===== توابع اصلی =====
-
-export async function getUserById(id: string): Promise<User | null> {
-  const users = readUsers();
-  const user = users.find((u) => u.id === id);
-  if (!user) return null;
-  const { password: _password, ...rest } = user;
-  return rest;
-}
-
-export async function getUserByEmail(email: string): Promise<User | null> {
-  const users = readUsers();
-  const normalized = email.trim().toLowerCase();
-  const user = users.find((u) => u.email.toLowerCase() === normalized);
-  if (!user) return null;
-  const { password: _password, ...rest } = user;
-  return rest;
-}
-
-export async function getUserByIdentifier(
-  identifier: string
-): Promise<User | null> {
-  const users = readUsers();
-  const normalized = identifier.trim().toLowerCase();
-  const user = users.find(
-    (u) =>
-      u.email.toLowerCase() === normalized ||
-      u.phone.replace(/\s/g, "") === normalized.replace(/\s/g, "")
-  );
-  if (!user) return null;
-  const { password: _password, ...rest } = user;
-  return rest;
-}
-
-export async function createUser(input: RegisterInput): Promise<User> {
-  const users = readUsers();
-
-  // بررسی تکراری بودن ایمیل یا موبایل
-  const exists = users.some(
-    (u) =>
-      u.email.toLowerCase() === input.email.toLowerCase() ||
-      u.phone.replace(/\s/g, "") === input.phone.replace(/\s/g, "")
-  );
-  if (exists) {
-    throw new Error("کاربری با این ایمیل یا شماره موبایل قبلاً ثبت‌نام کرده است.");
-  }
-
-  const newUser: User & { password: string } = {
-    id: generateId(),
-    email: input.email.trim().toLowerCase(),
-    phone: input.phone.trim(),
-    name: input.name.trim(),
-    role: "customer",
-    status: "active",
-    customerType: input.customerType,
-    organizationName: input.organizationName?.trim(),
-    nationalId: input.nationalId?.trim(),
-    companyRegNumber: input.companyRegNumber?.trim(),
-    createdAt: new Date().toISOString(),
-    password: hashPassword(input.password),
-  };
-
-  users.push(newUser);
-  writeUsers(users);
-
-  const { password: _password, ...rest } = newUser;
-  return rest;
-}
-
-export async function verifyCredentials(
-  identifier: string,
-  password: string
-): Promise<User | null> {
-  const users = readUsers();
-  const normalized = identifier.trim().toLowerCase();
-  const user = users.find(
-    (u) =>
-      u.email.toLowerCase() === normalized ||
-      u.phone.replace(/\s/g, "") === normalized.replace(/\s/g, "")
-  );
-  if (!user) return null;
-
-  const hashed = hashPassword(password);
-  if (user.password !== hashed) return null;
-
-  const { password: _password, ...rest } = user;
-  return rest;
-}
-
-// ===== مدیریت Session =====
-
-export async function getSession(): Promise<AuthSession | null> {
+function getToken(): string | null {
   if (!isBrowser()) return null;
   try {
-    const raw = localStorage.getItem(SESSION_KEY);
-    if (!raw) return null;
-    const session = JSON.parse(raw) as AuthSession;
-    if (Date.now() > session.expiresAt) {
-      localStorage.removeItem(SESSION_KEY);
-      return null;
-    }
-    return session;
+    return localStorage.getItem(TOKEN_KEY);
   } catch {
     return null;
   }
 }
 
-export async function setSession(userId: string): Promise<AuthSession> {
-  const session: AuthSession = {
-    userId,
-    token: generateToken(),
-    loggedInAt: Date.now(),
-    expiresAt: Date.now() + SESSION_DURATION_MS,
-  };
-  if (isBrowser()) {
-    try {
-      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-    } catch {
-      // ignore
-    }
-  }
-  return session;
-}
-
-export async function clearSession(): Promise<void> {
-  if (isBrowser()) {
-    try {
-      localStorage.removeItem(SESSION_KEY);
-    } catch {
-      // ignore
-    }
-  }
-}
-
-// ===== ایجاد ادمین پیش‌فرض (فقط برای دمو) =====
-
-export function ensureDemoAdmin(): void {
+function setToken(token: string): void {
   if (!isBrowser()) return;
-  const users = readUsers();
-  const adminExists = users.some((u) => u.role === "admin");
-  if (adminExists) return;
-
-  const admin: User & { password: string } = {
-    id: "admin_demo",
-    email: "admin@tirazsystem.ir",
-    phone: "09120000000",
-    name: "مدیر سیستم",
-    role: "admin",
-    status: "active",
-    createdAt: new Date().toISOString(),
-    password: hashPassword("admin1234"),
-  };
-  users.push(admin);
-  writeUsers(users);
+  try {
+    localStorage.setItem(TOKEN_KEY, token);
+  } catch {
+    // ignore
+  }
 }
 
-// ===== آمار برای پنل ادمین =====
+function clearToken(): void {
+  if (!isBrowser()) return;
+  try {
+    localStorage.removeItem(TOKEN_KEY);
+  } catch {
+    // ignore
+  }
+}
 
+interface ApiError {
+  ok: false;
+  error: string;
+}
+
+interface ApiUserResponse {
+  ok: true;
+  user: User;
+}
+
+interface ApiLoginResponse {
+  ok: true;
+  token: string;
+  user: User;
+  expiresAt: string;
+}
+
+async function apiFetch<T>(
+  path: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const res = await fetch(path, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers ?? {}),
+    },
+  });
+  const data = (await res.json()) as T;
+  return data;
+}
+
+// ===== API عمومی =====
+
+/**
+ * ثبت‌نام کاربر جدید
+ */
+export async function register(
+  input: RegisterInput
+): Promise<{ ok: true; user: User } | { ok: false; error: string }> {
+  try {
+    const data = await apiFetch<
+      ApiLoginResponse | ApiError
+    >("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        name: input.name,
+        email: input.email,
+        phone: input.phone,
+        password: input.password,
+        customerType: input.customerType,
+        organizationName: input.organizationName,
+        nationalId: input.nationalId,
+        companyRegNumber: input.companyRegNumber,
+      }),
+    });
+
+    if (!data.ok) {
+      return { ok: false, error: data.error };
+    }
+
+    // اگه توکن برگشت، ذخیره کن (اختیاری — بستگی به API داره)
+    if ("token" in data && data.token) {
+      setToken(data.token);
+    }
+
+    return { ok: true, user: data.user };
+  } catch (e) {
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : "خطا در ارتباط با سرور",
+    };
+  }
+}
+
+/**
+ * ورود کاربر
+ */
+export async function login(
+  input: LoginInput
+): Promise<
+  | { ok: true; user: User }
+  | { ok: false; error: string }
+> {
+  try {
+    const data = await apiFetch<
+      ApiLoginResponse | ApiError
+    >("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        identifier: input.identifier,
+        password: input.password,
+      }),
+    });
+
+    if (!data.ok) {
+      return { ok: false, error: data.error };
+    }
+
+    setToken(data.token);
+    return { ok: true, user: data.user };
+  } catch (e) {
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : "خطا در ارتباط با سرور",
+    };
+  }
+}
+
+/**
+ * دریافت کاربر فعلی از توکن
+ */
+export async function getCurrentUser(): Promise<User | null> {
+  const token = getToken();
+  if (!token) return null;
+
+  try {
+    const data = await apiFetch<ApiUserResponse | ApiError>(
+      "/api/auth/me",
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    if (!data.ok) {
+      // اگه سشن منقضی یا نامعتبر بود، توکن رو پاک کن
+      clearToken();
+      return null;
+    }
+
+    return data.user;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * خروج
+ */
+export async function logout(): Promise<void> {
+  clearToken();
+}
+
+// ===== توابع سازگاری (برای کدهای قدیمی) =====
+
+/**
+ * @deprecated از getCurrentUser استفاده کن
+ */
+export async function getUserById(id: string): Promise<User | null> {
+  const user = await getCurrentUser();
+  return user && user.id === id ? user : null;
+}
+
+/**
+ * @deprecated از getAllUsersAPI استفاده کن
+ */
+export async function getAllUsers(): Promise<User[]> {
+  const res = await fetch("/api/admin/users");
+  const data = await res.json();
+  if (!data.ok) return [];
+  return data.users as User[];
+}
+
+/**
+ * @deprecated
+ */
+export async function getUserByEmail(email: string): Promise<User | null> {
+  const users = await getAllUsers();
+  return users.find((u) => u.email === email) ?? null;
+}
+
+/**
+ * @deprecated
+ */
+export async function getUserByIdentifier(
+  identifier: string
+): Promise<User | null> {
+  const users = await getAllUsers();
+  const norm = identifier.trim().toLowerCase();
+  return (
+    users.find(
+      (u) =>
+        u.email.toLowerCase() === norm ||
+        u.phone.replace(/\s/g, "") === norm.replace(/\s/g, "")
+    ) ?? null
+  );
+}
+
+/**
+ * @deprecated از register استفاده کن
+ */
+export async function createUser(input: RegisterInput): Promise<User> {
+  const res = await register(input);
+  if (!res.ok) throw new Error(res.error);
+  return res.user;
+}
+
+/**
+ * @deprecated از login استفاده کن
+ */
+export async function verifyCredentials(
+  identifier: string,
+  password: string
+): Promise<User | null> {
+  const res = await login({ identifier, password });
+  return res.ok ? res.user : null;
+}
+
+/**
+ * @deprecated
+ */
+export async function getSession(): Promise<{ userId: string } | null> {
+  const user = await getCurrentUser();
+  return user ? { userId: user.id } : null;
+}
+
+/**
+ * @deprecated
+ */
+export async function setSession(_userId: string): Promise<void> {
+  // no-op — توکن از قبل ذخیره شده
+}
+
+/**
+ * @deprecated از logout استفاده کن
+ */
+export async function clearSession(): Promise<void> {
+  await logout();
+}
+
+/**
+ * @deprecated
+ */
+export function ensureDemoAdmin(): void {
+  // no-op — ادمین از DB میاد
+}
+
+/**
+ * @deprecated
+ */
 export interface UserStats {
   total: number;
   customers: number;
@@ -239,8 +294,11 @@ export interface UserStats {
   byType: Record<CustomerType, number>;
 }
 
+/**
+ * @deprecated
+ */
 export async function getUserStats(): Promise<UserStats> {
-  const users = readUsers();
+  const users = await getAllUsers();
   const byType: Record<CustomerType, number> = {
     individual: 0,
     company: 0,
@@ -248,13 +306,11 @@ export async function getUserStats(): Promise<UserStats> {
     clinic: 0,
     lab: 0,
   };
-
   users.forEach((u) => {
     if (u.role === "customer" && u.customerType) {
       byType[u.customerType] = (byType[u.customerType] || 0) + 1;
     }
   });
-
   return {
     total: users.length,
     customers: users.filter((u) => u.role === "customer").length,
@@ -264,53 +320,29 @@ export async function getUserStats(): Promise<UserStats> {
   };
 }
 
-// ===== لیست همه کاربران (برای پنل ادمین) =====
-
-export async function getAllUsers(): Promise<User[]> {
-  const users = readUsers();
-  return users.map(({ password: _password, ...rest }) => rest);
-}
-
-// ===== توابع مدیریت کاربران (پنل ادمین) =====
-
 /**
- * تغییر وضعیت کاربر (active / pending / blocked)
- * اگر کاربر مورد نظر ادمین باشد، اجازه‌ی بلاک شدن ندارد.
+ * @deprecated از API admin استفاده کن
  */
 export async function updateUserStatus(
   id: string,
   status: UserStatus
 ): Promise<User | null> {
-  const users = readUsers();
-  const index = users.findIndex((u) => u.id === id);
-  if (index === -1) return null;
-
-  // جلوگیری از بلاک کردن ادمین‌ها
-  if (users[index].role === "admin" && status === "blocked") {
-    throw new Error("نمی‌توان حساب مدیر سیستم را مسدود کرد.");
-  }
-
-  users[index] = { ...users[index], status };
-  writeUsers(users);
-
-  const { password: _password, ...rest } = users[index];
-  return rest;
+  const res = await fetch(`/api/admin/users/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status }),
+  });
+  const data = await res.json();
+  return data.ok ? (data.user as User) : null;
 }
 
 /**
- * حذف کامل کاربر
- * ادمین‌ها قابل حذف نیستند.
+ * @deprecated
  */
 export async function deleteUser(id: string): Promise<boolean> {
-  const users = readUsers();
-  const target = users.find((u) => u.id === id);
-  if (!target) return false;
-
-  if (target.role === "admin") {
-    throw new Error("نمی‌توان حساب مدیر سیستم را حذف کرد.");
-  }
-
-  const filtered = users.filter((u) => u.id !== id);
-  writeUsers(filtered);
-  return true;
+  const res = await fetch(`/api/admin/users/${id}`, {
+    method: "DELETE",
+  });
+  const data = await res.json();
+  return data.ok === true;
 }

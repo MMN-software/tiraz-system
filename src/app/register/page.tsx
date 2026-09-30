@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   User,
   Mail,
@@ -71,6 +72,7 @@ type FieldErrors = Partial<Record<keyof FormState, string>>;
 
 export default function RegisterPage() {
   const { register } = useAuth();
+  const router = useRouter();
   const [form, setForm] = useState<FormState>(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState<string>("");
@@ -150,6 +152,7 @@ export default function RegisterPage() {
       return;
     }
     setStatus("success");
+    setTimeout(() => router.push("/profile"), 1500);
   }
 
   // ---------- نمایش موفقیت ----------
