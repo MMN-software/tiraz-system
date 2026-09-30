@@ -66,13 +66,9 @@ export default function LoginPage() {
       return;
     }
 
-    // تعیین مقصد بر اساس نقش کاربر
-    // نکته: بعد از login موفق، user در context آپدیت شده،
-    // ولی برای اطمینان از role دقیق، از localStorage می‌خونیم.
-    const dest = identifier.trim() === "admin@tirazsystem.ir"
-      ? "/admin"
-      : "/profile";
-    router.push(dest);
+    // همیشه به /profile می‌رویم؛
+    // اگر کاربر ادمین باشد، ProfileLayout خودش به /admin منتقل می‌کند.
+    router.push("/profile");
   }
 
   return (
