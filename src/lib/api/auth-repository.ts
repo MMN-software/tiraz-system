@@ -15,6 +15,7 @@ import type {
   AuthSession,
   RegisterInput,
   CustomerType,
+  UserStatus,
 } from "@/lib/types/auth";
 
 const USERS_KEY = "tiraz_users";
@@ -268,4 +269,48 @@ export async function getUserStats(): Promise<UserStats> {
 export async function getAllUsers(): Promise<User[]> {
   const users = readUsers();
   return users.map(({ password: _password, ...rest }) => rest);
+}
+
+// ===== توابع مدیریت کاربران (پنل ادمین) =====
+
+/**
+ * تغییر وضعیت کاربر (active / pending / blocked)
+ * اگر کاربر مورد نظر ادمین باشد، اجازه‌ی بلاک شدن ندارد.
+ */
+export async function updateUserStatus(
+  id: string,
+  status: UserStatus
+): Promise<User | null> {
+  const users = readUsers();
+  const index = users.findIndex((u) => u.id === id);
+  if (index === -1) return null;
+
+  // جلوگیری از بلاک کردن ادمین‌ها
+  if (users[index].role === "admin" && status === "blocked") {
+    throw new Error("نمی‌توان حساب مدیر سیستم را مسدود کرد.");
+  }
+
+  users[index] = { ...users[index], status };
+  writeUsers(users);
+
+  const { password: _password, ...rest } = users[index];
+  return rest;
+}
+
+/**
+ * حذف کامل کاربر
+ * ادمین‌ها قابل حذف نیستند.
+ */
+export async function deleteUser(id: string): Promise<boolean> {
+  const users = readUsers();
+  const target = users.find((u) => u.id === id);
+  if (!target) return false;
+
+  if (target.role === "admin") {
+    throw new Error("نمی‌توان حساب مدیر سیستم را حذف کرد.");
+  }
+
+  const filtered = users.filter((u) => u.id !== id);
+  writeUsers(filtered);
+  return true;
 }

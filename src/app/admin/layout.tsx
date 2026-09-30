@@ -12,6 +12,7 @@ import {
   Home,
   LogOut,
   ChevronLeft,
+  Users,
 } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
@@ -23,6 +24,7 @@ const items = [
   { href: "/admin/categories", label: "دسته‌بندی‌ها", icon: Layers },
   { href: "/admin/articles", label: "مقالات", icon: FileText },
   { href: "/admin/messages", label: "درخواست‌ها و پیام‌ها", icon: MessageSquare },
+  { href: "/admin/users", label: "کاربران", icon: Users },
   { href: "/admin/settings", label: "تنظیمات", icon: Settings },
 ];
 
