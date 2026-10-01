@@ -359,7 +359,13 @@ export async function fetchAllUsers(): Promise<User[]> {
     });
     const data = await res.json();
     if (!data.ok) return [];
-    return data.users as User[];
+    const users = data.users as User[];
+    // ادمین‌ها اول، سپس بقیه
+    return users.sort((a, b) => {
+      if (a.role === "admin" && b.role !== "admin") return -1;
+      if (a.role !== "admin" && b.role === "admin") return 1;
+      return 0;
+    });
   } catch {
     return [];
   }

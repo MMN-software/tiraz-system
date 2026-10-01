@@ -33,6 +33,7 @@ export async function GET(req: Request) {
         nationalId: users.nationalId,
         companyRegNumber: users.companyRegNumber,
         createdAt: users.createdAt,
+        lastSeenAt: users.lastSeenAt,
       })
       .from(users)
       .orderBy(desc(users.createdAt));
@@ -41,6 +42,7 @@ export async function GET(req: Request) {
     const items = rows.map((u) => ({
       ...u,
       createdAt: u.createdAt.toISOString(),
+      lastSeenAt: u.lastSeenAt ? u.lastSeenAt.toISOString() : null,
     }));
 
     return NextResponse.json(

@@ -42,7 +42,8 @@ export interface User {
   organizationName?: string;
   nationalId?: string;
   companyRegNumber?: string;
-  createdAt: string;
+    createdAt: string;
+  lastSeenAt?: string;
 }
 
 /**

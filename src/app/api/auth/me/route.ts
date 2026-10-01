@@ -63,14 +63,11 @@ export async function GET(req: Request) {
     const user = userFound[0];
 
     // ---- چک وضعیت ----
-    if (user.status === "blocked") {
-      // سشن رو پاک کن
-      await db.delete(sessions).where(eq(sessions.token, token));
-      return NextResponse.json(
-        { ok: false, error: "حساب شما مسدود شده است." },
-        { status: 403 }
-      );
-    }
+        // ---- به‌روزرسانی lastSeenAt ----
+    await db
+      .update(users)
+      .set({ lastSeenAt: new Date() })
+      .where(eq(users.id, user.id));
 
     return NextResponse.json(
       {
@@ -87,6 +84,7 @@ export async function GET(req: Request) {
           nationalId: user.nationalId,
           companyRegNumber: user.companyRegNumber,
           createdAt: user.createdAt.toISOString(),
+          lastSeenAt: user.lastSeenAt ? user.lastSeenAt.toISOString() : null,
         },
       },
       { status: 200 }

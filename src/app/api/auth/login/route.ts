@@ -94,6 +94,12 @@ export async function POST(req: Request) {
     // پاک کردن سشن‌های قبلی این کاربر (اختیاری)
     await db.delete(sessions).where(eq(sessions.userId, user.id));
 
+    // ---- به‌روزرسانی lastSeenAt ----
+    await db
+      .update(users)
+      .set({ lastSeenAt: new Date() })
+      .where(eq(users.id, user.id));
+
     await db.insert(sessions).values({
       token,
       userId: user.id,
@@ -117,6 +123,7 @@ export async function POST(req: Request) {
           nationalId: user.nationalId,
           companyRegNumber: user.companyRegNumber,
           createdAt: user.createdAt.toISOString(),
+          lastSeenAt: user.lastSeenAt ? user.lastSeenAt.toISOString() : null,
         },
         expiresAt: expiresAt.toISOString(),
       },

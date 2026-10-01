@@ -371,6 +371,11 @@ function StatCard({
   );
 }
 
+function isUserOnline(lastSeenAt: string | undefined | null): boolean {
+  const diff = Date.now() - new Date(lastSeenAt as string).getTime();
+  return diff < 2 * 60 * 1000; // کمتر از ۲ دقیقه
+}
+
 function UserRow({
   user,
   busy,
@@ -403,8 +408,19 @@ function UserRow({
 
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="font-bold text-sm text-ink-800 truncate">
-                {user.name}
+              <span className="inline-flex items-center gap-1.5">
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    isUserOnline(user.lastSeenAt)
+                      ? "bg-accent-500 animate-pulse"
+                      : "bg-ink-300"
+                  }`}
+                  title={isUserOnline(user.lastSeenAt) ? "آنلاین" : "آفلاین"}
+                  aria-label={isUserOnline(user.lastSeenAt) ? "آنلاین" : "آفلاین"}
+                />
+                <span className="font-bold text-sm text-ink-800 truncate">
+                  {user.name}
+                </span>
               </span>
               {isAdmin && (
                 <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">

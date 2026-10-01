@@ -127,6 +127,7 @@ export async function POST(req: Request) {
           nationalId: newUser.nationalId,
           companyRegNumber: newUser.companyRegNumber,
           createdAt: new Date().toISOString(),
+          lastSeenAt: new Date().toISOString(),
         },
       },
       { status: 201 }
