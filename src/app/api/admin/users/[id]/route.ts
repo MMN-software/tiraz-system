@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // PATCH /api/admin/users/[id]  → تغییر وضعیت کاربر
 // DELETE /api/admin/users/[id] → حذف کاربر
 

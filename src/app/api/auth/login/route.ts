@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // POST /api/auth/login
 // ورود کاربر با ایمیل یا موبایل
 

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // GET /api/auth/me
 // دریافت اطلاعات کاربر فعلی از روی توکن
 

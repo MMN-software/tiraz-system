@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // GET /api/admin/users
 // دریافت لیست همه کاربران (فقط برای ادمین)
 

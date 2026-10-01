@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // POST /api/auth/register
 // ثبت‌نام کاربر جدید + ساخت سشن خودکار
 
