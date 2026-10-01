@@ -132,6 +132,19 @@ export const categories = pgTable("categories", {
     .defaultNow(),
 });
 
+
+// ===== جدول تنظیمات =====
+
+export const settings = pgTable("settings", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull(),
+  label: text("label"),
+  group: text("group").notNull().default("general"),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 // ===== جدول درخواست‌ها =====
 
 export const inquiries = pgTable("inquiries", {
@@ -173,6 +186,9 @@ export type NewDbProduct = typeof products.$inferInsert;
 
 export type DbCategory = typeof categories.$inferSelect;
 export type NewDbCategory = typeof categories.$inferInsert;
+
+export type DbSetting = typeof settings.$inferSelect;
+export type NewDbSetting = typeof settings.$inferInsert;
 
 export type DbInquiry = typeof inquiries.$inferSelect;
 export type NewDbInquiry = typeof inquiries.$inferInsert;
