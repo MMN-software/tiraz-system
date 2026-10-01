@@ -15,6 +15,13 @@
       "when": 1790874603029,
       "tag": "0001_clever_sally_floyd",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790878194808,
+      "tag": "0002_fair_vapor",
+      "breakpoints": true
     }
   ]
 }

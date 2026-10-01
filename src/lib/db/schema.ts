@@ -113,6 +113,25 @@ export const products = pgTable("products", {
     .defaultNow(),
 });
 
+
+// ===== جدول دسته‌بندی‌ها =====
+
+export const categories = pgTable("categories", {
+  slug: categorySlugEnum("slug").primaryKey(),
+  name: text("name").notNull(),
+  shortName: text("short_name").notNull(),
+  description: text("description").notNull(),
+  count: integer("count").notNull().default(0),
+  order: integer("order").notNull().default(0),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 // ===== جدول درخواست‌ها =====
 
 export const inquiries = pgTable("inquiries", {
@@ -151,6 +170,9 @@ export type NewDbUser = typeof users.$inferInsert;
 
 export type DbProduct = typeof products.$inferSelect;
 export type NewDbProduct = typeof products.$inferInsert;
+
+export type DbCategory = typeof categories.$inferSelect;
+export type NewDbCategory = typeof categories.$inferInsert;
 
 export type DbInquiry = typeof inquiries.$inferSelect;
 export type NewDbInquiry = typeof inquiries.$inferInsert;
