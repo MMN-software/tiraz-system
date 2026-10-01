@@ -36,3 +36,10 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 
+
+## 🚀 وضعیت Build
+
+- آخرین به‌روزرسانی: $(date +"%Y-%m-%d %H:%M")
+- نسخه Next.js: 16.3.6
+- دیتابیس: Neon PostgreSQL (Frankfurt)
+- ORM: Drizzle
