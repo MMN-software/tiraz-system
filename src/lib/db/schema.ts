@@ -37,6 +37,13 @@ export const categorySlugEnum = pgEnum("category_slug", [
   "consumables",
 ]);
 
+export const articleCategoryEnum = pgEnum("article_category", [
+  "medical",
+  "lab",
+  "industrial",
+  "guide",
+]);
+
 export const productBadgeEnum = pgEnum("product_badge", [
   "new",
   "bestseller",
@@ -133,6 +140,30 @@ export const categories = pgTable("categories", {
 });
 
 
+
+// ===== جدول مقالات =====
+
+export const articles = pgTable("articles", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  category: articleCategoryEnum("category").notNull(),
+  author: text("author").notNull(),
+  date: text("date").notNull(),
+  readTime: integer("read_time").notNull().default(5),
+  image: text("image"),
+  featured: boolean("featured").notNull().default(false),
+  isPublished: boolean("is_published").notNull().default(true),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 // ===== جدول تنظیمات =====
 
 export const settings = pgTable("settings", {
@@ -186,6 +217,9 @@ export type NewDbProduct = typeof products.$inferInsert;
 
 export type DbCategory = typeof categories.$inferSelect;
 export type NewDbCategory = typeof categories.$inferInsert;
+
+export type DbArticle = typeof articles.$inferSelect;
+export type NewDbArticle = typeof articles.$inferInsert;
 
 export type DbSetting = typeof settings.$inferSelect;
 export type NewDbSetting = typeof settings.$inferInsert;
