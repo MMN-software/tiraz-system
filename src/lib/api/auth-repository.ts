@@ -346,3 +346,83 @@ export async function deleteUser(id: string): Promise<boolean> {
   const data = await res.json();
   return data.ok === true;
 }
+
+// ===== نسخه‌های جدید با ارسال توکن =====
+
+export async function fetchAllUsers(): Promise<User[]> {
+  const token = getToken();
+  if (!token) return [];
+
+  try {
+    const res = await fetch("/api/admin/users", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    if (!data.ok) return [];
+    return data.users as User[];
+  } catch {
+    return [];
+  }
+}
+
+export async function fetchUpdateUserStatus(
+  id: string,
+  status: UserStatus
+): Promise<{ ok: boolean; user?: User; error?: string }> {
+  const token = getToken();
+  if (!token) return { ok: false, error: "نیاز به ورود" };
+
+  try {
+    const res = await fetch(`/api/admin/users/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ status }),
+    });
+    return await res.json();
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "خطا" };
+  }
+}
+
+export async function fetchDeleteUser(
+  id: string
+): Promise<{ ok: boolean; error?: string }> {
+  const token = getToken();
+  if (!token) return { ok: false, error: "نیاز به ورود" };
+
+  try {
+    const res = await fetch(`/api/admin/users/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return await res.json();
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "خطا" };
+  }
+}
+
+export async function fetchUserStats() {
+  const users = await fetchAllUsers();
+  const byType = {
+    individual: 0,
+    company: 0,
+    hospital: 0,
+    clinic: 0,
+    lab: 0,
+  };
+  users.forEach((u) => {
+    if (u.role === "customer" && u.customerType) {
+      byType[u.customerType] = (byType[u.customerType] || 0) + 1;
+    }
+  });
+  return {
+    total: users.length,
+    customers: users.filter((u) => u.role === "customer").length,
+    admins: users.filter((u) => u.role === "admin").length,
+    pending: users.filter((u) => u.status === "pending").length,
+    byType,
+  };
+}

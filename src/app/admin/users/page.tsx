@@ -22,10 +22,10 @@ import {
   Phone,
 } from "lucide-react";
 import {
-  getAllUsers,
-  getUserStats,
-  updateUserStatus,
-  deleteUser,
+  fetchAllUsers,
+  fetchUserStats,
+  fetchUpdateUserStatus,
+  fetchDeleteUser,
   type UserStats,
 } from "@/lib/api/auth-repository";
 import type { User, CustomerType, UserStatus } from "@/lib/types/auth";
@@ -82,7 +82,10 @@ export default function AdminUsersPage() {
 
   async function loadData() {
     setLoading(true);
-    const [all, s] = await Promise.all([getAllUsers(), getUserStats()]);
+    const [all, s] = await Promise.all([
+      fetchAllUsers(),
+      fetchUserStats(),
+    ]);
     setUsers(all);
     setStats(s);
     setLoading(false);
@@ -97,8 +100,6 @@ export default function AdminUsersPage() {
     const t = setTimeout(() => setToast(null), 3000);
     return () => clearTimeout(t);
   }, [toast]);
-
-  // ---------- فیلترها ----------
 
   const filteredUsers = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -115,14 +116,13 @@ export default function AdminUsersPage() {
     });
   }, [users, search, filterType, filterStatus, filterRole]);
 
-  // ---------- عملیات ----------
-
   async function handleToggleBlock(user: User) {
     setActionLoading(user.id);
     try {
       const newStatus: UserStatus =
         user.status === "blocked" ? "active" : "blocked";
-      await updateUserStatus(user.id, newStatus);
+      const res = await fetchUpdateUserStatus(user.id, newStatus);
+      if (!res.ok) throw new Error(res.error || "خطا");
       await loadData();
       setToast({
         type: "success",
@@ -151,8 +151,8 @@ export default function AdminUsersPage() {
 
     setActionLoading(user.id);
     try {
-      const ok = await deleteUser(user.id);
-      if (!ok) throw new Error("کاربر یافت نشد.");
+      const res = await fetchDeleteUser(user.id);
+      if (!res.ok) throw new Error(res.error || "خطا در حذف");
       await loadData();
       setToast({ type: "success", message: "کاربر با موفقیت حذف شد." });
     } catch (e) {
@@ -165,11 +165,8 @@ export default function AdminUsersPage() {
     }
   }
 
-  // ---------- رندر ----------
-
   return (
     <div className="space-y-5">
-      {/* Toast */}
       {toast && (
         <div
           role="alert"
@@ -188,7 +185,6 @@ export default function AdminUsersPage() {
         </div>
       )}
 
-      {/* سرصفحه */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-xl font-extrabold text-brand-700 flex items-center gap-2">
@@ -201,7 +197,6 @@ export default function AdminUsersPage() {
         </div>
       </div>
 
-      {/* آمار */}
       {stats && (
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <StatCard
@@ -231,9 +226,7 @@ export default function AdminUsersPage() {
         </div>
       )}
 
-      {/* فیلترها */}
       <div className="bg-white rounded-2xl border border-ink-200 p-4 space-y-3">
-        {/* جست‌وجو */}
         <div className="relative">
           <Search
             className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-400 pointer-events-none"
@@ -248,7 +241,6 @@ export default function AdminUsersPage() {
           />
         </div>
 
-        {/* فیلترهای انتخابی */}
         <div className="flex flex-wrap gap-2 items-center text-xs">
           <span className="flex items-center gap-1 text-ink-500">
             <Filter className="w-3.5 h-3.5" aria-hidden="true" />
@@ -309,7 +301,6 @@ export default function AdminUsersPage() {
         </div>
       </div>
 
-      {/* لیست کاربران */}
       {loading ? (
         <div className="bg-white rounded-2xl border border-ink-200 p-10 flex items-center justify-center gap-3">
           <Loader2
@@ -399,7 +390,6 @@ function UserRow({
   return (
     <li className="p-4 sm:p-5">
       <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-        {/* آواتار + اطلاعات اصلی */}
         <div className="flex items-start gap-3 flex-1 min-w-0">
           <span
             className={`inline-flex w-11 h-11 rounded-2xl items-center justify-center text-base font-bold shrink-0 ${
@@ -456,7 +446,6 @@ function UserRow({
           </div>
         </div>
 
-        {/* دکمه‌های عملیات */}
         <div className="flex gap-2 sm:shrink-0">
           {!isAdmin && (
             <>
