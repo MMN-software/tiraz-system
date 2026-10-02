@@ -75,6 +75,9 @@ export function ContactForm() {
         type: subjectToType[form.subject] ?? "other",
         subject: form.subject,
         message: form.message,
+        guestName: isGuest ? form.name.trim() : undefined,
+        guestPhone: isGuest ? form.phone.replace(/\s/g, "") : undefined,
+        guestEmail: isGuest ? form.email.trim() || undefined : undefined,
       });
 
       setSavedAsGuest(isGuest);

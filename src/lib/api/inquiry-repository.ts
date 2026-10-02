@@ -1,148 +1,79 @@
 // src/lib/api/inquiry-repository.ts
-// لایه دسترسی به داده برای درخواست‌ها
-// فعلاً از localStorage استفاده می‌کند. برای دیتابیس واقعی، فقط توابع بازنویسی می‌شوند.
+// لایه دسترسی به درخواست‌ها — از API Routes + Neon DB استفاده می‌کند
 
 import type {
   Inquiry,
   InquiryStatus,
   CreateInquiryInput,
+  InquiryWithUser,
+  UserInquiryStats,
+  AdminInquiryStats,
 } from "@/lib/types/inquiry";
 
-const INQUIRIES_KEY = "tiraz_inquiries";
+const TOKEN_KEY = "tiraz_auth_token";
 
-// ===== توابع کمکی =====
-
-function isBrowser(): boolean {
-  return typeof window !== "undefined";
-}
-
-function readInquiries(): Inquiry[] {
-  if (!isBrowser()) return [];
+function getToken(): string | null {
+  if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem(INQUIRIES_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    return localStorage.getItem(TOKEN_KEY);
   } catch {
-    return [];
+    return null;
   }
 }
 
-function writeInquiries(items: Inquiry[]): void {
-  if (!isBrowser()) return;
-  try {
-    localStorage.setItem(INQUIRIES_KEY, JSON.stringify(items));
-  } catch {
-    // ignore
-  }
-}
-
-function generateId(): string {
-  return "RQ-" + Date.now().toString(36).toUpperCase().slice(-6);
-}
-
-// ===== توابع اصلی =====
-
 /**
- * دریافت همه درخواست‌های یک کاربر
- */
-export async function getInquiriesByUser(userId: string): Promise<Inquiry[]> {
-  const items = readInquiries();
-  return items
-    .filter((i) => i.userId === userId)
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-}
-
-/**
- * دریافت همه درخواست‌ها (برای پنل ادمین)
- */
-export async function getAllInquiries(): Promise<Inquiry[]> {
-  const items = readInquiries();
-  return items.sort(
-    (a, b) =>
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
-}
-
-/**
- * دریافت یک درخواست با شناسه
- */
-export async function getInquiryById(id: string): Promise<Inquiry | null> {
-  const items = readInquiries();
-  return items.find((i) => i.id === id) ?? null;
-}
-
-/**
- * ایجاد درخواست جدید
+ * ثبت درخواست جدید (مهمان یا کاربر لاگین‌شده)
  */
 export async function createInquiry(
   userId: string,
   input: CreateInquiryInput
 ): Promise<Inquiry> {
-  const items = readInquiries();
-  const now = new Date().toISOString();
-  const inquiry: Inquiry = {
-    id: generateId(),
-    userId,
-    type: input.type,
-    subject: input.subject.trim(),
-    message: input.message.trim(),
-    productId: input.productId,
-    productName: input.productName,
-    status: "pending",
-    createdAt: now,
-    updatedAt: now,
+  const token = getToken();
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
   };
-  items.push(inquiry);
-  writeInquiries(items);
-  return inquiry;
+
+  // اگه کاربر لاگین بود، توکن بفرست
+  if (userId !== "guest" && token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const res = await fetch("/api/inquiries", {
+    method: "POST",
+    headers,
+    body: JSON.stringify(input),
+  });
+
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || "خطا در ثبت درخواست");
+  return data.inquiry as Inquiry;
 }
 
 /**
- * به‌روزرسانی وضعیت درخواست (برای ادمین)
+ * دریافت درخواست‌های کاربر لاگین‌شده
  */
-export async function updateInquiryStatus(
-  id: string,
-  status: InquiryStatus,
-  adminReply?: string
-): Promise<Inquiry | null> {
-  const items = readInquiries();
-  const index = items.findIndex((i) => i.id === id);
-  if (index === -1) return null;
+export async function getInquiriesByUser(
+  _userId: string
+): Promise<Inquiry[]> {
+  const token = getToken();
+  if (!token) return [];
 
-  items[index] = {
-    ...items[index],
-    status,
-    adminReply: adminReply ?? items[index].adminReply,
-    updatedAt: new Date().toISOString(),
-  };
-  writeInquiries(items);
-  return items[index];
+  try {
+    const res = await fetch("/api/inquiries/my", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    if (!data.ok) return [];
+    return data.inquiries as Inquiry[];
+  } catch {
+    return [];
+  }
 }
 
 /**
- * حذف درخواست
+ * آمار درخواست‌های یک کاربر
  */
-export async function deleteInquiry(id: string): Promise<boolean> {
-  const items = readInquiries();
-  const filtered = items.filter((i) => i.id !== id);
-  if (filtered.length === items.length) return false;
-  writeInquiries(filtered);
-  return true;
-}
-
-/**
- * آمار درخواست‌های یک کاربر (برای داشبورد)
- */
-export interface UserInquiryStats {
-  total: number;
-  pending: number;
-  answered: number;
-}
-
 export async function getUserInquiryStats(
   userId: string
 ): Promise<UserInquiryStats> {
@@ -158,78 +89,104 @@ export async function getUserInquiryStats(
   };
 }
 
-// ===== توابع ویژه پنل ادمین =====
-
 /**
- * درخواست به‌همراه اطلاعات کاربر ثبت‌کننده
- * برای کاربران مهمان (userId === "guest")، فیلد user مقدار null دارد.
+ * دریافت همه درخواست‌ها همراه با اطلاعات کاربر (ادمین)
  */
-export interface InquiryWithUser extends Inquiry {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    customerType?: string;
-  } | null;
-  isGuest: boolean;
+export async function getInquiriesWithUserInfo(): Promise<
+  InquiryWithUser[]
+> {
+  const token = getToken();
+  if (!token) return [];
+
+  try {
+    const res = await fetch("/api/admin/inquiries", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    if (!data.ok) return [];
+    return data.inquiries as InquiryWithUser[];
+  } catch {
+    return [];
+  }
 }
 
 /**
- * دریافت همه درخواست‌ها همراه با اطلاعات کاربر (برای پنل ادمین)
+ * آمار کلی درخواست‌ها (ادمین)
  */
-export async function getInquiriesWithUserInfo(): Promise<InquiryWithUser[]> {
-  const items = readInquiries();
-
-  // ایمپورت داینامیک برای جلوگیری از circular dependency
-  const { getAllUsers } = await import("@/lib/api/auth-repository");
-  const users = await getAllUsers();
-  const userMap = new Map(users.map((u) => [u.id, u]));
-
-  return items
-    .map((i) => {
-      const isGuest = i.userId === "guest";
-      const u = isGuest ? null : userMap.get(i.userId);
-      return {
-        ...i,
-        isGuest,
-        user: u
-          ? {
-              id: u.id,
-              name: u.name,
-              email: u.email,
-              phone: u.phone,
-              customerType: u.customerType,
-            }
-          : null,
-      };
-    })
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-}
-
-/**
- * آمار کلی درخواست‌ها (برای پنل ادمین)
- */
-export interface AdminInquiryStats {
-  total: number;
-  pending: number;
-  inReview: number;
-  answered: number;
-  closed: number;
-  guests: number;
-}
-
 export async function getAdminInquiryStats(): Promise<AdminInquiryStats> {
-  const items = readInquiries();
+  const items = await getInquiriesWithUserInfo();
   return {
     total: items.length,
     pending: items.filter((i) => i.status === "pending").length,
     inReview: items.filter((i) => i.status === "in_review").length,
     answered: items.filter((i) => i.status === "answered").length,
     closed: items.filter((i) => i.status === "closed").length,
-    guests: items.filter((i) => i.userId === "guest").length,
+    guests: items.filter((i) => i.isGuest).length,
   };
+}
+
+/**
+ * به‌روزرسانی وضعیت و پاسخ درخواست (ادمین)
+ */
+export async function updateInquiryStatus(
+  id: string,
+  status: InquiryStatus,
+  adminReply?: string
+): Promise<{ ok: boolean; inquiry?: Inquiry; error?: string }> {
+  const token = getToken();
+  if (!token) return { ok: false, error: "نیاز به ورود" };
+
+  try {
+    const res = await fetch(`/api/admin/inquiries/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ status, adminReply }),
+    });
+    return await res.json();
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "خطا" };
+  }
+}
+
+/**
+ * حذف درخواست (ادمین)
+ */
+export async function deleteInquiry(
+  id: string
+): Promise<{ ok: boolean; error?: string }> {
+  const token = getToken();
+  if (!token) return { ok: false, error: "نیاز به ورود" };
+
+  try {
+    const res = await fetch(`/api/admin/inquiries/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return await res.json();
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "خطا" };
+  }
+}
+
+// ===== توابع قدیمی (نگه‌داشته شده برای سازگاری) =====
+
+/**
+ * @deprecated از getInquiriesWithUserInfo استفاده کن
+ */
+export async function getAllInquiries(): Promise<Inquiry[]> {
+  const items = await getInquiriesWithUserInfo();
+  return items;
+}
+
+/**
+ * @deprecated
+ */
+export async function getInquiryById(
+  id: string
+): Promise<Inquiry | null> {
+  const items = await getInquiriesWithUserInfo();
+  return items.find((i) => i.id === id) ?? null;
 }

@@ -186,6 +186,9 @@ export const inquiries = pgTable("inquiries", {
   message: text("message").notNull(),
   productId: integer("product_id"),
   productName: text("product_name"),
+  guestName: text("guest_name"),
+  guestPhone: text("guest_phone"),
+  guestEmail: text("guest_email"),
   status: inquiryStatusEnum("status").notNull().default("pending"),
   adminReply: text("admin_reply"),
   createdAt: timestamp("created_at", { withTimezone: true })

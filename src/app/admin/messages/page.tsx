@@ -26,9 +26,11 @@ import {
   getInquiriesWithUserInfo,
   getAdminInquiryStats,
   updateInquiryStatus,
-  type InquiryWithUser,
-  type AdminInquiryStats,
 } from "@/lib/api/inquiry-repository";
+import type {
+  InquiryWithUser,
+  AdminInquiryStats,
+} from "@/lib/types/inquiry";
 import type { InquiryStatus, InquiryType } from "@/lib/types/inquiry";
 
 // ---------- برچسب‌ها ----------
@@ -369,7 +371,12 @@ function InquiryRow({
   async function handleSave() {
     setSaving(true);
     try {
-      await updateInquiryStatus(item.id, newStatus, reply.trim() || undefined);
+      const res = await updateInquiryStatus(
+        item.id,
+        newStatus,
+        reply.trim() || undefined
+      );
+      if (!res.ok) throw new Error(res.error || "خطا در ذخیره");
       await onUpdated();
     } catch (e) {
       onError(e instanceof Error ? e.message : "خطا در ذخیره پاسخ");

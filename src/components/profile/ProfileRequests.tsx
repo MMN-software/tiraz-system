@@ -18,12 +18,12 @@ import { useAuth } from "@/lib/auth-context";
 import {
   getInquiriesByUser,
   getUserInquiryStats,
-  type UserInquiryStats,
 } from "@/lib/api/inquiry-repository";
 import type {
   Inquiry,
   InquiryStatus,
   InquiryType,
+  UserInquiryStats,
 } from "@/lib/types/inquiry";
 
 const statusLabels: Record<InquiryStatus, string> = {
