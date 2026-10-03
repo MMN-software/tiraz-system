@@ -23,7 +23,7 @@ export function Logo({ size = "md", variant = "dark" }: LogoProps) {
       className="inline-flex items-center gap-2.5 focus-visible:outline-none"
     >
       <span
-        className={`${s.mark} rounded-lg bg-brand-600 text-white flex items-center justify-center shrink-0 shadow-sm`}
+        className={`${s.mark} rounded-lg bg-gradient-to-br from-brand-600 to-accent-600 text-white flex items-center justify-center shrink-0 shadow-sm`}
         aria-hidden="true"
       >
         <svg
