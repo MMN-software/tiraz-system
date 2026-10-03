@@ -101,7 +101,7 @@ export function WhyUs() {
                     aria-hidden="true"
                   />
                   <span
-                    className={`inline-flex w-14 h-14 mb-4 rounded-2xl ${f.color} ${f.hoverColor} items-center justify-center transition-all duration-300 shadow-sm`}
+                    className={`inline-flex w-14 h-14 mb-4 rounded-2xl motion-icon-rotate ${f.color} ${f.hoverColor} items-center justify-center transition-all duration-300 shadow-sm`}
                   >
                     <Icon className="w-7 h-7" aria-hidden="true" />
                   </span>

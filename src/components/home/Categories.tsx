@@ -126,7 +126,7 @@ export function Categories() {
                 />
 
                 <span
-                  className={`relative inline-flex w-14 h-14 mb-3.5 rounded-2xl ${styles.iconBg} items-center justify-center transition-all duration-300 mx-auto shadow-sm`}
+                  className={`relative inline-flex w-14 h-14 mb-3.5 rounded-2xl motion-icon-rotate ${styles.iconBg} items-center justify-center transition-all duration-300 mx-auto shadow-sm`}
                 >
                   <Icon className="w-7 h-7" aria-hidden="true" />
                 </span>

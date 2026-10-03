@@ -101,7 +101,7 @@ export function Services() {
 
                   {/* آیکون */}
                   <span
-                    className={`relative inline-flex w-14 h-14 mb-5 rounded-2xl ${s.iconBg} items-center justify-center transition-all duration-300 shadow-sm`}
+                    className={`relative inline-flex w-14 h-14 mb-5 rounded-2xl motion-icon-rotate ${s.iconBg} items-center justify-center transition-all duration-300 shadow-sm`}
                   >
                     <Icon className="w-7 h-7" aria-hidden="true" />
                   </span>

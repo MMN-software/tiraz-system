@@ -85,7 +85,7 @@ export function Certificates() {
                     aria-hidden="true"
                   />
 
-                  <span className="inline-flex w-14 h-14 mb-4 rounded-2xl bg-white/10 border border-white/15 items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <span className="inline-flex w-14 h-14 mb-4 rounded-2xl bg-white/10 border border-white/15 items-center justify-center motion-icon-rotate">
                     <Icon
                       className="w-7 h-7 text-accent-300"
                       aria-hidden="true"
