@@ -26,7 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <>
-      <article className="group relative bg-white rounded-2xl border border-ink-200 hover:border-brand-300 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden flex flex-col">
+      <article className="motion-card-lift group relative bg-white rounded-2xl border border-ink-200 hover:border-brand-300 overflow-hidden flex flex-col">
         {/* تصویر */}
         <div className="relative aspect-square overflow-hidden bg-ink-100">
           <Link

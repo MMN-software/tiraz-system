@@ -35,7 +35,7 @@ export function Header() {
           <div className="flex items-center gap-5">
             <a
               href="tel:+982112345678"
-              className="flex items-center gap-1.5 hover:text-accent-400 transition-colors"
+              className="flex items-center gap-1.5 hover:text-accent-400 transition-colors duration-300"
               aria-label="تماس تلفنی"
             >
               <Phone className="w-3.5 h-3.5" aria-hidden="true" />
@@ -43,7 +43,7 @@ export function Header() {
             </a>
             <a
               href="mailto:mohamadmehdi.neemati@gmail.com"
-              className="flex items-center gap-1.5 hover:text-accent-400 transition-colors"
+              className="flex items-center gap-1.5 hover:text-accent-400 transition-colors duration-300"
               aria-label="ایمیل"
             >
               <Mail className="w-3.5 h-3.5" aria-hidden="true" />
@@ -53,7 +53,7 @@ export function Header() {
           <div className="flex items-center gap-4">
             <Link
               href="/login"
-              className="flex items-center gap-1.5 hover:text-accent-400 transition-colors"
+              className="flex items-center gap-1.5 hover:text-accent-400 transition-colors duration-300"
             >
               <User className="w-3.5 h-3.5" aria-hidden="true" />
               ورود / ثبت‌نام
@@ -74,7 +74,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-ink-700 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors"
+                className="motion-underline px-3 py-2 text-sm font-medium text-ink-700 hover:text-brand-600 rounded-lg transition-colors motion-reduce:transition-none"
               >
                 {item.label}
               </Link>
@@ -103,7 +103,7 @@ export function Header() {
 
             <Link
               href="/contact"
-              className="hidden xl:inline-flex items-center gap-2 h-10 px-4 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white text-sm font-medium rounded-lg transition-colors"
+              className="motion-shimmer hidden xl:inline-flex items-center gap-2 h-10 px-4 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white text-sm font-medium rounded-lg transition-colors"
             >
               درخواست مشاوره
             </Link>

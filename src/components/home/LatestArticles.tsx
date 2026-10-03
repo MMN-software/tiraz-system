@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { getFeaturedArticles } from "@/lib/data/articles";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 export function LatestArticles() {
   const featured = getFeaturedArticles(3);
@@ -27,11 +28,13 @@ export function LatestArticles() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {featured.map((a) => (
-            <ArticleCard key={a.id} article={a} />
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {featured.map((a, i) => (
+            <RevealItem key={a.id} index={i} className="h-full">
+              <ArticleCard article={a} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

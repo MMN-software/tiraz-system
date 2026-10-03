@@ -11,7 +11,40 @@ const brands = [
   { name: "QualityPro", country: "کره" },
 ];
 
+function BrandCard({
+  name,
+  country,
+}: {
+  name: string;
+  country: string;
+}) {
+  return (
+    <div
+      dir="rtl"
+      className="motion-card-lift group relative bg-white rounded-2xl border border-ink-200 hover:border-brand-300 p-5 flex flex-col items-center justify-center text-center overflow-hidden shrink-0 w-40 sm:w-48 h-28 sm:h-32"
+    >
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-brand-50/0 via-brand-50/0 to-accent-50/0 group-hover:from-brand-50 group-hover:to-accent-50 transition-all duration-300"
+        aria-hidden="true"
+      />
+      <Building2
+        className="relative w-4 h-4 text-ink-300 group-hover:text-brand-500 transition-colors mb-2"
+        aria-hidden="true"
+      />
+      <div className="relative text-base sm:text-lg font-extrabold text-ink-400 group-hover:text-brand-700 transition-colors tracking-wide">
+        {name}
+      </div>
+      <div className="relative text-[10px] text-ink-400 group-hover:text-accent-600 transition-colors mt-1 font-medium">
+        {country}
+      </div>
+    </div>
+  );
+}
+
 export function Brands() {
+  // دو نسخه برای حلقه‌ی بی‌انهای
+  const loop = [...brands, ...brands];
+
   return (
     <section className="py-16 sm:py-20 relative overflow-hidden">
       <div className="container relative mx-auto px-4">
@@ -31,45 +64,22 @@ export function Brands() {
             تجهیزات.
           </p>
         </div>
+      </div>
 
-        {/* گرید برندها */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-          {brands.map((b, i) => (
-            <div
-              key={i}
-              className="group relative bg-white rounded-2xl border border-ink-200 hover:border-brand-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-5 flex flex-col items-center justify-center text-center overflow-hidden h-28 sm:h-32"
-            >
-              {/* گرادیانت hover */}
-              <div
-                className="absolute inset-0 bg-gradient-to-br from-brand-50/0 via-brand-50/0 to-accent-50/0 group-hover:from-brand-50 group-hover:to-accent-50 transition-all duration-300"
-                aria-hidden="true"
-              />
-
-              {/* آیکون کوچک */}
-              <Building2
-                className="relative w-4 h-4 text-ink-300 group-hover:text-brand-500 transition-colors mb-2"
-                aria-hidden="true"
-              />
-
-              {/* نام برند */}
-              <div className="relative text-base sm:text-lg font-extrabold text-ink-400 group-hover:text-brand-700 transition-colors tracking-wide">
-                {b.name}
-              </div>
-
-              {/* کشور */}
-              <div className="relative text-[10px] text-ink-400 group-hover:text-accent-600 transition-colors mt-1 font-medium">
-                {b.country}
-              </div>
-            </div>
+      {/* کاروسل بی‌نهایت */}
+      <div className="motion-marquee-pause relative" dir="ltr">
+        <div className="motion-marquee flex gap-3 sm:gap-4 w-max px-4">
+          {loop.map((b, i) => (
+            <BrandCard key={`${b.name}-${i}`} name={b.name} country={b.country} />
           ))}
         </div>
-
-        {/* یادداشت */}
-        <p className="text-center text-xs text-ink-400 mt-8">
-          * این لوگوها نمونه هستند و در نسخه نهایی با شرکای واقعی جایگزین
-          می‌شوند.
-        </p>
       </div>
+
+      {/* یادداشت */}
+      <p className="container mx-auto px-4 text-center text-xs text-ink-400 mt-8">
+        * این لوگوها نمونه هستند و در نسخه نهایی با شرکای واقعی جایگزین
+        می‌شوند.
+      </p>
     </section>
   );
 }

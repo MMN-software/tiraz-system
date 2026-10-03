@@ -7,6 +7,7 @@ import {
   ArrowLeft,
   CheckCircle2,
 } from "lucide-react";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 const services = [
   {
@@ -78,67 +79,68 @@ export function Services() {
         </div>
 
         {/* کارت‌های خدمات */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {services.map((s, i) => {
             const Icon = s.icon;
             return (
-              <Link
-                key={i}
-                href={s.href}
-                className="group relative bg-white rounded-2xl p-6 border border-ink-200 hover:border-transparent hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col"
-              >
-                {/* گرادیانت رنگی که روی hover ظاهر می‌شه */}
-                <div
-                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${s.color} opacity-0 group-hover:opacity-100 transition-opacity`}
-                  aria-hidden="true"
-                />
-
-                {/* شماره‌گذاری */}
-                <span className="absolute top-5 left-5 text-4xl font-extrabold text-ink-100 group-hover:text-brand-100 transition-colors num">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-
-                {/* آیکون */}
-                <span
-                  className={`relative inline-flex w-14 h-14 mb-5 rounded-2xl ${s.iconBg} items-center justify-center transition-all duration-300 shadow-sm`}
+              <RevealItem key={i} index={i} className="h-full">
+                <Link
+                  href={s.href}
+                  className="motion-card-lift group relative bg-white rounded-2xl p-6 border border-ink-200 hover:border-transparent overflow-hidden flex flex-col h-full"
                 >
-                  <Icon className="w-7 h-7" aria-hidden="true" />
-                </span>
-
-                {/* عنوان */}
-                <h3 className="relative text-lg font-extrabold text-brand-800 mb-2 leading-snug group-hover:text-brand-600 transition-colors">
-                  {s.title}
-                </h3>
-
-                {/* توضیح */}
-                <p className="relative text-sm text-ink-500 leading-relaxed mb-4 flex-1">
-                  {s.desc}
-                </p>
-
-                {/* تگ‌ها */}
-                <div className="relative flex flex-wrap gap-1.5 mb-4">
-                  {s.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] font-medium text-ink-500 bg-ink-50 px-2 py-0.5 rounded-md border border-ink-100"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* دکمه */}
-                <span className="relative inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 group-hover:text-coral-500 transition-colors mt-auto">
-                  مشاهده محصولات
-                  <ArrowLeft
-                    className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform"
+                  {/* گرادیانت رنگی که روی hover ظاهر می‌شه */}
+                  <div
+                    className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${s.color} opacity-0 group-hover:opacity-100 transition-opacity`}
                     aria-hidden="true"
                   />
-                </span>
-              </Link>
+
+                  {/* شماره‌گذاری */}
+                  <span className="absolute top-5 left-5 text-4xl font-extrabold text-ink-100 group-hover:text-brand-100 transition-colors num">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  {/* آیکون */}
+                  <span
+                    className={`relative inline-flex w-14 h-14 mb-5 rounded-2xl ${s.iconBg} items-center justify-center transition-all duration-300 shadow-sm`}
+                  >
+                    <Icon className="w-7 h-7" aria-hidden="true" />
+                  </span>
+
+                  {/* عنوان */}
+                  <h3 className="relative text-lg font-extrabold text-brand-800 mb-2 leading-snug group-hover:text-brand-600 transition-colors">
+                    {s.title}
+                  </h3>
+
+                  {/* توضیح */}
+                  <p className="relative text-sm text-ink-500 leading-relaxed mb-4 flex-1">
+                    {s.desc}
+                  </p>
+
+                  {/* تگ‌ها */}
+                  <div className="relative flex flex-wrap gap-1.5 mb-4">
+                    {s.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] font-medium text-ink-500 bg-ink-50 px-2 py-0.5 rounded-md border border-ink-100"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* دکمه */}
+                  <span className="relative inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 group-hover:text-coral-500 transition-colors mt-auto">
+                    مشاهده محصولات
+                    <ArrowLeft
+                      className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Link>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
 
         {/* CTA پایین */}
         <div className="mt-12 text-center">

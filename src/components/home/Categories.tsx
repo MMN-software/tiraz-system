@@ -12,6 +12,7 @@ import {
 import { categories } from "@/lib/data/categories";
 import { products } from "@/lib/data/products";
 import type { CategorySlug } from "@/lib/types";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 const iconMap: Record<CategorySlug, React.ComponentType<{ className?: string }>> = {
   medical: Stethoscope,
@@ -108,16 +109,16 @@ export function Categories() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <RevealGroup className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {categories.map((c) => {
             const Icon = iconMap[c.slug];
             const styles = styleMap[c.slug];
             const count = categoryCounts[c.slug];
             return (
+              <RevealItem key={c.slug} index={categories.indexOf(c)} className="h-full">
               <Link
-                key={c.slug}
                 href={`/products?category=${c.slug}`}
-                className={`group relative bg-white rounded-2xl p-5 border border-ink-200 ${styles.hoverBorder} hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 text-center overflow-hidden flex flex-col`}
+                className={`motion-card-lift group relative bg-white rounded-2xl p-5 border border-ink-200 ${styles.hoverBorder} text-center overflow-hidden flex flex-col h-full`}
               >
                 <div
                   className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${styles.accentBar} opacity-0 group-hover:opacity-100 transition-opacity`}
@@ -148,9 +149,10 @@ export function Categories() {
                   />
                 </span>
               </Link>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
 
         <div className="mt-12 text-center">
           <Link

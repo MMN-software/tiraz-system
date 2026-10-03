@@ -9,6 +9,7 @@ import {
   ArrowLeft,
   Heart,
 } from "lucide-react";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 const features = [
   {
@@ -89,38 +90,36 @@ export function WhyUs() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f, i) => {
             const Icon = f.icon;
             return (
-              <div
-                key={i}
-                className="group relative bg-white rounded-2xl p-6 border border-ink-200 hover:border-transparent hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
-              >
-                <div
-                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${f.accentBar} opacity-0 group-hover:opacity-100 transition-opacity`}
-                  aria-hidden="true"
-                />
-                <span
-                  className={`inline-flex w-14 h-14 mb-4 rounded-2xl ${f.color} ${f.hoverColor} items-center justify-center transition-all duration-300 shadow-sm`}
-                >
-                  <Icon className="w-7 h-7" aria-hidden="true" />
-                </span>
-                <h3 className="text-base font-extrabold text-brand-800 mb-2 group-hover:text-brand-600 transition-colors">
-                  {f.title}
-                </h3>
-                <p className="text-sm text-ink-500 leading-relaxed">
-                  {f.desc}
-                </p>
-              </div>
+              <RevealItem key={i} index={i} className="h-full">
+                <div className="motion-card-lift group relative bg-white rounded-2xl p-6 border border-ink-200 hover:border-transparent overflow-hidden h-full">
+                  <div
+                    className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${f.accentBar} opacity-0 group-hover:opacity-100 transition-opacity`}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className={`inline-flex w-14 h-14 mb-4 rounded-2xl ${f.color} ${f.hoverColor} items-center justify-center transition-all duration-300 shadow-sm`}
+                  >
+                    <Icon className="w-7 h-7" aria-hidden="true" />
+                  </span>
+                  <h3 className="text-base font-extrabold text-brand-800 mb-2 group-hover:text-brand-600 transition-colors">
+                    {f.title}
+                  </h3>
+                  <p className="text-sm text-ink-500 leading-relaxed">
+                    {f.desc}
+                  </p>
+                </div>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
 
-        {/* CTA پایین — بازطراحی شده با کنتراست بالا */}
+        {/* CTA پایین */}
         <div className="mt-12">
           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-l from-brand-700 via-brand-600 to-accent-600 p-6 sm:p-8 shadow-xl">
-            {/* گرافیک */}
             <div
               className="absolute -top-10 -left-10 w-40 h-40 bg-coral-400/20 rounded-full blur-2xl"
               aria-hidden="true"
@@ -129,7 +128,6 @@ export function WhyUs() {
               className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"
               aria-hidden="true"
             />
-
             <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-center sm:text-right">
                 <h3 className="text-base sm:text-lg font-extrabold text-white mb-1">

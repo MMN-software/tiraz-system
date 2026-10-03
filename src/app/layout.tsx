@@ -14,6 +14,7 @@ import { WishlistProvider } from "@/components/common/Wishlist";
 import { CompareProvider } from "@/components/common/Compare";
 import { CompareBar } from "@/components/common/CompareBar";
 import { AuthProvider } from "@/lib/auth-context";
+import MotionProvider from "@/components/motion/MotionProvider";
 import "./globals.css";
 
 const vazirmatn = localFont({
@@ -75,20 +76,22 @@ export default function RootLayout({
           <ToastProvider>
             <WishlistProvider>
               <CompareProvider>
-                <SkipToContent />
-                <Suspense fallback={null}>
-                  <NavigationProgress />
-                </Suspense>
-                <ScrollProgressBar />
-                <ScrollToTop />
-                <Header />
-                <main id="main-content" className="flex-1 pb-16 sm:pb-0">
-                  {children}
-                </main>
-                <Footer />
-                <FloatingCall />
-                <BackToTop />
-                <CompareBar />
+                <MotionProvider>
+                  <SkipToContent />
+                  <Suspense fallback={null}>
+                    <NavigationProgress />
+                  </Suspense>
+                  <ScrollProgressBar />
+                  <ScrollToTop />
+                  <Header />
+                  <main id="main-content" className="flex-1 pb-16 sm:pb-0">
+                    {children}
+                  </main>
+                  <Footer />
+                  <FloatingCall />
+                  <BackToTop />
+                  <CompareBar />
+                </MotionProvider>
               </CompareProvider>
             </WishlistProvider>
           </ToastProvider>

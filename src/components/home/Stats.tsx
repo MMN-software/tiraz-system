@@ -1,5 +1,6 @@
 import { Layers, Package, Award, Users } from "lucide-react";
 import { CountUp } from "./CountUp";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 const stats = [
   {
@@ -59,39 +60,44 @@ export function Stats() {
       />
 
       <div className="container relative mx-auto px-4 py-12 sm:py-16">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <RevealGroup className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {stats.map((s, i) => {
             const Icon = s.icon;
             return (
-              <div key={i} className="group text-center relative">
-                <span
-                  className={`inline-flex w-14 h-14 sm:w-16 sm:h-16 mb-4 rounded-2xl ${s.iconBg} backdrop-blur-sm border border-white/10 items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                >
-                  <Icon className="w-7 h-7 sm:w-8 sm:h-8" aria-hidden="true" />
-                </span>
+              <RevealItem key={i} index={i}>
+                <div className="group text-center relative h-full">
+                  <span
+                    className={`inline-flex w-14 h-14 sm:w-16 sm:h-16 mb-4 rounded-2xl ${s.iconBg} backdrop-blur-sm border border-white/10 items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <Icon
+                      className="w-7 h-7 sm:w-8 sm:h-8"
+                      aria-hidden="true"
+                    />
+                  </span>
 
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-1 leading-none">
-                  <CountUp end={s.value} suffix={s.suffix} />
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-1 leading-none">
+                    <CountUp end={s.value} suffix={s.suffix} />
+                  </div>
+
+                  <div className="text-sm sm:text-base font-bold text-white/95 mb-0.5">
+                    {s.label}
+                  </div>
+
+                  <div className="text-[11px] sm:text-xs text-white/60">
+                    {s.sub}
+                  </div>
+
+                  {i < stats.length - 1 && (
+                    <div
+                      className="hidden lg:block absolute top-1/2 -left-4 w-px h-12 bg-white/15 -translate-y-1/2"
+                      aria-hidden="true"
+                    />
+                  )}
                 </div>
-
-                <div className="text-sm sm:text-base font-bold text-white/95 mb-0.5">
-                  {s.label}
-                </div>
-
-                <div className="text-[11px] sm:text-xs text-white/60">
-                  {s.sub}
-                </div>
-
-                {i < stats.length - 1 && (
-                  <div
-                    className="hidden lg:block absolute top-1/2 -left-4 w-px h-12 bg-white/15 -translate-y-1/2"
-                    aria-hidden="true"
-                  />
-                )}
-              </div>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

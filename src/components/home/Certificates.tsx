@@ -6,6 +6,7 @@ import {
   Handshake,
   Sparkles,
 } from "lucide-react";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 const commitments = [
   {
@@ -73,34 +74,36 @@ export function Certificates() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <RevealGroup className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {commitments.map((c, i) => {
             const Icon = c.icon;
             return (
-              <div
-                key={i}
-                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 text-center hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
-              >
-                <div
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-white/30 to-transparent"
-                  aria-hidden="true"
-                />
+              <RevealItem key={i} index={i} className="h-full">
+                <div className="motion-card-lift group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 text-center hover:bg-white/10 overflow-hidden h-full">
+                  <div
+                    className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-white/30 to-transparent"
+                    aria-hidden="true"
+                  />
 
-                <span className="inline-flex w-14 h-14 mb-4 rounded-2xl bg-white/10 border border-white/15 items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon className="w-7 h-7 text-accent-300" aria-hidden="true" />
-                </span>
+                  <span className="inline-flex w-14 h-14 mb-4 rounded-2xl bg-white/10 border border-white/15 items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Icon
+                      className="w-7 h-7 text-accent-300"
+                      aria-hidden="true"
+                    />
+                  </span>
 
-                <h3 className="text-sm sm:text-base font-extrabold text-white mb-2">
-                  {c.title}
-                </h3>
+                  <h3 className="text-sm sm:text-base font-extrabold text-white mb-2">
+                    {c.title}
+                  </h3>
 
-                <p className="text-[11px] text-white/70 leading-relaxed">
-                  {c.desc}
-                </p>
-              </div>
+                  <p className="text-[11px] text-white/70 leading-relaxed">
+                    {c.desc}
+                  </p>
+                </div>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8">
           {trustItems.map((item, i) => (

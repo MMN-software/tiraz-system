@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, Flame, Sparkles, TrendingUp } from "lucide-react";
 import { ProductCard } from "@/components/products/ProductCard";
 import { getFeaturedProducts } from "@/lib/data/products";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 export function FeaturedProducts() {
   const featured = getFeaturedProducts();
@@ -61,11 +62,13 @@ export function FeaturedProducts() {
         </div>
 
         {/* گرید محصولات */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {featured.map((product) => (
-            <ProductCard key={product.id} product={product} />
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {featured.map((product, i) => (
+            <RevealItem key={product.id} index={i} className="h-full">
+              <ProductCard product={product} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
 
         {/* CTA پایین */}
         <div className="mt-12 p-6 sm:p-8 bg-gradient-to-l from-brand-50 via-white to-accent-50 rounded-2xl border border-brand-100 flex flex-col sm:flex-row items-center justify-between gap-4">

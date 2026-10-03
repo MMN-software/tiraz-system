@@ -44,7 +44,7 @@ export function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
               </span>
-              <Sparkles className="w-3.5 h-3.5 text-coral-500" aria-hidden="true" />
+              <Sparkles className="motion-rotate-slow w-3.5 h-3.5 text-coral-500" aria-hidden="true" />
               تأمین‌کننده معتبر تجهیزات تخصصی
             </div>
 
