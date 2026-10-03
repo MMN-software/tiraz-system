@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Clock,
 } from "lucide-react";
+import { Reveal } from "@/components/motion/Reveal";
 
 export function Hero() {
   return (
@@ -40,11 +41,11 @@ export function Hero() {
           {/* ستون متن */}
           <div className="text-center lg:text-right">
             <div className="inline-flex items-center gap-2 bg-white text-brand-700 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-full border border-brand-200 shadow-sm mb-5">
-              <span className="relative flex w-2 h-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
-              </span>
-              <Sparkles className="motion-rotate-slow w-3.5 h-3.5 text-coral-500" aria-hidden="true" />
+              <span className="motion-pulse-soft inline-flex w-2 h-2 rounded-full bg-accent-500" />
+              <Sparkles
+                className="motion-rotate-slow w-3.5 h-3.5 text-coral-500"
+                aria-hidden="true"
+              />
               تأمین‌کننده معتبر تجهیزات تخصصی
             </div>
 
@@ -71,7 +72,7 @@ export function Hero() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
               <Link
                 href="/products"
-                className="group inline-flex items-center justify-center gap-2 h-13 px-7 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 py-3.5"
+                className="motion-shimmer group inline-flex items-center justify-center gap-2 h-13 px-7 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 py-3.5"
               >
                 مشاهده محصولات
                 <ArrowLeft
@@ -88,34 +89,53 @@ export function Hero() {
               </Link>
             </div>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 pt-6 border-t border-ink-200">
-              {[
-                { icon: ShieldCheck, label: "ضمانت اصالت", sub: "شناسنامه معتبر", color: "text-accent-500 bg-accent-50" },
-                { icon: Award, label: "کیفیت استاندارد", sub: "تأییدشده", color: "text-brand-600 bg-brand-50" },
-                { icon: Truck, label: "ارسال سریع", sub: "سراسر کشور", color: "text-coral-500 bg-coral-50" },
-              ].map((item, i) => {
-                const Icon = item.icon;
-                return (
-                  <div key={i} className="flex items-center gap-2.5">
-                    <span
-                      className={`inline-flex w-10 h-10 rounded-xl ${item.color} items-center justify-center shrink-0`}
-                    >
-                      <Icon className="w-5 h-5" aria-hidden="true" />
-                    </span>
-                    <div className="text-right">
-                      <div className="text-xs sm:text-sm font-bold text-ink-800">
-                        {item.label}
+            <Reveal delay={0.15}>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 pt-6 border-t border-ink-200">
+                {[
+                  {
+                    icon: ShieldCheck,
+                    label: "ضمانت اصالت",
+                    sub: "شناسنامه معتبر",
+                    color: "text-accent-500 bg-accent-50",
+                  },
+                  {
+                    icon: Award,
+                    label: "کیفیت استاندارد",
+                    sub: "تأییدشده",
+                    color: "text-brand-600 bg-brand-50",
+                  },
+                  {
+                    icon: Truck,
+                    label: "ارسال سریع",
+                    sub: "سراسر کشور",
+                    color: "text-coral-500 bg-coral-50",
+                  },
+                ].map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={i} className="flex items-center gap-2.5">
+                      <span
+                        className={`inline-flex w-10 h-10 rounded-xl ${item.color} items-center justify-center shrink-0`}
+                      >
+                        <Icon className="w-5 h-5" aria-hidden="true" />
+                      </span>
+                      <div className="text-right">
+                        <div className="text-xs sm:text-sm font-bold text-ink-800">
+                          {item.label}
+                        </div>
+                        <div className="text-[10px] text-ink-500">
+                          {item.sub}
+                        </div>
                       </div>
-                      <div className="text-[10px] text-ink-500">{item.sub}</div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            </Reveal>
           </div>
 
           {/* ستون گرافیک */}
-          <div className="relative hidden lg:block">
+          <Reveal delay={0.3} className="relative hidden lg:block">
             <div className="relative aspect-square max-w-lg mx-auto">
               <div
                 className="absolute inset-0 bg-gradient-to-tr from-brand-500 to-accent-500 rounded-3xl rotate-6 opacity-20"
@@ -193,7 +213,10 @@ export function Hero() {
 
                   <div className="bg-gradient-to-l from-brand-50 to-accent-50 border border-brand-100 rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-3">
-                      <ShieldCheck className="w-4 h-4 text-accent-500" aria-hidden="true" />
+                      <ShieldCheck
+                        className="w-4 h-4 text-accent-500"
+                        aria-hidden="true"
+                      />
                       <span className="text-[11px] font-bold text-brand-700">
                         تعهد ما به شما
                       </span>
@@ -240,7 +263,7 @@ export function Hero() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
