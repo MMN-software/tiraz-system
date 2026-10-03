@@ -49,6 +49,46 @@ export function Hero() {
               تأمین‌کننده معتبر تجهیزات تخصصی
             </div>
 
+
+            {/* نوار ضربان قلب (ECG) */}
+            <div
+              className="relative w-full max-w-md mx-auto lg:mx-0 mb-6 h-12 overflow-hidden"
+              aria-hidden="true"
+            >
+              <svg
+                viewBox="0 0 400 60"
+                preserveAspectRatio="none"
+                className="w-full h-full"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* خط پایه‌ی ثابت (کم‌رنگ) */}
+                <path
+                  d="M 0 30 L 60 30 L 70 30 L 78 18 L 86 42 L 94 30 L 110 30 L 118 22 L 126 38 L 134 30 L 160 30 L 170 30 L 178 18 L 186 42 L 194 30 L 210 30 L 218 22 L 226 38 L 234 30 L 260 30 L 270 30 L 278 18 L 286 42 L 294 30 L 310 30 L 318 22 L 326 38 L 334 30 L 400 30"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                  className="text-brand-300"
+                />
+                {/* خط روشن در حال حرکت */}
+                <path
+                  d="M 0 30 L 60 30 L 70 30 L 78 18 L 86 42 L 94 30 L 110 30 L 118 22 L 126 38 L 134 30 L 160 30 L 170 30 L 178 18 L 186 42 L 194 30 L 210 30 L 218 22 L 226 38 L 234 30 L 260 30 L 270 30 L 278 18 L 286 42 L 294 30 L 310 30 L 318 22 L 326 38 L 334 30 L 400 30"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                  pathLength={1000}
+                  className="ecg-trace text-coral-500"
+                />
+              </svg>
+              {/* چراغ پالس ابتدای نوار */}
+              <span className="ecg-pulse absolute top-1/2 start-0 -translate-y-1/2 w-2 h-2 rounded-full bg-coral-500" />
+            </div>
+
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-brand-800 leading-[1.25] mb-5">
               تجهیزات پزشکی، آزمایشگاهی
               <br />
