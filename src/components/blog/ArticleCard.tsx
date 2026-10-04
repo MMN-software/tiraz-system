@@ -1,16 +1,31 @@
 import Link from "next/link";
 import { Calendar, User, Clock, ArrowLeft } from "lucide-react";
-import type { Article } from "@/lib/types";
+import type { Article, ArticleCategory } from "@/lib/types";
 import { getArticleCategoryName } from "@/lib/data/articles";
 
+// نگاشت رنگ برای هر دسته
+const categoryStyles: Record<
+  ArticleCategory,
+  { bg: string; text: string }
+> = {
+  medical: { bg: "bg-brand-50", text: "text-brand-800" },
+  lab: { bg: "bg-brand-50", text: "text-brand-600" },
+  industrial: { bg: "bg-ink-100", text: "text-ink-700" },
+  guide: { bg: "bg-gold-100", text: "text-gold-700" },
+};
+
 export function ArticleCard({ article }: { article: Article }) {
+  const style = categoryStyles[article.category];
+
   return (
-    <article className="group bg-white rounded-2xl border border-ink-200 hover:border-brand-300 hover:shadow-lg transition-all overflow-hidden flex flex-col">
+    <article className="motion-card-lift group bg-white rounded-2xl border border-ink-200 hover:border-brand-300 overflow-hidden flex flex-col">
       <Link
         href={`/blog/${article.slug}`}
-        className="block relative aspect-[16/9] bg-gradient-to-br from-brand-50 to-accent-50 flex items-center justify-center overflow-hidden"
+        className="block relative aspect-[16/9] bg-gradient-to-br from-brand-50 to-gold-50 flex items-center justify-center overflow-hidden"
       >
-        <span className="absolute top-3 right-3 bg-white text-brand-700 text-[10px] font-bold px-2.5 py-1 rounded-full border border-ink-200 z-10">
+        <span
+          className={`absolute top-3 right-3 ${style.bg} ${style.text} text-[10px] font-bold px-2.5 py-1 rounded-full border border-ink-200/50 z-10`}
+        >
           {getArticleCategoryName(article.category)}
         </span>
         <svg
@@ -36,7 +51,7 @@ export function ArticleCard({ article }: { article: Article }) {
 
       <div className="p-5 flex flex-col flex-1">
         <Link href={`/blog/${article.slug}`}>
-          <h3 className="font-bold text-brand-700 mb-2 leading-snug group-hover:text-accent-500 transition-colors line-clamp-2">
+          <h3 className="font-bold text-brand-800 mb-2 leading-snug group-hover:text-gold-600 transition-colors line-clamp-2">
             {article.title}
           </h3>
         </Link>
@@ -63,7 +78,7 @@ export function ArticleCard({ article }: { article: Article }) {
           </span>
           <Link
             href={`/blog/${article.slug}`}
-            className="inline-flex items-center gap-1 text-xs font-medium text-accent-500 hover:text-accent-600"
+            className="inline-flex items-center gap-1 text-xs font-medium text-gold-600 hover:text-gold-700 transition-colors"
           >
             ادامه مطلب
             <ArrowLeft className="w-3 h-3" aria-hidden="true" />

@@ -11,12 +11,27 @@ import { QuickView } from "./QuickView";
 import { ProductImage } from "./ProductImage";
 
 const badgeStyles: Record<
-  string,
-  { label: string; cls: string; icon: React.ComponentType<{ className?: string }> }
+  "new" | "bestseller" | "discount",
+  { label: string; cls: string; textCls: string; icon: React.ComponentType<{ className?: string }> }
 > = {
-  new: { label: "جدید", cls: "bg-accent-500", icon: Sparkles },
-  bestseller: { label: "پرفروش", cls: "bg-coral-500", icon: Sparkles },
-  discount: { label: "تخفیف ویژه", cls: "bg-brand-600", icon: Sparkles },
+  new: {
+    label: "جدید",
+    cls: "bg-brand-600",
+    textCls: "text-white",
+    icon: Sparkles,
+  },
+  bestseller: {
+    label: "پرفروش",
+    cls: "bg-gold-500",
+    textCls: "text-ink-900",
+    icon: Sparkles,
+  },
+  discount: {
+    label: "تخفیف ویژه",
+    cls: "bg-rose-500",
+    textCls: "text-white",
+    icon: Sparkles,
+  },
 };
 
 export function ProductCard({ product }: { product: Product }) {
@@ -44,7 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
           {/* Badge */}
           {badge && (
             <span
-              className={`absolute top-3 right-3 ${badge.cls} text-white text-[10px] font-bold px-2.5 py-1 rounded-full z-10 shadow-md flex items-center gap-1`}
+              className={`absolute top-3 right-3 ${badge.cls} ${badge.textCls} text-[10px] font-bold px-2.5 py-1 rounded-full z-10 shadow-md flex items-center gap-1`}
             >
               <badge.icon className="w-3 h-3" aria-hidden="true" />
               {badge.label}

@@ -32,41 +32,47 @@ const styleMap: Record<
     countBg: string;
   }
 > = {
+  // ── تجهیزات پزشکی: تیل اصلی ──
   medical: {
-    iconBg: "bg-brand-50 text-brand-600 group-hover:bg-gradient-to-br group-hover:from-brand-500 group-hover:to-brand-600 group-hover:text-white",
-    hoverBorder: "hover:border-brand-300",
-    accentBar: "from-brand-500 to-brand-600",
+    iconBg: "bg-brand-50 text-brand-700 group-hover:bg-gradient-to-br group-hover:from-brand-600 group-hover:to-brand-700 group-hover:text-white",
+    hoverBorder: "hover:border-brand-400",
+    accentBar: "from-brand-600 to-brand-700",
     countBg: "bg-brand-50 text-brand-700 group-hover:bg-brand-100",
   },
+  // ── آزمایشگاهی: تیل روشن‌تر ──
   lab: {
-    iconBg: "bg-accent-50 text-accent-600 group-hover:bg-gradient-to-br group-hover:from-accent-500 group-hover:to-accent-600 group-hover:text-white",
-    hoverBorder: "hover:border-accent-300",
-    accentBar: "from-accent-500 to-accent-600",
-    countBg: "bg-accent-50 text-accent-700 group-hover:bg-accent-100",
+    iconBg: "bg-brand-50 text-brand-500 group-hover:bg-gradient-to-br group-hover:from-brand-400 group-hover:to-brand-600 group-hover:text-white",
+    hoverBorder: "hover:border-brand-300",
+    accentBar: "from-brand-400 to-brand-600",
+    countBg: "bg-brand-50 text-brand-600 group-hover:bg-brand-100",
   },
+  // ── صنعتی: خاکستری گرم ──
   industrial: {
     iconBg: "bg-ink-100 text-ink-700 group-hover:bg-gradient-to-br group-hover:from-ink-600 group-hover:to-ink-800 group-hover:text-white",
     hoverBorder: "hover:border-ink-300",
     accentBar: "from-ink-600 to-ink-800",
     countBg: "bg-ink-100 text-ink-700 group-hover:bg-ink-200",
   },
+  // ── قطعات و خدمات: طلایی (پرمیوم) ──
   parts: {
-    iconBg: "bg-coral-50 text-coral-500 group-hover:bg-gradient-to-br group-hover:from-coral-500 group-hover:to-coral-600 group-hover:text-white",
-    hoverBorder: "hover:border-coral-300",
-    accentBar: "from-coral-500 to-coral-600",
-    countBg: "bg-coral-50 text-coral-600 group-hover:bg-coral-100",
+    iconBg: "bg-gold-100 text-gold-700 group-hover:bg-gradient-to-br group-hover:from-gold-500 group-hover:to-gold-600 group-hover:text-white",
+    hoverBorder: "hover:border-gold-400",
+    accentBar: "from-gold-500 to-gold-600",
+    countBg: "bg-gold-100 text-gold-700 group-hover:bg-gold-200",
   },
+  // ── وارداتی: تیل تیره ──
   imported: {
-    iconBg: "bg-brand-50 text-brand-700 group-hover:bg-gradient-to-br group-hover:from-brand-600 group-hover:to-brand-800 group-hover:text-white",
-    hoverBorder: "hover:border-brand-400",
-    accentBar: "from-brand-600 to-brand-800",
-    countBg: "bg-brand-50 text-brand-700 group-hover:bg-brand-100",
+    iconBg: "bg-brand-50 text-brand-800 group-hover:bg-gradient-to-br group-hover:from-brand-700 group-hover:to-brand-900 group-hover:text-white",
+    hoverBorder: "hover:border-brand-500",
+    accentBar: "from-brand-700 to-brand-900",
+    countBg: "bg-brand-50 text-brand-800 group-hover:bg-brand-100",
   },
+  // ── لوازم مصرفی: رز (زیبایی و بهداشت) ──
   consumables: {
-    iconBg: "bg-accent-50 text-accent-500 group-hover:bg-gradient-to-br group-hover:from-accent-400 group-hover:to-accent-600 group-hover:text-white",
-    hoverBorder: "hover:border-accent-200",
-    accentBar: "from-accent-400 to-accent-600",
-    countBg: "bg-accent-50 text-accent-600 group-hover:bg-accent-100",
+    iconBg: "bg-rose-100 text-rose-600 group-hover:bg-gradient-to-br group-hover:from-rose-400 group-hover:to-rose-600 group-hover:text-white",
+    hoverBorder: "hover:border-rose-300",
+    accentBar: "from-rose-400 to-rose-600",
+    countBg: "bg-rose-100 text-rose-600 group-hover:bg-rose-200",
   },
 };
 
@@ -87,7 +93,7 @@ export function Categories() {
         aria-hidden="true"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, #0891b2 1px, transparent 0)",
+            "radial-gradient(circle at 1px 1px, #1A6470 1px, transparent 0)",
           backgroundSize: "24px 24px",
         }}
       />

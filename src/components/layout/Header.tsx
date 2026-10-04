@@ -103,7 +103,7 @@ export function Header() {
 
             <Link
               href="/contact"
-              className="motion-shimmer hidden xl:inline-flex items-center gap-2 h-10 px-4 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white text-sm font-medium rounded-lg transition-colors"
+              className="motion-shimmer hidden xl:inline-flex items-center gap-2 h-10 px-4 bg-gold-500 hover:bg-gold-400 text-ink-900 text-sm font-bold rounded-lg transition-colors"
             >
               درخواست مشاوره
             </Link>
@@ -203,7 +203,7 @@ export function Header() {
                   <Link
                     href="/contact"
                     onClick={() => setOpen(false)}
-                    className="text-center text-sm font-medium py-2.5 rounded-lg bg-brand-600 text-white hover:bg-brand-700 transition-colors"
+                    className="text-center text-sm font-bold py-2.5 rounded-lg bg-gold-500 text-ink-900 hover:bg-gold-400 transition-colors"
                   >
                     مشاوره
                   </Link>

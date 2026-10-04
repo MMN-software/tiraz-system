@@ -13,7 +13,7 @@ import { Reveal } from "@/components/motion/Reveal";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-bl from-brand-50 via-white to-accent-50">
+    <section className="relative overflow-hidden bg-gradient-to-bl from-brand-50 via-white to-gold-50">
       <div
         className="absolute inset-0 opacity-[0.05]"
         aria-hidden="true"
@@ -82,11 +82,11 @@ export function Hero() {
                   strokeLinejoin="round"
                   vectorEffect="non-scaling-stroke"
                   pathLength={1000}
-                  className="ecg-trace text-coral-500"
+                  className="ecg-trace text-gold-500"
                 />
               </svg>
               {/* چراغ پالس ابتدای نوار */}
-              <span className="ecg-pulse absolute top-1/2 start-0 -translate-y-1/2 w-2 h-2 rounded-full bg-coral-500" />
+              <span className="ecg-pulse absolute top-1/2 start-0 -translate-y-1/2 w-2 h-2 rounded-full bg-gold-500" />
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-brand-800 leading-[1.25] mb-5">

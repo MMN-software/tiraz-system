@@ -9,7 +9,7 @@ const stats = [
     suffix: "",
     label: "دسته‌بندی تخصصی",
     sub: "تنوع محصولات",
-    iconBg: "bg-brand-500/20 text-brand-200",
+    iconBg: "bg-brand-400/25 text-brand-100",
   },
   {
     icon: Package,
@@ -17,7 +17,7 @@ const stats = [
     suffix: "",
     label: "محصول فعال",
     sub: "در حال عرضه",
-    iconBg: "bg-accent-500/20 text-accent-200",
+    iconBg: "bg-gold-400/25 text-gold-200",
   },
   {
     icon: Award,
@@ -25,7 +25,7 @@ const stats = [
     suffix: "+",
     label: "سال سابقه",
     sub: "فعالیت مستمر",
-    iconBg: "bg-coral-500/20 text-coral-200",
+    iconBg: "bg-rose-400/25 text-rose-100",
   },
   {
     icon: Users,
@@ -33,7 +33,7 @@ const stats = [
     suffix: "+",
     label: "مشتری راضی",
     sub: "سراسر کشور",
-    iconBg: "bg-brand-400/20 text-brand-100",
+    iconBg: "bg-brand-300/25 text-brand-50",
   },
 ];
 

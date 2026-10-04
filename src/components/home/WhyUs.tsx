@@ -16,49 +16,49 @@ const features = [
     icon: BadgeCheck,
     title: "اصالت تضمین‌شده",
     desc: "تمام محصولات با گارانتی اصالت و شناسنامه معتبر عرضه می‌شوند.",
-    color: "bg-brand-50 text-brand-600",
-    hoverColor: "group-hover:bg-brand-600 group-hover:text-white",
-    accentBar: "from-brand-500 to-brand-600",
+    color: "bg-gold-100 text-gold-700",
+    hoverColor: "group-hover:bg-gold-600 group-hover:text-white",
+    accentBar: "from-gold-500 to-gold-600",
   },
   {
     icon: Award,
     title: "کیفیت استاندارد",
     desc: "منطبق با استانداردهای ملی و بین‌المللی تجهیزات تخصصی.",
-    color: "bg-accent-50 text-accent-600",
-    hoverColor: "group-hover:bg-accent-500 group-hover:text-white",
-    accentBar: "from-accent-500 to-accent-600",
+    color: "bg-brand-50 text-brand-700",
+    hoverColor: "group-hover:bg-brand-700 group-hover:text-white",
+    accentBar: "from-brand-600 to-brand-700",
   },
   {
     icon: Coins,
     title: "قیمت رقابتی",
     desc: "تأمین مستقیم از تولیدکننده و واردکننده معتبر بدون واسطه.",
-    color: "bg-coral-50 text-coral-500",
-    hoverColor: "group-hover:bg-coral-500 group-hover:text-white",
-    accentBar: "from-coral-500 to-coral-600",
+    color: "bg-rose-100 text-rose-600",
+    hoverColor: "group-hover:bg-rose-500 group-hover:text-white",
+    accentBar: "from-rose-400 to-rose-600",
   },
   {
     icon: Truck,
     title: "ارسال سریع",
     desc: "ارسال به سراسر کشور با بسته‌بندی ایمن و پیگیری لحظه‌ای.",
-    color: "bg-brand-50 text-brand-700",
-    hoverColor: "group-hover:bg-brand-700 group-hover:text-white",
-    accentBar: "from-brand-600 to-brand-800",
+    color: "bg-brand-100 text-brand-800",
+    hoverColor: "group-hover:bg-brand-800 group-hover:text-white",
+    accentBar: "from-brand-700 to-brand-900",
   },
   {
     icon: Headphones,
     title: "پشتیبانی تخصصی",
     desc: "تیم فنی مجرب برای مشاوره، نصب و راه‌اندازی تجهیزات.",
-    color: "bg-accent-50 text-accent-700",
-    hoverColor: "group-hover:bg-accent-600 group-hover:text-white",
-    accentBar: "from-accent-500 to-accent-700",
+    color: "bg-brand-50 text-brand-500",
+    hoverColor: "group-hover:bg-brand-500 group-hover:text-white",
+    accentBar: "from-brand-400 to-brand-600",
   },
   {
     icon: ShieldCheck,
     title: "خدمات پس از فروش",
     desc: "گارانتی، تأمین قطعات و قراردادهای نگهداری دوره‌ای.",
-    color: "bg-coral-50 text-coral-600",
-    hoverColor: "group-hover:bg-coral-600 group-hover:text-white",
-    accentBar: "from-coral-500 to-coral-700",
+    color: "bg-rose-100 text-rose-700",
+    hoverColor: "group-hover:bg-rose-600 group-hover:text-white",
+    accentBar: "from-rose-500 to-rose-700",
   },
 ];
 
@@ -66,11 +66,11 @@ export function WhyUs() {
   return (
     <section className="py-16 sm:py-24 bg-gradient-to-b from-ink-50 via-white to-ink-50 relative overflow-hidden">
       <div
-        className="absolute top-20 -left-40 w-96 h-96 bg-brand-100/30 rounded-full blur-3xl"
+        className="absolute top-20 -left-40 w-96 h-96 bg-brand-100/40 rounded-full blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-20 -right-40 w-96 h-96 bg-coral-100/30 rounded-full blur-3xl"
+        className="absolute bottom-20 -right-40 w-96 h-96 bg-gold-100/40 rounded-full blur-3xl"
         aria-hidden="true"
       />
 
@@ -139,7 +139,7 @@ export function WhyUs() {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 h-12 px-6 bg-coral-500 hover:bg-coral-600 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap"
+                className="motion-shimmer inline-flex items-center gap-2 h-12 px-6 bg-gold-500 hover:bg-gold-400 text-ink-900 font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap"
               >
                 شروع همکاری
                 <ArrowLeft className="w-4 h-4" aria-hidden="true" />
