@@ -78,7 +78,7 @@ export function ProductSection({
           </Link>
         </div>
 
-        <ProductCarousel products={products} autoScrollMs={7000} />
+        <ProductCarousel products={products} autoScrollMs={7000} accent={category === "medical" ? "brand" : "rose"} />
       </div>
     </section>
   );

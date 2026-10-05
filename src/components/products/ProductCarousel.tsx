@@ -8,41 +8,76 @@ import { ProductCard } from "./ProductCard";
 type Props = {
   products: readonly Product[];
   autoScrollMs?: number;
+  accent?: "gold" | "brand" | "rose";
 };
 
-/**
- * ProductCarousel — اسکرول افقی محصولات
- * - فلش چپ/راست برای اسکرول دستی
- * - اسکرول خودکار بعد از وقفه (پیش‌فرض ۷ ثانیه)
- * - RTL-aware
- * - pause روی hover/touch
- */
-export function ProductCarousel({ products, autoScrollMs = 7000 }: Props) {
+export function ProductCarousel({
+  products,
+  autoScrollMs = 7000,
+  accent = "brand",
+}: Props) {
+  const accentActive = {
+    gold: "bg-gold-500",
+    brand: "bg-brand-600",
+    rose: "bg-rose-500",
+  }[accent];
+
   const trackRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [paused, setPaused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // بروزرسانی وضعیت فلش‌ها
+  // تعداد کارت‌های قابل مشاهده (برای محاسبه dots)
+  const [visibleCount, setVisibleCount] = useState(4);
+
+  // محاسبه اسکرول و active index
   const updateScrollState = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
     const maxScroll = el.scrollWidth - el.clientWidth;
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft < maxScroll - 4);
+
+    // پیدا کردن کارت فعال (نزدیک‌ترین به ابتدای دید در RTL)
+    const children = Array.from(el.children) as HTMLElement[];
+    const scrollLeft = Math.abs(el.scrollLeft);
+    let closest = 0;
+    let minDist = Infinity;
+    children.forEach((child, i) => {
+      const dist = Math.abs(child.offsetLeft + child.offsetWidth / 2 - scrollLeft - el.clientWidth / 2);
+      if (dist < minDist) {
+        minDist = dist;
+        closest = i;
+      }
+    });
+    setActiveIndex(closest);
+  }, []);
+
+  // محاسبه تعداد کارت‌های قابل مشاهده
+  const updateVisibleCount = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const firstChild = el.firstElementChild as HTMLElement | null;
+    if (!firstChild) return;
+    const cardWidth = firstChild.clientWidth + 20; // + gap
+    setVisibleCount(Math.max(1, Math.round(el.clientWidth / cardWidth)));
   }, []);
 
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
     updateScrollState();
+    updateVisibleCount();
     el.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
+    window.addEventListener("resize", () => {
+      updateScrollState();
+      updateVisibleCount();
+    });
     return () => {
       el.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
     };
-  }, [updateScrollState]);
+  }, [updateScrollState, updateVisibleCount]);
 
   // اسکرول خودکار
   useEffect(() => {
@@ -52,29 +87,38 @@ export function ProductCarousel({ products, autoScrollMs = 7000 }: Props) {
 
     const interval = setInterval(() => {
       const maxScroll = el.scrollWidth - el.clientWidth;
-      if (el.scrollLeft >= maxScroll - 4) {
-        // برگرد به ابتدا
+      if (Math.abs(el.scrollLeft) >= maxScroll - 4) {
         el.scrollTo({ left: 0, behavior: "smooth" });
       } else {
-        // برو یه کارت جلوتر
-        const cardWidth = el.firstElementChild?.clientWidth ?? 300;
-        el.scrollBy({ left: cardWidth + 20, behavior: "smooth" });
+        const cardWidth = (el.firstElementChild as HTMLElement)?.clientWidth ?? 300;
+        el.scrollBy({ left: -(cardWidth + 20), behavior: "smooth" });
       }
     }, autoScrollMs);
 
     return () => clearInterval(interval);
   }, [paused, autoScrollMs]);
 
-  // اسکرول با فلش (RTL: چپ = به راست، راست = به چپ)
   const scrollBy = (direction: "prev" | "next") => {
     const el = trackRef.current;
     if (!el) return;
-    const cardWidth = el.firstElementChild?.clientWidth ?? 300;
-    const delta = direction === "next" ? cardWidth + 20 : -(cardWidth + 20);
+    const cardWidth = (el.firstElementChild as HTMLElement)?.clientWidth ?? 300;
+    const delta =
+      direction === "next" ? -(cardWidth + 20) : cardWidth + 20;
     el.scrollBy({ left: delta, behavior: "smooth" });
   };
 
+  const goToIndex = (i: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const child = el.children[i] as HTMLElement | undefined;
+    if (!child) return;
+    el.scrollTo({ left: child.offsetLeft, behavior: "smooth" });
+  };
+
   if (products.length === 0) return null;
+
+  // اگه تعداد محصولات <= visibleCount باشه، dots نشون نده
+  const showDots = products.length > visibleCount;
 
   return (
     <div
@@ -84,7 +128,7 @@ export function ProductCarousel({ products, autoScrollMs = 7000 }: Props) {
       onTouchStart={() => setPaused(true)}
       onTouchEnd={() => setPaused(false)}
     >
-      {/* فلش راست (به سمت کارت‌های قبلی — RTL) */}
+      {/* فلش راست */}
       <button
         type="button"
         onClick={() => scrollBy("prev")}
@@ -130,6 +174,26 @@ export function ProductCarousel({ products, autoScrollMs = 7000 }: Props) {
           </div>
         ))}
       </div>
+
+      {/* نقطه‌های نشانگر */}
+      {showDots && (
+        <div className="hidden sm:flex items-center justify-center gap-2 mt-6">
+          {products.map((p, i) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => goToIndex(i)}
+              aria-label={`رفتن به محصول ${i + 1}`}
+              aria-current={i === activeIndex}
+              className={`transition-all duration-300 rounded-full ${
+                i === activeIndex
+                  ? `w-8 h-2 ${accentActive}`
+                  : "w-2 h-2 bg-ink-300 hover:bg-ink-400"
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

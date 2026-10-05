@@ -62,7 +62,7 @@ export function FeaturedProducts() {
         </div>
 
         {/* کاروسل */}
-        <ProductCarousel products={featured} autoScrollMs={7000} />
+        <ProductCarousel products={featured} autoScrollMs={7000} accent="gold" />
       </div>
     </section>
   );
