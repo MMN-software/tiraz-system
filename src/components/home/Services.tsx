@@ -1,50 +1,27 @@
 import Link from "next/link";
-import {
-  Stethoscope,
-  FlaskConical,
-  Factory,
-  Wrench,
-  ArrowLeft,
-  CheckCircle2,
-} from "lucide-react";
+import { Stethoscope, Sparkles, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 const services = [
   {
     icon: Stethoscope,
     title: "تجهیزات پزشکی",
-    desc: "تأمین، نصب و راه‌اندازی تجهیزات بیمارستانی و درمانگاهی با استانداردهای بین‌المللی.",
+    desc: "تأمین، نصب و راه‌اندازی تجهیزات بیمارستانی، آزمایشگاهی و درمانگاهی با استانداردهای بین‌المللی.",
     color: "from-brand-600 to-brand-700",
-    iconBg: "bg-brand-50 text-brand-700 group-hover:bg-brand-700 group-hover:text-white",
-    tags: ["بیمارستانی", "درمانگاهی", "ICU"],
+    iconBg:
+      "bg-brand-50 text-brand-700 group-hover:bg-brand-700 group-hover:text-white",
+    tags: ["بیمارستانی", "آزمایشگاهی", "ICU"],
     href: "/products?category=medical",
   },
   {
-    icon: FlaskConical,
-    title: "تجهیزات آزمایشگاهی",
-    desc: "تأمین دستگاه‌ها و مواد مصرفی آزمایشگاهی برای مراکز تشخیصی و تحقیقاتی.",
-    color: "from-brand-400 to-brand-600",
-    iconBg: "bg-brand-50 text-brand-500 group-hover:bg-brand-500 group-hover:text-white",
-    tags: ["تشخیصی", "تحقیقاتی", "کنترل کیفیت"],
-    href: "/products?category=lab",
-  },
-  {
-    icon: Factory,
-    title: "تجهیزات صنعتی",
-    desc: "راهکارهای تجهیزاتی و کنترل کیفیت برای صنایع مختلف تولیدی و خدماتی.",
-    color: "from-ink-600 to-ink-700",
-    iconBg: "bg-ink-100 text-ink-700 group-hover:bg-ink-700 group-hover:text-white",
-    tags: ["خط تولید", "اتوماسیون", "کنترل کیفیت"],
-    href: "/products?category=industrial",
-  },
-  {
-    icon: Wrench,
-    title: "قطعات و خدمات پس از فروش",
-    desc: "تأمین قطعات یدکی، تعمیرات تخصصی و قراردادهای نگهداری دوره‌ای.",
-    color: "from-gold-500 to-gold-600",
-    iconBg: "bg-gold-100 text-gold-700 group-hover:bg-gold-600 group-hover:text-white",
-    tags: ["قطعات یدکی", "تعمیرات", "نگهداری"],
-    href: "/products?category=parts",
+    icon: Sparkles,
+    title: "محصولات آرایشی و بهداشتی",
+    desc: "محصولات مراقبت پوست، زیبایی و بهداشتی از برندهای معتبر با ضمانت اصالت و کیفیت.",
+    color: "from-rose-500 to-rose-600",
+    iconBg:
+      "bg-rose-100 text-rose-600 group-hover:bg-rose-500 group-hover:text-white",
+    tags: ["مراقبت پوست", "زیبایی", "ضد آفتاب"],
+    href: "/products?category=beauty",
   },
 ];
 
@@ -57,7 +34,7 @@ export function Services() {
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-20 -left-40 w-80 h-80 bg-gold-100/40 rounded-full blur-3xl"
+        className="absolute bottom-20 -left-40 w-80 h-80 bg-rose-100/40 rounded-full blur-3xl"
         aria-hidden="true"
       />
 
@@ -69,8 +46,8 @@ export function Services() {
             حوزه‌های فعالیت
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-900 mb-4 leading-tight">
-            راهکارهای تخصصی برای
-            <span className="text-gold-600"> هر نیاز صنعتی</span>
+            راهکارهای تخصصی در دو حوزه
+            <span className="text-gold-600"> پزشکی و زیبایی</span>
           </h2>
           <p className="text-base text-ink-500 leading-loose">
             از تأمین تجهیزات تا نصب، آموزش و پشتیبانی — همه‌چیز در یک مجموعه
@@ -79,18 +56,18 @@ export function Services() {
         </div>
 
         {/* کارت‌های خدمات */}
-        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <RevealGroup className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {services.map((s, i) => {
             const Icon = s.icon;
             return (
               <RevealItem key={i} index={i} className="h-full">
                 <Link
                   href={s.href}
-                  className="motion-card-lift group relative bg-white rounded-2xl p-6 border border-ink-200 hover:border-transparent overflow-hidden flex flex-col h-full"
+                  className="motion-card-lift group relative bg-white rounded-2xl p-7 border border-ink-200 hover:border-transparent overflow-hidden flex flex-col h-full"
                 >
-                  {/* گرادیانت رنگی که روی hover ظاهر می‌شه */}
+                  {/* گرادیانت رنگی روی hover */}
                   <div
-                    className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${s.color} opacity-0 group-hover:opacity-100 transition-opacity`}
+                    className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-l ${s.color} opacity-60 group-hover:opacity-100 transition-opacity`}
                     aria-hidden="true"
                   />
 
@@ -107,17 +84,17 @@ export function Services() {
                   </span>
 
                   {/* عنوان */}
-                  <h3 className="relative text-lg font-extrabold text-brand-900 mb-2 leading-snug group-hover:text-brand-700 transition-colors">
+                  <h3 className="relative text-xl font-extrabold text-brand-900 mb-3 leading-snug">
                     {s.title}
                   </h3>
 
                   {/* توضیح */}
-                  <p className="relative text-sm text-ink-500 leading-relaxed mb-4 flex-1">
+                  <p className="relative text-sm text-ink-500 leading-relaxed mb-5 flex-1">
                     {s.desc}
                   </p>
 
                   {/* تگ‌ها */}
-                  <div className="relative flex flex-wrap gap-1.5 mb-4">
+                  <div className="relative flex flex-wrap gap-1.5 mb-5">
                     {s.tags.map((tag) => (
                       <span
                         key={tag}
@@ -129,10 +106,10 @@ export function Services() {
                   </div>
 
                   {/* دکمه */}
-                  <span className="relative inline-flex items-center gap-1.5 text-xs font-bold text-brand-700 group-hover:text-gold-600 transition-colors mt-auto">
+                  <span className="relative inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 group-hover:text-gold-600 transition-colors mt-auto">
                     مشاهده محصولات
                     <ArrowLeft
-                      className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform"
+                      className="w-4 h-4 group-hover:-translate-x-1 transition-transform"
                       aria-hidden="true"
                     />
                   </span>
@@ -150,7 +127,7 @@ export function Services() {
               aria-hidden="true"
             />
             <span className="font-medium">
-              نمی‌دانید کدام راهکار مناسب کسب‌وکار شماست؟
+              نمی‌دانید کدام محصول مناسب نیاز شماست؟
             </span>
             <Link
               href="/contact"

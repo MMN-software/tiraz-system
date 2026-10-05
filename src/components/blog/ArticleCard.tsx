@@ -9,8 +9,7 @@ const categoryStyles: Record<
   { bg: string; text: string }
 > = {
   medical: { bg: "bg-brand-50", text: "text-brand-800" },
-  lab: { bg: "bg-brand-50", text: "text-brand-600" },
-  industrial: { bg: "bg-ink-100", text: "text-ink-700" },
+  beauty: { bg: "bg-rose-100", text: "text-rose-600" },
   guide: { bg: "bg-gold-100", text: "text-gold-700" },
 };
 

@@ -1,91 +1,76 @@
 import Link from "next/link";
-import {
-  Stethoscope,
-  FlaskConical,
-  Factory,
-  Cog,
-  Truck,
-  Package,
-  ArrowLeft,
-  Layers,
-} from "lucide-react";
-import { categories } from "@/lib/data/categories";
-import { products } from "@/lib/data/products";
+import { Stethoscope, Sparkles, ArrowLeft, Layers } from "lucide-react";
 import type { CategorySlug } from "@/lib/types";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
-const iconMap: Record<CategorySlug, React.ComponentType<{ className?: string }>> = {
-  medical: Stethoscope,
-  lab: FlaskConical,
-  industrial: Factory,
-  parts: Cog,
-  imported: Truck,
-  consumables: Package,
-};
+// داده‌های دسته — به‌جای خواندن از lib/data، سخت‌کد شده برای سادگی
+const categories: {
+  slug: CategorySlug;
+  name: string;
+  description: string;
+  count: number;
+  icon: typeof Stethoscope;
+  href: string;
+}[] = [
+  {
+    slug: "medical",
+    name: "تجهیزات پزشکی",
+    description:
+      "تجهیزات بیمارستانی، آزمایشگاهی، درمانگاهی و مراقبت‌های ویژه برای مراکز درمانی و کلینیک‌ها.",
+    count: 450,
+    icon: Stethoscope,
+    href: "/products?category=medical",
+  },
+  {
+    slug: "beauty",
+    name: "محصولات آرایشی و بهداشتی",
+    description:
+      "محصولات مراقبت پوست، زیبایی و بهداشتی از برندهای معتبر با ضمانت اصالت و کیفیت.",
+    count: 320,
+    icon: Sparkles,
+    href: "/products?category=beauty",
+  },
+];
 
+// استایل هر دسته
 const styleMap: Record<
   CategorySlug,
   {
+    wrapper: string;
     iconBg: string;
-    hoverBorder: string;
+    iconColor: string;
     accentBar: string;
     countBg: string;
+    countText: string;
+    ctaText: string;
+    ctaHover: string;
   }
 > = {
-  // ── تجهیزات پزشکی: تیل اصلی ──
   medical: {
-    iconBg: "bg-brand-50 text-brand-700 group-hover:bg-gradient-to-br group-hover:from-brand-600 group-hover:to-brand-700 group-hover:text-white",
-    hoverBorder: "hover:border-brand-400",
+    wrapper:
+      "bg-gradient-to-br from-brand-50 via-white to-brand-100/60 border-brand-200 hover:border-brand-400",
+    iconBg: "bg-brand-100/60 group-hover:bg-brand-600",
+    iconColor: "text-brand-700 group-hover:text-white",
     accentBar: "from-brand-600 to-brand-700",
-    countBg: "bg-brand-50 text-brand-700 group-hover:bg-brand-100",
+    countBg: "bg-brand-100/60",
+    countText: "text-brand-800",
+    ctaText: "text-brand-700",
+    ctaHover: "group-hover:text-brand-800",
   },
-  // ── آزمایشگاهی: تیل روشن‌تر ──
-  lab: {
-    iconBg: "bg-brand-50 text-brand-500 group-hover:bg-gradient-to-br group-hover:from-brand-400 group-hover:to-brand-600 group-hover:text-white",
-    hoverBorder: "hover:border-brand-300",
-    accentBar: "from-brand-400 to-brand-600",
-    countBg: "bg-brand-50 text-brand-600 group-hover:bg-brand-100",
-  },
-  // ── صنعتی: خاکستری گرم ──
-  industrial: {
-    iconBg: "bg-ink-100 text-ink-700 group-hover:bg-gradient-to-br group-hover:from-ink-600 group-hover:to-ink-800 group-hover:text-white",
-    hoverBorder: "hover:border-ink-300",
-    accentBar: "from-ink-600 to-ink-800",
-    countBg: "bg-ink-100 text-ink-700 group-hover:bg-ink-200",
-  },
-  // ── قطعات و خدمات: طلایی (پرمیوم) ──
-  parts: {
-    iconBg: "bg-gold-100 text-gold-700 group-hover:bg-gradient-to-br group-hover:from-gold-500 group-hover:to-gold-600 group-hover:text-white",
-    hoverBorder: "hover:border-gold-400",
-    accentBar: "from-gold-500 to-gold-600",
-    countBg: "bg-gold-100 text-gold-700 group-hover:bg-gold-200",
-  },
-  // ── وارداتی: تیل تیره ──
-  imported: {
-    iconBg: "bg-brand-50 text-brand-800 group-hover:bg-gradient-to-br group-hover:from-brand-700 group-hover:to-brand-900 group-hover:text-white",
-    hoverBorder: "hover:border-brand-500",
-    accentBar: "from-brand-700 to-brand-900",
-    countBg: "bg-brand-50 text-brand-800 group-hover:bg-brand-100",
-  },
-  // ── لوازم مصرفی: رز (زیبایی و بهداشت) ──
-  consumables: {
-    iconBg: "bg-rose-100 text-rose-600 group-hover:bg-gradient-to-br group-hover:from-rose-400 group-hover:to-rose-600 group-hover:text-white",
-    hoverBorder: "hover:border-rose-300",
-    accentBar: "from-rose-400 to-rose-600",
-    countBg: "bg-rose-100 text-rose-600 group-hover:bg-rose-200",
+  beauty: {
+    wrapper:
+      "bg-gradient-to-br from-rose-100 via-white to-gold-50/60 border-rose-200 hover:border-rose-400",
+    iconBg: "bg-rose-100 group-hover:bg-rose-500",
+    iconColor: "text-rose-600 group-hover:text-white",
+    accentBar: "from-rose-500 to-rose-600",
+    countBg: "bg-rose-100",
+    countText: "text-rose-700",
+    ctaText: "text-rose-600",
+    ctaHover: "group-hover:text-rose-700",
   },
 };
 
 export function Categories() {
-  const categoryCounts: Record<CategorySlug, number> = {
-    medical: products.filter((p) => p.category === "medical").length,
-    lab: products.filter((p) => p.category === "lab").length,
-    industrial: products.filter((p) => p.category === "industrial").length,
-    parts: products.filter((p) => p.category === "parts").length,
-    imported: products.filter((p) => p.category === "imported").length,
-    consumables: products.filter((p) => p.category === "consumables").length,
-  };
-
   return (
     <section className="py-16 sm:py-24 bg-gradient-to-b from-ink-50 via-white to-ink-50 relative overflow-hidden">
       <div
@@ -105,56 +90,66 @@ export function Categories() {
             دسته‌بندی محصولات
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-800 mb-4 leading-tight">
-            محصولات را بر اساس
-            <span className="text-brand-500"> دسته‌بندی </span>
-            پیدا کنید
+            محصولات ما در
+            <span className="text-gold-600"> دو دسته تخصصی</span>
           </h2>
           <p className="text-base text-ink-500 leading-loose">
-            محصولات متنوع در <strong className="text-brand-700">۶ دسته‌بندی</strong> تخصصی،
-            آماده انتخاب و خرید.
+            تجهیزات پزشکی و محصولات آرایشی-بهداشتی، با ضمانت اصالت و کیفیت.
           </p>
         </div>
 
-        <RevealGroup className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-          {categories.map((c) => {
-            const Icon = iconMap[c.slug];
-            const styles = styleMap[c.slug];
-            const count = categoryCounts[c.slug];
+        <RevealGroup className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          {categories.map((c, i) => {
+            const Icon = c.icon;
+            const s = styleMap[c.slug];
             return (
-              <RevealItem key={c.slug} index={categories.indexOf(c)} className="h-full">
-              <Link
-                href={`/products?category=${c.slug}`}
-                className={`motion-card-lift group relative bg-white rounded-2xl p-5 border border-ink-200 ${styles.hoverBorder} text-center overflow-hidden flex flex-col h-full`}
-              >
-                <div
-                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-l ${styles.accentBar} opacity-0 group-hover:opacity-100 transition-opacity`}
-                  aria-hidden="true"
-                />
-
-                <span
-                  className={`relative inline-flex w-14 h-14 mb-3.5 rounded-2xl motion-icon-rotate ${styles.iconBg} items-center justify-center transition-all duration-300 mx-auto shadow-sm`}
+              <RevealItem key={c.slug} index={i} className="h-full">
+                <Link
+                  href={c.href}
+                  className={`motion-card-lift group relative block rounded-3xl p-8 border-2 transition-all overflow-hidden h-full ${s.wrapper}`}
                 >
-                  <Icon className="w-7 h-7" aria-hidden="true" />
-                </span>
-
-                <h3 className="relative text-sm font-extrabold text-brand-800 mb-1.5 leading-tight group-hover:text-brand-600 transition-colors">
-                  {c.name}
-                </h3>
-
-                <span
-                  className={`relative inline-flex items-center justify-center text-[11px] font-bold ${styles.countBg} px-2.5 py-1 rounded-full mb-3 num mx-auto transition-colors`}
-                >
-                  {count.toLocaleString("fa-IR")} محصول
-                </span>
-
-                <span className="relative inline-flex items-center justify-center gap-1 text-[11px] font-bold text-brand-600 group-hover:text-coral-500 transition-colors mt-auto">
-                  مشاهده
-                  <ArrowLeft
-                    className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform"
+                  {/* نوار رنگی بالا */}
+                  <div
+                    className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-l ${s.accentBar} opacity-60 group-hover:opacity-100 transition-opacity`}
                     aria-hidden="true"
                   />
-                </span>
-              </Link>
+
+                  {/* آیکون */}
+                  <span
+                    className={`relative inline-flex w-16 h-16 mb-6 rounded-2xl ${s.iconBg} ${s.iconColor} items-center justify-center transition-all duration-300 shadow-sm motion-icon-rotate`}
+                  >
+                    <Icon className="w-8 h-8" aria-hidden="true" />
+                  </span>
+
+                  {/* عنوان */}
+                  <h3 className="relative text-xl sm:text-2xl font-extrabold text-brand-900 mb-3 leading-snug">
+                    {c.name}
+                  </h3>
+
+                  {/* توضیح */}
+                  <p className="relative text-sm sm:text-base text-ink-600 leading-loose mb-6">
+                    {c.description}
+                  </p>
+
+                  {/* تعداد + CTA */}
+                  <div className="relative flex items-center justify-between flex-wrap gap-3">
+                    <span
+                      className={`inline-flex items-center justify-center text-xs font-bold ${s.countBg} ${s.countText} px-3 py-1.5 rounded-full num`}
+                    >
+                      {c.count.toLocaleString("fa-IR")} محصول
+                    </span>
+
+                    <span
+                      className={`inline-flex items-center gap-1.5 text-sm font-bold transition-colors ${s.ctaText} ${s.ctaHover}`}
+                    >
+                      مشاهده محصولات
+                      <ArrowLeft
+                        className="w-4 h-4 group-hover:-translate-x-1 transition-transform"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
+                </Link>
               </RevealItem>
             );
           })}
@@ -163,7 +158,7 @@ export function Categories() {
         <div className="mt-12 text-center">
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 h-12 px-6 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+            className="motion-shimmer inline-flex items-center gap-2 h-12 px-6 bg-brand-700 hover:bg-brand-800 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
           >
             مشاهده همه محصولات
             <ArrowLeft className="w-4 h-4" aria-hidden="true" />

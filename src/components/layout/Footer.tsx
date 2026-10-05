@@ -13,10 +13,7 @@ const quickLinks = [
 
 const categories = [
   { label: "تجهیزات پزشکی", href: "/products?category=medical" },
-  { label: "تجهیزات آزمایشگاهی", href: "/products?category=lab" },
-  { label: "تجهیزات صنعتی", href: "/products?category=industrial" },
-  { label: "قطعات تولیدی", href: "/products?category=parts" },
-  { label: "محصولات وارداتی", href: "/products?category=imported" },
+  { label: "محصولات آرایشی و بهداشتی", href: "/products?category=beauty" },
 ];
 
 export function Footer() {

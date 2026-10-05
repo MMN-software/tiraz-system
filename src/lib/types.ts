@@ -1,10 +1,4 @@
-export type CategorySlug =
-  | "medical"
-  | "lab"
-  | "industrial"
-  | "parts"
-  | "imported"
-  | "consumables";
+export type CategorySlug = "medical" | "beauty";
 
 export interface Category {
   slug: CategorySlug;
@@ -44,7 +38,7 @@ export interface Product {
   featured: boolean;
 }
 
-export type ArticleCategory = "medical" | "lab" | "industrial" | "guide";
+export type ArticleCategory = "medical" | "beauty" | "guide";
 
 export interface Article {
   id: number;

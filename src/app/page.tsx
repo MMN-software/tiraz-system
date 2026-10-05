@@ -3,6 +3,8 @@ import { Stats } from "@/components/home/Stats";
 import { Services } from "@/components/home/Services";
 import { Categories } from "@/components/home/Categories";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
+import { MedicalProducts } from "@/components/home/MedicalProducts";
+import { BeautyProducts } from "@/components/home/BeautyProducts";
 import { WhyUs } from "@/components/home/WhyUs";
 import { Brands } from "@/components/home/Brands";
 import { Certificates } from "@/components/home/Certificates";
@@ -17,6 +19,8 @@ export default function HomePage() {
       <Services />
       <Categories />
       <FeaturedProducts />
+      <MedicalProducts />
+      <BeautyProducts />
       <WhyUs />
       <Brands />
       <Certificates />

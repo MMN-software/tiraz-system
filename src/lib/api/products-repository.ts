@@ -435,11 +435,7 @@ export async function getProductStats(): Promise<ProductStats> {
   const all = await getAllProducts();
   const byCategory: Record<CategorySlug, number> = {
     medical: 0,
-    lab: 0,
-    industrial: 0,
-    parts: 0,
-    imported: 0,
-    consumables: 0,
+    beauty: 0,
   };
   all.forEach((p) => {
     byCategory[p.category] = (byCategory[p.category] || 0) + 1;
