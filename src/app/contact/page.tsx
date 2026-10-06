@@ -13,14 +13,14 @@ import { ContactForm } from "@/components/contact/ContactForm";
 export const metadata: Metadata = {
   title: "تماس با ما",
   description:
-    "راه‌های ارتباط با تیرازیستر ایرانیان — تلفن، ایمیل، آدرس و فرم تماس آنلاین. کارشناسان ما آماده پاسخگویی به شما هستند.",
+    "راه‌های ارتباط با تیرازیس طب ایرانیان — تلفن، ایمیل، آدرس و فرم تماس آنلاین. کارشناسان ما آماده پاسخگویی به شما هستند.",
 };
 
 const contactItems = [
   {
     icon: Phone,
     title: "تماس تلفنی",
-    value: "۰۲۱-۱۲۳۴۵۶۷۸",
+    value: "۰۹۹۶۳۸۰۲۹۵۷",
     href: "tel:+982112345678",
     desc: "شنبه تا چهارشنبه ۸ تا ۱۷",
     ltr: false,
@@ -149,7 +149,7 @@ export default function ContactPage() {
                   href="tel:+982112345678"
                   className="block text-center h-11 leading-[2.75rem] bg-accent-500 hover:bg-accent-600 text-white font-medium rounded-lg num transition-colors mb-2"
                 >
-                  ۰۲۱-۱۲۳۴۵۶۷۸
+                  ۰۹۹۶۳۸۰۲۹۵۷
                 </a>
                 <a
                   href="mailto:mohamadmehdi.neemati@gmail.com"
@@ -212,14 +212,14 @@ export default function ContactPage() {
                 <div className="grid grid-cols-2 gap-2">
                   <a
                     href="#"
-                    aria-label="اینستاگرام تیرازیستر"
+                    aria-label="اینستاگرام تیرازیس طب"
                     className="inline-flex items-center justify-center h-10 bg-ink-50 hover:bg-brand-50 text-ink-600 hover:text-brand-600 rounded-lg text-xs font-medium transition-colors"
                   >
                     اینستاگرام
                   </a>
                   <a
                     href="#"
-                    aria-label="لینکدین تیرازیستر"
+                    aria-label="لینکدین تیرازیس طب"
                     className="inline-flex items-center justify-center h-10 bg-ink-50 hover:bg-brand-50 text-ink-600 hover:text-brand-600 rounded-lg text-xs font-medium transition-colors"
                   >
                     لینکدین

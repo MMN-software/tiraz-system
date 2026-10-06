@@ -23,7 +23,7 @@ import { Stats } from "@/components/home/Stats";
 export const metadata: Metadata = {
   title: "درباره ما",
   description:
-    "آشنایی با تیرازیستر ایرانیان — تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با بیش از ۱۵ سال تجربه در سراسر کشور.",
+    "آشنایی با تیرازیس طب ایرانیان — تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با بیش از ۱۵ سال تجربه در سراسر کشور.",
 };
 
 const timeline = [
@@ -110,7 +110,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 py-14 sm:py-20">
           <div className="max-w-3xl mx-auto text-center">
             <span className="inline-block text-xs font-bold text-accent-500 mb-3 tracking-wider">
-              درباره تیرازیستر ایرانیان
+              درباره تیرازیس طب ایرانیان
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-700 leading-[1.3] mb-5">
               همراه مطمئن شما در تأمین تجهیزات تخصصی
@@ -136,7 +136,7 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-sm sm:text-base text-ink-600 leading-loose">
                 <p>
-                  تیرازیستر ایرانیان فعالیت خود را در سال ۱۳۸۹ با هدف ارائه
+                  تیرازیس طب ایرانیان فعالیت خود را در سال ۱۳۸۹ با هدف ارائه
                   تجهیزات پزشکی باکیفیت به مراکز درمانی آغاز کرد. در آن زمان،
                   بازار تجهیزات پزشکی ایران با چالش‌های زیادی مانند نبود تأمین
                   مطمئن و پشتیبانی فنی ضعیف روبرو بود.

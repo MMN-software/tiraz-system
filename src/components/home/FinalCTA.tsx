@@ -30,7 +30,7 @@ export function FinalCTA() {
               </h2>
 
               <p className="text-base sm:text-lg mb-8 leading-loose text-white/90 max-w-2xl mx-auto">
-                کارشناسان تیرازیستر ایرانیان آماده پاسخ‌گویی به سوالات شما
+                کارشناسان تیرازیس طب ایرانیان آماده پاسخ‌گویی به سوالات شما
                 درباره انتخاب، خرید و پشتیبانی تجهیزات تخصصی هستند.
               </p>
 
@@ -64,7 +64,7 @@ export function FinalCTA() {
                   <span className="inline-flex w-8 h-8 rounded-full bg-gold-400/15 border border-gold-400/30 items-center justify-center">
                     <Phone className="w-4 h-4 text-gold-300" aria-hidden="true" />
                   </span>
-                  <span className="num">۰۲۱-۱۲۳۴۵۶۷۸</span>
+                  <span className="num">۰۹۹۶۳۸۰۲۹۵۷</span>
                 </a>
                 <a
                   href="mailto:mohamadmehdi.neemati@gmail.com"

@@ -47,7 +47,7 @@ const emptyForm: FormState = {
   excerpt: "",
   content: "",
   category: "medical",
-  author: "تیم فنی تیرازیستر",
+  author: "تیم فنی تیرازیس طب",
   date: "",
   readTime: 5,
   image: "",

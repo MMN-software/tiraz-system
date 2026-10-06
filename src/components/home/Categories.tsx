@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { Stethoscope, Sparkles, ArrowLeft, Layers } from "lucide-react";
+import { Stethoscope, Pill, ArrowLeft, Layers } from "lucide-react";
 import type { CategorySlug } from "@/lib/types";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
-// داده‌های دسته — به‌جای خواندن از lib/data، سخت‌کد شده برای سادگی
 const categories: {
   slug: CategorySlug;
   name: string;
@@ -14,25 +13,24 @@ const categories: {
 }[] = [
   {
     slug: "medical",
-    name: "تجهیزات پزشکی",
+    name: "تجهیزات پزشکی و بیمارستانی",
     description:
-      "تجهیزات بیمارستانی، آزمایشگاهی، درمانگاهی و مراقبت‌های ویژه برای مراکز درمانی و کلینیک‌ها.",
+      "تجهیزات تخصصی بیمارستانی، آزمایشگاهی، درمانگاهی و مراقبت‌های ویژه برای مراکز درمانی، بیمارستان‌ها و کلینیک‌ها.",
     count: 450,
     icon: Stethoscope,
     href: "/products?category=medical",
   },
   {
     slug: "beauty",
-    name: "محصولات آرایشی و بهداشتی",
+    name: "دارو، آرایشی، بهداشتی و مواد اولیه دارویی",
     description:
-      "محصولات مراقبت پوست، زیبایی و بهداشتی از برندهای معتبر با ضمانت اصالت و کیفیت.",
+      "داروها، محصولات آرایشی-بهداشتی و مواد اولیه دارویی از برندهای معتبر با ضمانت اصالت و کیفیت.",
     count: 320,
-    icon: Sparkles,
+    icon: Pill,
     href: "/products?category=beauty",
   },
 ];
 
-// استایل هر دسته
 const styleMap: Record<
   CategorySlug,
   {
@@ -94,7 +92,8 @@ export function Categories() {
             <span className="text-gold-600"> دو دسته تخصصی</span>
           </h2>
           <p className="text-base text-ink-500 leading-loose">
-            تجهیزات پزشکی و محصولات آرایشی-بهداشتی، با ضمانت اصالت و کیفیت.
+            تجهیزات پزشکی و بیمارستانی، و دارو و محصولات آرایشی-بهداشتی، با
+            ضمانت اصالت و کیفیت.
           </p>
         </div>
 

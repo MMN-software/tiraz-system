@@ -14,12 +14,13 @@ import { Reveal } from "@/components/motion/Reveal";
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-bl from-brand-50 via-white to-gold-50">
+      {/* پس‌زمینه */}
       <div
         className="absolute inset-0 opacity-[0.05]"
         aria-hidden="true"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, #0891b2 1px, transparent 0)",
+            "radial-gradient(circle at 1px 1px, #1A6470 1px, transparent 0)",
           backgroundSize: "24px 24px",
         }}
       />
@@ -28,11 +29,11 @@ export function Hero() {
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-20 -right-20 w-96 h-96 bg-accent-200/40 rounded-full blur-3xl"
+        className="absolute -bottom-20 -right-20 w-96 h-96 bg-gold-200/40 rounded-full blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="absolute top-20 right-10 w-40 h-40 border-2 border-coral-300/30 rounded-full hidden lg:block"
+        className="absolute top-20 right-10 w-40 h-40 border-2 border-gold-300/30 rounded-full hidden lg:block"
         aria-hidden="true"
       />
 
@@ -40,15 +41,15 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* ستون متن */}
           <div className="text-center lg:text-right">
+            {/* بج بالا */}
             <div className="inline-flex items-center gap-2 bg-white text-brand-700 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-full border border-brand-200 shadow-sm mb-5">
-              <span className="motion-pulse-soft inline-flex w-2 h-2 rounded-full bg-accent-500" />
+              <span className="motion-pulse-soft inline-flex w-2 h-2 rounded-full bg-brand-500" />
               <Sparkles
-                className="motion-rotate-slow w-3.5 h-3.5 text-coral-500"
+                className="motion-rotate-slow w-3.5 h-3.5 text-gold-500"
                 aria-hidden="true"
               />
               تأمین‌کننده معتبر تجهیزات تخصصی
             </div>
-
 
             {/* نوار ضربان قلب (ECG) */}
             <div
@@ -61,7 +62,6 @@ export function Hero() {
                 className="w-full h-full"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                {/* خط پایه‌ی ثابت (کم‌رنگ) */}
                 <path
                   d="M 0 30 L 60 30 L 70 30 L 78 18 L 86 42 L 94 30 L 110 30 L 118 22 L 126 38 L 134 30 L 160 30 L 170 30 L 178 18 L 186 42 L 194 30 L 210 30 L 218 22 L 226 38 L 234 30 L 260 30 L 270 30 L 278 18 L 286 42 L 294 30 L 310 30 L 318 22 L 326 38 L 334 30 L 400 30"
                   fill="none"
@@ -72,7 +72,6 @@ export function Hero() {
                   vectorEffect="non-scaling-stroke"
                   className="text-brand-300"
                 />
-                {/* خط روشن در حال حرکت */}
                 <path
                   d="M 0 30 L 60 30 L 70 30 L 78 18 L 86 42 L 94 30 L 110 30 L 118 22 L 126 38 L 134 30 L 160 30 L 170 30 L 178 18 L 186 42 L 194 30 L 210 30 L 218 22 L 226 38 L 234 30 L 260 30 L 270 30 L 278 18 L 286 42 L 294 30 L 310 30 L 318 22 L 326 38 L 334 30 L 400 30"
                   fill="none"
@@ -85,34 +84,37 @@ export function Hero() {
                   className="ecg-trace text-gold-500"
                 />
               </svg>
-              {/* چراغ پالس ابتدای نوار */}
               <span className="ecg-pulse absolute top-1/2 start-0 -translate-y-1/2 w-2 h-2 rounded-full bg-gold-500" />
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-brand-800 leading-[1.25] mb-5">
+            {/* تیتر */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-brand-900 leading-[1.25] mb-5">
               تجهیزات پزشکی، آزمایشگاهی
               <br />
-              و صنعتی با
+              و بیمارستانی با
               <span className="relative inline-block mx-2">
-                <span className="relative z-10 text-coral-500">
+                <span className="relative z-10 text-gold-600">
                   کیفیت تضمین‌شده
                 </span>
                 <span
-                  className="absolute inset-x-0 bottom-1 h-3 bg-coral-200/60 -z-0 -rotate-1"
+                  className="absolute inset-x-0 bottom-1 h-3 bg-gold-200/60 -z-0 -rotate-1"
                   aria-hidden="true"
                 />
               </span>
             </h1>
 
+            {/* پاراگراف */}
             <p className="text-base sm:text-lg text-ink-600 leading-loose mb-8 max-w-xl mx-auto lg:mx-0">
-              تیرازیستر ایرانیان با تیم فنی متخصص و شبکه تأمین گسترده،
-              همراه مطمئن مراکز درمانی، آزمایشگاهی و صنعتی در سراسر کشور است.
+              تیرازیس طب ایرانیان با تیم فنی متخصص و شبکه تأمین گسترده،
+              همراه مطمئن مراکز درمانی، آزمایشگاهی، بیمارستانی و داروخانه‌ای
+              در سراسر کشور است.
             </p>
 
+            {/* دکمه‌ها */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
               <Link
                 href="/products"
-                className="motion-shimmer group inline-flex items-center justify-center gap-2 h-13 px-7 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 py-3.5"
+                className="motion-shimmer group inline-flex items-center justify-center gap-2 h-13 px-7 bg-brand-700 hover:bg-brand-800 active:bg-brand-900 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 py-3.5"
               >
                 مشاهده محصولات
                 <ArrowLeft
@@ -124,11 +126,12 @@ export function Hero() {
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 h-13 px-7 bg-white hover:bg-ink-50 text-brand-700 font-bold rounded-xl border-2 border-brand-200 hover:border-brand-400 transition-all py-3.5"
               >
-                <Phone className="w-4 h-4 text-accent-500" aria-hidden="true" />
+                <Phone className="w-4 h-4 text-gold-500" aria-hidden="true" />
                 مشاوره رایگان
               </Link>
             </div>
 
+            {/* نشان‌های اعتماد */}
             <Reveal delay={0.15}>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 pt-6 border-t border-ink-200">
                 {[
@@ -136,19 +139,19 @@ export function Hero() {
                     icon: ShieldCheck,
                     label: "ضمانت اصالت",
                     sub: "شناسنامه معتبر",
-                    color: "text-accent-500 bg-accent-50",
+                    color: "text-brand-600 bg-brand-50",
                   },
                   {
                     icon: Award,
                     label: "کیفیت استاندارد",
                     sub: "تأییدشده",
-                    color: "text-brand-600 bg-brand-50",
+                    color: "text-gold-600 bg-gold-50",
                   },
                   {
                     icon: Truck,
                     label: "ارسال سریع",
                     sub: "سراسر کشور",
-                    color: "text-coral-500 bg-coral-50",
+                    color: "text-rose-500 bg-rose-50",
                   },
                 ].map((item, i) => {
                   const Icon = item.icon;
@@ -178,19 +181,19 @@ export function Hero() {
           <Reveal delay={0.3} className="relative hidden lg:block">
             <div className="relative aspect-square max-w-lg mx-auto">
               <div
-                className="absolute inset-0 bg-gradient-to-tr from-brand-500 to-accent-500 rounded-3xl rotate-6 opacity-20"
+                className="absolute inset-0 bg-gradient-to-tr from-brand-500 to-gold-500 rounded-3xl rotate-6 opacity-20"
                 aria-hidden="true"
               />
               <div
-                className="absolute inset-0 bg-gradient-to-tr from-coral-400 to-coral-500 rounded-3xl -rotate-3 opacity-15"
+                className="absolute inset-0 bg-gradient-to-tr from-rose-400 to-gold-500 rounded-3xl -rotate-3 opacity-15"
                 aria-hidden="true"
               />
 
               <div className="absolute inset-0 bg-white rounded-3xl border border-ink-200 shadow-2xl overflow-hidden">
-                <div className="bg-gradient-to-l from-brand-700 to-brand-600 px-6 py-4 flex items-center justify-between">
+                <div className="bg-gradient-to-l from-brand-800 to-brand-700 px-6 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-coral-400" />
-                    <span className="w-3 h-3 rounded-full bg-accent-400" />
+                    <span className="w-3 h-3 rounded-full bg-rose-400" />
+                    <span className="w-3 h-3 rounded-full bg-gold-400" />
                     <span className="w-3 h-3 rounded-full bg-white/40" />
                   </div>
                   <span className="text-[10px] text-white/70 font-mono">
@@ -200,7 +203,7 @@ export function Hero() {
 
                 <div className="p-6">
                   <div className="text-center mb-6">
-                    <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-600 to-accent-500 flex items-center justify-center text-white shadow-lg">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-600 to-gold-500 flex items-center justify-center text-white shadow-lg">
                       <svg
                         viewBox="0 0 32 32"
                         fill="none"
@@ -223,25 +226,25 @@ export function Hero() {
                         />
                       </svg>
                     </div>
-                    <h2 className="text-2xl font-extrabold text-brand-800 mb-1">
-                      تیرازیستر ایرانیان
+                    <h2 className="text-2xl font-extrabold text-brand-900 mb-1">
+                      تیرازیس طب ایرانیان
                     </h2>
                     <p className="text-xs text-ink-500">
-                      انتخاب حرفه‌ای‌ها در تجهیزات تخصصی
+                      انتخاب حرفه‌ای‌ها در تجهیزات پزشکی
                     </p>
                   </div>
 
                   <div className="grid grid-cols-3 gap-2 mb-5">
                     {[
-                      { v: "۶", l: "دسته محصول" },
-                      { v: "۲۴", l: "محصول" },
+                      { v: "۲", l: "دسته تخصصی" },
+                      { v: "۷۷۰+", l: "محصول" },
                       { v: "۱۵+", l: "سال سابقه" },
                     ].map((s, i) => (
                       <div
                         key={i}
                         className="bg-ink-50 rounded-xl p-2.5 text-center"
                       >
-                        <div className="text-sm font-extrabold text-brand-700 num">
+                        <div className="text-sm font-extrabold text-brand-800 num">
                           {s.v}
                         </div>
                         <div className="text-[9px] text-ink-500 mt-0.5">
@@ -251,13 +254,13 @@ export function Hero() {
                     ))}
                   </div>
 
-                  <div className="bg-gradient-to-l from-brand-50 to-accent-50 border border-brand-100 rounded-xl p-4">
+                  <div className="bg-gradient-to-l from-brand-50 to-gold-50 border border-brand-100 rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <ShieldCheck
-                        className="w-4 h-4 text-accent-500"
+                        className="w-4 h-4 text-gold-600"
                         aria-hidden="true"
                       />
-                      <span className="text-[11px] font-bold text-brand-700">
+                      <span className="text-[11px] font-bold text-brand-800">
                         تعهد ما به شما
                       </span>
                     </div>
@@ -272,7 +275,7 @@ export function Hero() {
                           className="flex items-center gap-2 text-[11px] text-ink-600"
                         >
                           <CheckCircle2
-                            className="w-3.5 h-3.5 text-accent-500 shrink-0"
+                            className="w-3.5 h-3.5 text-gold-600 shrink-0"
                             aria-hidden="true"
                           />
                           {item}
@@ -284,21 +287,21 @@ export function Hero() {
               </div>
 
               <div className="absolute -bottom-3 -right-3 bg-white rounded-2xl shadow-xl border border-ink-200 px-4 py-3 flex items-center gap-2 z-10">
-                <span className="inline-flex w-9 h-9 rounded-xl bg-accent-50 text-accent-600 items-center justify-center">
+                <span className="inline-flex w-9 h-9 rounded-xl bg-brand-50 text-brand-700 items-center justify-center">
                   <ShieldCheck className="w-5 h-5" aria-hidden="true" />
                 </span>
                 <div>
                   <div className="text-[10px] text-ink-500">گارانتی</div>
-                  <div className="text-xs font-bold text-brand-700 num">
+                  <div className="text-xs font-bold text-brand-800 num">
                     ۱۸ ماه
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -top-3 -left-3 bg-coral-500 text-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2 z-10">
+              <div className="absolute -top-3 -left-3 bg-gold-500 text-ink-900 rounded-2xl shadow-xl px-4 py-3 flex items-center gap-2 z-10">
                 <Clock className="w-5 h-5" aria-hidden="true" />
                 <div>
-                  <div className="text-[10px] text-coral-100">پاسخ</div>
+                  <div className="text-[10px] text-ink-800/70">پاسخ</div>
                   <div className="text-xs font-bold">زیر ۲ ساعت</div>
                 </div>
               </div>

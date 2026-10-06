@@ -41,7 +41,7 @@ const sectionInfo: Record<string, SectionInfo> = {
   messages: {
     icon: MessageSquare,
     title: "پیام‌ها",
-    desc: "پیام‌های ارسالی و دریافتی از کارشناسان تیرازیستر ایرانیان.",
+    desc: "پیام‌های ارسالی و دریافتی از کارشناسان تیرازیس طب ایرانیان.",
   },
   settings: {
     icon: Settings,

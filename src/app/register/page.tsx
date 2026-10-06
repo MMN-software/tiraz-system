@@ -161,7 +161,7 @@ export default function RegisterPage() {
     return (
       <AuthLayout
         title="ثبت‌نام با موفقیت انجام شد"
-        subtitle="به خانواده تیرازیستر ایرانیان خوش آمدید."
+        subtitle="به خانواده تیرازیس طب ایرانیان خوش آمدید."
       >
         <div className="text-center py-4">
           <span className="inline-flex w-16 h-16 rounded-2xl bg-accent-50 text-accent-500 items-center justify-center mb-4">

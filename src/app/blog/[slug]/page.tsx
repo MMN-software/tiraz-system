@@ -64,7 +64,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     articleSection: getArticleCategoryName(article.category),
     publisher: {
       "@type": "Organization",
-      name: "تیرازیستر ایرانیان",
+      name: "تیرازیس طب ایرانیان",
     },
   };
 

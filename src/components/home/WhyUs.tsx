@@ -78,7 +78,7 @@ export function WhyUs() {
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="inline-flex items-center gap-2 bg-accent-50 text-accent-700 text-xs font-bold px-3 py-1.5 rounded-full border border-accent-100 mb-4">
             <Heart className="w-3.5 h-3.5" aria-hidden="true" />
-            چرا تیرازیستر؟
+            چرا تیرازیس طب؟
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-brand-800 mb-4 leading-tight">
             مزیت‌هایی که ما را
@@ -131,7 +131,7 @@ export function WhyUs() {
             <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-center sm:text-right">
                 <h3 className="text-base sm:text-lg font-extrabold text-white mb-1">
-                  آماده همکاری با تیرازیستر هستید؟
+                  آماده همکاری با تیرازیس طب هستید؟
                 </h3>
                 <p className="text-xs sm:text-sm text-white/85">
                   برای دریافت مشاوره رایگان همین حالا تماس بگیرید

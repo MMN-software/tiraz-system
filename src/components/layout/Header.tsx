@@ -39,7 +39,7 @@ export function Header() {
               aria-label="تماس تلفنی"
             >
               <Phone className="w-3.5 h-3.5" aria-hidden="true" />
-              <span className="num">۰۲۱-۱۲۳۴۵۶۷۸</span>
+              <span className="num">۰۹۹۶۳۸۰۲۹۵۷</span>
             </a>
             <a
               href="mailto:mohamadmehdi.neemati@gmail.com"
@@ -183,7 +183,7 @@ export function Header() {
                   className="flex items-center gap-2 text-sm text-ink-700 py-2"
                 >
                   <Phone className="w-4 h-4 text-brand-600" aria-hidden="true" />
-                  <span className="num">۰۲۱-۱۲۳۴۵۶۷۸</span>
+                  <span className="num">۰۹۹۶۳۸۰۲۹۵۷</span>
                 </a>
                 <a
                   href="mailto:mohamadmehdi.neemati@gmail.com"

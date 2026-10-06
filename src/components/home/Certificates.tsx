@@ -70,7 +70,7 @@ export function Certificates() {
             <span className="text-gold-300">کیفیت و اصالت</span>
           </h2>
           <p className="text-base text-white/75 leading-loose">
-            در تیرازیستر ایرانیان، کیفیت و اعتماد مشتری، پایه هر تصمیم ماست.
+            در تیرازیس طب ایرانیان، کیفیت و اعتماد مشتری، پایه هر تصمیم ماست.
           </p>
         </div>
 

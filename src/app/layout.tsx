@@ -34,20 +34,20 @@ const BASE_URL = "https://tiraz-system-eu.apps.frk1.abrhapaas.com";
 
 export const metadata: Metadata = {
   title: {
-    default: "تیرازیستر ایرانیان | تجهیزات پزشکی، آزمایشگاهی و صنعتی",
-    template: "%s | تیرازیستر ایرانیان",
+    default: "تیرازیس طب ایرانیان | تجهیزات پزشکی، آزمایشگاهی و صنعتی",
+    template: "%s | تیرازیس طب ایرانیان",
   },
   description:
-    "تیرازیستر ایرانیان، تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با کیفیت بالا، کاتالوگ کامل و خدمات پس از فروش در سراسر کشور.",
-  authors: [{ name: "تیرازیستر ایرانیان" }],
-  creator: "تیرازیستر ایرانیان",
-  publisher: "تیرازیستر ایرانیان",
-  applicationName: "تیرازیستر ایرانیان",
+    "تیرازیس طب ایرانیان، تأمین‌کننده تخصصی تجهیزات پزشکی، آزمایشگاهی و صنعتی با کیفیت بالا، کاتالوگ کامل و خدمات پس از فروش در سراسر کشور.",
+  authors: [{ name: "تیرازیس طب ایرانیان" }],
+  creator: "تیرازیس طب ایرانیان",
+  publisher: "تیرازیس طب ایرانیان",
+  applicationName: "تیرازیس طب ایرانیان",
   metadataBase: new URL(BASE_URL),
   openGraph: {
     type: "website",
     locale: "fa_IR",
-    siteName: "تیرازیستر ایرانیان",
+    siteName: "تیرازیس طب ایرانیان",
     url: BASE_URL,
   },
   twitter: { card: "summary_large_image" },

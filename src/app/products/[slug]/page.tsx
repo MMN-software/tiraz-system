@@ -320,7 +320,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   href="tel:+982112345678"
                   className="block text-center h-11 leading-[2.75rem] bg-accent-500 hover:bg-accent-600 text-white font-medium rounded-lg num transition-colors"
                 >
-                  ۰۲۱-۱۲۳۴۵۶۷۸
+                  ۰۹۹۶۳۸۰۲۹۵۷
                 </a>
               </div>
 

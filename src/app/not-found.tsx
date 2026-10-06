@@ -49,7 +49,7 @@ export default function NotFound() {
               className="inline-flex items-center gap-2 text-sm font-medium text-brand-600 hover:text-brand-700 transition-colors num"
             >
               <Phone className="w-4 h-4" aria-hidden="true" />
-              ۰۲۱-۱۲۳۴۵۶۷۸
+              ۰۹۹۶۳۸۰۲۹۵۷
             </a>
           </div>
         </div>

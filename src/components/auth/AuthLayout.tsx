@@ -54,7 +54,7 @@ export function AuthLayout({ title, subtitle, children, footer }: Props) {
 
         <div className="relative self-center max-w-md">
           <span className="inline-block text-xs font-bold text-accent-400 mb-3 tracking-wider">
-            تیرازیستر ایرانیان
+            تیرازیس طب ایرانیان
           </span>
           <h2 className="text-3xl font-extrabold leading-tight mb-4">
             حساب کاربری خود را داشته باشید

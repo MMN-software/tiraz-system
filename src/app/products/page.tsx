@@ -18,8 +18,8 @@ export async function generateMetadata({
   return {
     title: category ? category.name : "همه محصولات",
     description: category
-      ? `${category.description} مشاهده و خرید ${category.name} از تیرازیستر ایرانیان.`
-      : "مشاهده و خرید تمام محصولات تیرازیستر ایرانیان شامل تجهیزات پزشکی، آزمایشگاهی، صنعتی، قطعات و لوازم مصرفی.",
+      ? `${category.description} مشاهده و خرید ${category.name} از تیرازیس طب ایرانیان.`
+      : "مشاهده و خرید تمام محصولات تیرازیس طب ایرانیان شامل تجهیزات پزشکی، آزمایشگاهی، صنعتی، قطعات و لوازم مصرفی.",
   };
 }
 

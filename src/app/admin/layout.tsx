@@ -49,7 +49,7 @@ export default function AdminLayout({
         <div className="bg-brand-800 text-white text-xs">
           <div className="container mx-auto px-4 h-9 flex items-center justify-between">
             <span className="font-medium">
-              پنل مدیریت تیرازیستر
+              پنل مدیریت تیرازیس طب
               {user?.name ? ` — ${user.name}` : ""}
             </span>
             <Link

@@ -160,7 +160,7 @@ export function ProductsView({ allProducts }: Props) {
           <p className="text-sm sm:text-base text-ink-500 leading-loose max-w-2xl">
             {activeCategory
               ? activeCategory.description
-              : "فهرست کامل محصولات تیرازیستر ایرانیان در ۶ دسته‌بندی تخصصی."}
+              : "فهرست کامل محصولات تیرازیس طب ایرانیان در ۶ دسته‌بندی تخصصی."}
           </p>
         </div>
       </section>
