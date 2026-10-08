@@ -86,27 +86,27 @@ export async function register(
   input: RegisterInput
 ): Promise<{ ok: true; user: User } | { ok: false; error: string }> {
   try {
-    const data = await apiFetch<
-      ApiLoginResponse | ApiError
-    >("/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify({
-        name: input.name,
-        email: input.email,
-        phone: input.phone,
-        password: input.password,
-        customerType: input.customerType,
-        organizationName: input.organizationName,
-        nationalId: input.nationalId,
-        companyRegNumber: input.companyRegNumber,
-      }),
-    });
+    const data = await apiFetch<ApiLoginResponse | ApiError>(
+      "/api/auth/register",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          name: input.name,
+          email: input.email,
+          phone: input.phone,
+          password: input.password,
+          customerType: input.customerType,
+          organizationName: input.organizationName,
+          nationalId: input.nationalId,
+          companyRegNumber: input.companyRegNumber,
+        }),
+      }
+    );
 
     if (!data.ok) {
       return { ok: false, error: data.error };
     }
 
-    // اگه توکن برگشت، ذخیره کن (اختیاری — بستگی به API داره)
     if ("token" in data && data.token) {
       setToken(data.token);
     }
@@ -125,20 +125,18 @@ export async function register(
  */
 export async function login(
   input: LoginInput
-): Promise<
-  | { ok: true; user: User }
-  | { ok: false; error: string }
-> {
+): Promise<{ ok: true; user: User } | { ok: false; error: string }> {
   try {
-    const data = await apiFetch<
-      ApiLoginResponse | ApiError
-    >("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({
-        identifier: input.identifier,
-        password: input.password,
-      }),
-    });
+    const data = await apiFetch<ApiLoginResponse | ApiError>(
+      "/api/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          identifier: input.identifier,
+          password: input.password,
+        }),
+      }
+    );
 
     if (!data.ok) {
       return { ok: false, error: data.error };
@@ -171,7 +169,6 @@ export async function getCurrentUser(): Promise<User | null> {
     );
 
     if (!data.ok) {
-      // اگه سشن منقضی یا نامعتبر بود، توکن رو پاک کن
       clearToken();
       return null;
     }
@@ -189,6 +186,36 @@ export async function logout(): Promise<void> {
   clearToken();
 }
 
+// ===== به‌روزرسانی اطلاعات کاربر (پروفایل) =====
+
+/**
+ * به‌روزرسانی اطلاعات کاربر فعلی
+ */
+export async function updateCurrentUser(updates: {
+  name?: string;
+  phone?: string;
+  organizationName?: string;
+  nationalId?: string;
+  companyRegNumber?: string;
+}): Promise<{ ok: boolean; user?: User; error?: string }> {
+  const token = getToken();
+  if (!token) return { ok: false, error: "نیاز به ورود" };
+
+  try {
+    const res = await fetch("/api/auth/me", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updates),
+    });
+    return await res.json();
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : "خطا" };
+  }
+}
+
 // ===== توابع سازگاری (برای کدهای قدیمی) =====
 
 /**
@@ -200,20 +227,42 @@ export async function getUserById(id: string): Promise<User | null> {
 }
 
 /**
- * @deprecated از getAllUsersAPI استفاده کن
+ * دریافت لیست کاربران با احراز هویت
+ */
+export async function fetchAllUsers(): Promise<User[]> {
+  const token = getToken();
+  if (!token) return [];
+
+  try {
+    const res = await fetch("/api/admin/users", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    if (!data.ok) return [];
+    const users = data.users as User[];
+    // ادمین‌ها اول، سپس بقیه
+    return users.sort((a, b) => {
+      if (a.role === "admin" && b.role !== "admin") return -1;
+      if (a.role !== "admin" && b.role === "admin") return 1;
+      return 0;
+    });
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * @deprecated از fetchAllUsers استفاده کن
  */
 export async function getAllUsers(): Promise<User[]> {
-  const res = await fetch("/api/admin/users");
-  const data = await res.json();
-  if (!data.ok) return [];
-  return data.users as User[];
+  return fetchAllUsers();
 }
 
 /**
  * @deprecated
  */
 export async function getUserByEmail(email: string): Promise<User | null> {
-  const users = await getAllUsers();
+  const users = await fetchAllUsers();
   return users.find((u) => u.email === email) ?? null;
 }
 
@@ -223,7 +272,7 @@ export async function getUserByEmail(email: string): Promise<User | null> {
 export async function getUserByIdentifier(
   identifier: string
 ): Promise<User | null> {
-  const users = await getAllUsers();
+  const users = await fetchAllUsers();
   const norm = identifier.trim().toLowerCase();
   return (
     users.find(
@@ -295,10 +344,10 @@ export interface UserStats {
 }
 
 /**
- * @deprecated
+ * آمار کاربران
  */
-export async function getUserStats(): Promise<UserStats> {
-  const users = await getAllUsers();
+export async function fetchUserStats(): Promise<UserStats> {
+  const users = await fetchAllUsers();
   const byType: Record<CustomerType, number> = {
     individual: 0,
     company: 0,
@@ -321,56 +370,15 @@ export async function getUserStats(): Promise<UserStats> {
 }
 
 /**
- * @deprecated از API admin استفاده کن
+ * @deprecated از fetchUserStats استفاده کن
  */
-export async function updateUserStatus(
-  id: string,
-  status: UserStatus
-): Promise<User | null> {
-  const res = await fetch(`/api/admin/users/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status }),
-  });
-  const data = await res.json();
-  return data.ok ? (data.user as User) : null;
+export async function getUserStats(): Promise<UserStats> {
+  return fetchUserStats();
 }
 
 /**
- * @deprecated
+ * تغییر وضعیت کاربر با احراز هویت
  */
-export async function deleteUser(id: string): Promise<boolean> {
-  const res = await fetch(`/api/admin/users/${id}`, {
-    method: "DELETE",
-  });
-  const data = await res.json();
-  return data.ok === true;
-}
-
-// ===== نسخه‌های جدید با ارسال توکن =====
-
-export async function fetchAllUsers(): Promise<User[]> {
-  const token = getToken();
-  if (!token) return [];
-
-  try {
-    const res = await fetch("/api/admin/users", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await res.json();
-    if (!data.ok) return [];
-    const users = data.users as User[];
-    // ادمین‌ها اول، سپس بقیه
-    return users.sort((a, b) => {
-      if (a.role === "admin" && b.role !== "admin") return -1;
-      if (a.role !== "admin" && b.role === "admin") return 1;
-      return 0;
-    });
-  } catch {
-    return [];
-  }
-}
-
 export async function fetchUpdateUserStatus(
   id: string,
   status: UserStatus
@@ -393,6 +401,20 @@ export async function fetchUpdateUserStatus(
   }
 }
 
+/**
+ * @deprecated از fetchUpdateUserStatus استفاده کن
+ */
+export async function updateUserStatus(
+  id: string,
+  status: UserStatus
+): Promise<User | null> {
+  const res = await fetchUpdateUserStatus(id, status);
+  return res.ok ? (res.user ?? null) : null;
+}
+
+/**
+ * حذف کاربر با احراز هویت
+ */
 export async function fetchDeleteUser(
   id: string
 ): Promise<{ ok: boolean; error?: string }> {
@@ -410,25 +432,10 @@ export async function fetchDeleteUser(
   }
 }
 
-export async function fetchUserStats() {
-  const users = await fetchAllUsers();
-  const byType = {
-    individual: 0,
-    company: 0,
-    hospital: 0,
-    clinic: 0,
-    lab: 0,
-  };
-  users.forEach((u) => {
-    if (u.role === "customer" && u.customerType) {
-      byType[u.customerType] = (byType[u.customerType] || 0) + 1;
-    }
-  });
-  return {
-    total: users.length,
-    customers: users.filter((u) => u.role === "customer").length,
-    admins: users.filter((u) => u.role === "admin").length,
-    pending: users.filter((u) => u.status === "pending").length,
-    byType,
-  };
+/**
+ * @deprecated از fetchDeleteUser استفاده کن
+ */
+export async function deleteUser(id: string): Promise<boolean> {
+  const res = await fetchDeleteUser(id);
+  return res.ok;
 }

@@ -15,6 +15,10 @@ import {
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { useAuth } from "@/lib/auth-context";
 import { ProfileRequests } from "@/components/profile/ProfileRequests";
+import { AccountInfo } from "@/components/profile/AccountInfo";
+import { AccountSettings } from "@/components/profile/AccountSettings";
+import { ProfileFavorites } from "@/components/profile/ProfileFavorites";
+import { ProfileMessages } from "@/components/profile/ProfileMessages";
 
 interface SectionInfo {
   icon: React.ComponentType<{ className?: string }>;
@@ -41,7 +45,7 @@ const sectionInfo: Record<string, SectionInfo> = {
   messages: {
     icon: MessageSquare,
     title: "پیام‌ها",
-    desc: "پیام‌های ارسالی و دریافتی از کارشناسان تیرازیس طب ایرانیان.",
+    desc: "پیام‌های ارسالی و دریافتی از کارشناسان تیرازیستر ایرانیان.",
   },
   settings: {
     icon: Settings,
@@ -98,6 +102,10 @@ export default function ProfileSectionPage() {
 
   const Icon = info.icon;
   const isRequests = section === "requests";
+  const isAccount = section === "account";
+  const isSettings = section === "settings";
+  const isFavorites = section === "favorites";
+  const isMessages = section === "messages";
 
   return (
     <>
@@ -164,6 +172,14 @@ export default function ProfileSectionPage() {
             <div className="space-y-5">
               {isRequests ? (
                 <ProfileRequests />
+              ) : isAccount ? (
+                <AccountInfo />
+              ) : isSettings ? (
+                <AccountSettings />
+              ) : isFavorites ? (
+                <ProfileFavorites />
+              ) : isMessages ? (
+                <ProfileMessages />
               ) : (
                 <>
                   <div className="bg-white rounded-2xl border border-ink-200 p-6 sm:p-10 text-center">
