@@ -627,3 +627,82 @@ html, body { overflow-x: hidden; }
   /* ===== glow: هم‌خانواده با تیل ===== */
   --color-glow: #43B8BE;
 }
+
+/* ==========================================================================
+   پالت رنگ «سنگ و نور» — فقط رنگ‌ها
+   ========================================================================== */
+@theme {
+  /* brand: زیتونی */
+  --color-brand-50:  #F2F4EE;
+  --color-brand-100: #E3E8DB;
+  --color-brand-200: #C8D1BA;
+  --color-brand-300: #A6B392;
+  --color-brand-400: #84946D;
+  --color-brand-500: #6B7B57;
+  --color-brand-600: #5C6B4A;
+  --color-brand-700: #4A5739;
+  --color-brand-800: #3B452E;
+  --color-brand-900: #2E3624;
+  --color-brand-950: #1C2116;
+
+  /* ink: تراورتن تا گرافیت گرم */
+  --color-ink-50:  #EEE8DF;
+  --color-ink-100: #E6DFD4;
+  --color-ink-200: #DDD3C5;
+  --color-ink-300: #C9BEAE;
+  --color-ink-400: #A1978A;
+  --color-ink-500: #6F675E;
+  --color-ink-600: #57504A;
+  --color-ink-700: #423C36;
+  --color-ink-800: #2B2722;
+  --color-ink-900: #211D19;
+  --color-ink-950: #161311;
+
+  /* gold: شامپاینی */
+  --color-gold-50:  #FAF6EE;
+  --color-gold-100: #F1E8D6;
+  --color-gold-200: #E3D2B0;
+  --color-gold-300: #CFB685;
+  --color-gold-400: #C2A776;
+  --color-gold-500: #B59A6A;
+  --color-gold-600: #977D51;
+  --color-gold-700: #78633F;
+
+  /* accent: سنگ رگه‌دار */
+  --color-accent-50:  #FBF9F6;
+  --color-accent-100: #F3EEE7;
+  --color-accent-200: #E8E0D4;
+  --color-accent-300: #DDD3C5;
+  --color-accent-400: #C4B7A4;
+  --color-accent-500: #A89983;
+  --color-accent-600: #8A7C67;
+  --color-accent-700: #6D6150;
+}
+body { color: var(--color-ink-800); background: var(--color-ink-50); }
+
+/* ===== گلبهی خاکی به‌جای صورتی (بخش آرایشی) ===== */
+@theme {
+  --color-rose-50:  #F7EFEC;
+  --color-rose-100: #EFDFDA;
+  --color-rose-200: #E0C3BB;
+  --color-rose-300: #CCA39A;
+  --color-rose-400: #B8877D;
+  --color-rose-500: #A57268;
+  --color-rose-600: #8F5E55;
+  --color-rose-700: #764C45;
+  --color-rose-800: #5E3D38;
+  --color-rose-900: #4A312D;
+  --color-rose-950: #2B1C1A;
+
+  --color-pink-50:  #F7EFEC;
+  --color-pink-100: #EFDFDA;
+  --color-pink-200: #E0C3BB;
+  --color-pink-300: #CCA39A;
+  --color-pink-400: #B8877D;
+  --color-pink-500: #A57268;
+  --color-pink-600: #8F5E55;
+  --color-pink-700: #764C45;
+  --color-pink-800: #5E3D38;
+  --color-pink-900: #4A312D;
+  --color-pink-950: #2B1C1A;
+}
