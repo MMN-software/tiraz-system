@@ -1,6 +1,6 @@
 # Tiraz System — Medical Equipment Company Platform
 
-A full-stack company website and product catalogue for an Iranian medical and beauty equipment supplier. Built with **Next.js 16 (App Router)**, **TypeScript**, **Drizzle ORM** and **PostgreSQL (Neon)**, with a fully Persian, right-to-left interface.
+A full-stack company website and product catalogue for a medical and beauty equipment supplier. Built with **Next.js 16 (App Router)**, **TypeScript**, **Drizzle ORM** and **PostgreSQL (Neon)**, with a fully Persian, right-to-left interface.
 
 It covers the public site (catalogue, blog, inquiries) as well as user accounts and an admin panel for managing content.
 
